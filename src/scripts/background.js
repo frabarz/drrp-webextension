@@ -1,19 +1,20 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     function sendSpritesBack() {
         var character = character_map[request.character],
-            output = [],
+            sprites = [],
+            spoilers = [],
             lista = JSON.parse(this.response);
 
         if (character == 'monomi')
-            output = output.concat(lista.usami);
+            sprites = sprites.concat(lista.usami);
 
-        output = output.concat(lista[character]);
+        sprites = sprites.concat(lista[character]);
 
-        if (request.spoilers)
-            output = output.concat(lista[character + '_spoiler']);
+        spoilers = spoilers.concat(lista[character + '_spoiler']);
 
         sendResponse({
-            sprites: output
+            sprites: sprites,
+            spoilers: spoilers
         });
     }
 

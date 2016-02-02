@@ -7,8 +7,6 @@
     var container = document.querySelector('.usertext-edit .bottom-area'),
         spritemenu = createSpriteMenuBtn(container);
 
-    createSpoilerCheckmark(container);
-
     spritemenu.addEventListener('mouseover', function (e) {
         this.textContent = 'Insert DR sprite [' + getFlairCharacter() + ']';
     }, false);
@@ -17,24 +15,44 @@
         e.preventDefault();
         e.stopPropagation();
 
+        var container = document.querySelectorAll('drtrial-spritemenu'),
+            n = container.length;
+
+        while (n--)
+            container[n].remove();
+
         chrome.runtime.sendMessage({
             character: getFlairCharacter(),
             spoilers: getSpoilerApproval()
         }, function (response) {
-            var w = Math.min(8, Math.ceil(response.sprites.length / 5)),
-                h = 20 + 94 * Math.ceil(response.sprites.length / w),
-                win = window.open(null, 'sprites', 'width=' + (20 + 94 * w) + ',height=' + h);
+            var total = response.sprites.length + response.spoilers.length,
+                w = Math.min(8, Math.ceil(total / 5)),
+                container = createSpriteContainer(94 * w);
+
+            document.body.appendChild(container);
 
             response.sprites.forEach(function (sprite) {
+                if (!sprite)
+                    return;
+
                 var img = new Image();
                 img.src = sprite;
-                img.style.margin = '2px';
-                win.document.body.appendChild(img);
+                img.className = 'drtrial-sprite';
+                container.appendChild(img);
             });
 
-            win.document.body.style.textAlign = 'center';
+            response.spoilers.forEach(function (sprite) {
+                if (!sprite)
+                    return;
 
-            win.document.body.addEventListener('click', function (evt) {
+                var img = new Image();
+                img.src = sprite;
+                img.className = 'drtrial-sprite drtrial-spritespoiler';
+                img.hidden = true;
+                container.appendChild(img);
+            });
+
+            container.addEventListener('click', function (evt) {
                 if (evt.target.nodeName != 'IMG')
                     return;
 
@@ -50,7 +68,7 @@
                 textarea.focus();
                 textarea.setSelectionRange(index + 1, index + 9),
 
-                win.close();
+                this.remove();
             }, true);
         });
     }, false);
@@ -70,20 +88,66 @@
         return spritemenu;
     }
 
+    function createSpriteContainer(width) {
+        var inter,
+            container = document.createElement('div');
+
+        container.className = 'drtrial-modal drtrial-spritemenu';
+
+        container.style.width = width + 'px';
+
+        inter = document.createElement('div');
+        inter.className = 'title';
+        inter.textContent = 'DANGANREDDIT CLASS TRIAL HELPER';
+        container.appendChild(inter);
+
+        inter = document.createElement('div');
+        inter.className = 'menu';
+        createModalCloseButton(inter);
+
+        createSpoilerCheckmark(inter);
+
+        container.appendChild(inter);
+
+        return container;
+    }
+
     function createSpoilerCheckmark(container) {
         var label = document.createElement('label'),
             check = document.createElement('input'),
             text = document.createTextNode('Spoiler sprites');
 
         label.className = 'help-toggle drtrial-menuopt';
-        check.className = 'drtrial-spoilersprites';
+        check.className = 'drtrial-showspoilers';
 
         check.type = 'checkbox';
+
+        check.addEventListener('change', function(evt) {
+            var spoilers = document.querySelectorAll('.drtrial-spritespoiler'),
+                n = spoilers.length;
+
+            while(n--)
+                spoilers[n].hidden = !this.checked;
+
+            spoilers = null;
+        });
 
         label.appendChild(check);
         label.appendChild(text);
 
         container.insertBefore(label, container.firstElementChild);
+    }
+
+    function createModalCloseButton(container) {
+        var button = document.createElement('button');
+
+        button.textContent = 'Close';
+
+        button.addEventListener('click', function () {
+            this.parentNode.parentNode.remove();
+        });
+
+        container.appendChild(button);
     }
 
     function getFlairCharacter() {
