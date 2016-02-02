@@ -14,7 +14,7 @@
     var headers,
         anchors,
         paragraphs,
-        comments = document.querySelectorAll('.comment > .entry .md');
+        comments = document.querySelectorAll('.entry .md');
 
     for (c = 0; comment = comments[c]; c++) {
         headers = comment.querySelectorAll('h2');
