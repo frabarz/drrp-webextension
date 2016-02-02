@@ -37,7 +37,7 @@
 
             for (a = 0; anchor = anchors[a]; a++) {
                 newsrc = anchor.href
-                    .replace(/revision\/latest\?.+$/, '')
+                    .replace(/revision\/latest.+$/, '')
                     .replace(/\/$/, '');
 
                 if (newsrc == lastsrc)
