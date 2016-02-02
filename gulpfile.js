@@ -12,7 +12,8 @@ var imagemin = require('gulp-imagemin'),
 var zip = require('gulp-zip'),
 	through = require('through-gulp');
 
-var SELF_INFO = require('./package.json');
+var SELF_INFO = require('./package.json'),
+	DEV_INFO = require('./dev.json');
 
 /*
  * Clean the /dist folder
@@ -37,7 +38,7 @@ gulp.task('styles', function () {
  */
 gulp.task('scripts', function () {
 	return gulp.src('./src/scripts/*')
-		.pipe(uglify({ outSourceMap: true }))
+		// .pipe(uglify({ outSourceMap: true }))
 		.pipe(gulp.dest('./build/common'));
 });
 
@@ -84,22 +85,51 @@ gulp.task('manifest:chrome', function () {
 		.pipe(gulp.dest('./build/chrome'));
 });
 
+gulp.task('manifest:firefox', function () {
+	return gulp.src('src/manifest.json')
+		.pipe(through(function (file, encoding, callback) {
+			var manifest = JSON.parse(file.contents.toString());
+
+			manifest.name = SELF_INFO.title;
+			manifest.description = SELF_INFO.description;
+			manifest.version = SELF_INFO.version;
+
+			manifest.applications = {
+				gecko: {
+					id: DEV_INFO.mozilla_id
+				}
+			};
+
+			file.contents = new Buffer(JSON.stringify(manifest));
+
+			this.push(file);
+			callback();
+		}, function (callback) {
+			callback();
+		}))
+		.pipe(gulp.dest('./build/firefox'));
+});
+
 /*
  * Build extensions
  */
-gulp.task('build:chrome', ['clean', 'commons', 'manifest:chrome'], function () {
+gulp.task('build:chrome', ['commons', 'manifest:chrome'], function () {
 	return gulp.src(['./build/common/*', '!*.map'])
 		.pipe(gulp.dest('./build/chrome'));
 });
 
-gulp.task('build:firefox', ['clean', 'commons', 'manifest:firefox'], function () {
+gulp.task('build:firefox', ['commons', 'manifest:firefox'], function () {
 	return gulp.src(['./build/common/*', '!*.map'])
 		.pipe(gulp.dest('./build/firefox'));
 });
 
-gulp.task('build', ['build:chrome'], function() {
+gulp.task('build', ['clean', 'build:chrome', 'build:firefox'], function() {
 	gulp.src(['./build/chrome/*'])
 		.pipe(zip('chrome.zip'))
+		.pipe(gulp.dest('./dist'));
+
+	gulp.src(['./build/firefox/*'])
+		.pipe(zip('firefox.xpi'))
 		.pipe(gulp.dest('./dist'));
 
 	return del(['./build/common']);
