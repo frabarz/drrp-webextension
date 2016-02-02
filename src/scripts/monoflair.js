@@ -16,8 +16,6 @@
         if (line.indexOf('monomi') > -1 && line.indexOf('u/') > -1) {
             line = rules[r].querySelector('a');
 
-            console.log(line);
-
             if (line && line.href.indexOf('/u/') > -1) {
                 mono = line.href.replace(/.+\//, '');
 
