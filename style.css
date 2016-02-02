@@ -1,0 +1,28 @@
+.md.drtrial-dialogue {
+    padding-left: 40px;
+}
+
+.md.drtrial-dialogue .drtrial-evidence {
+    max-width: 240px;
+    max-height: 160px;
+}
+
+.md.drtrial-dialogue p.drtrial-statement .drtrial-sprite {
+    float: left;
+    display: block;
+    margin-right: 10px;
+    max-height: 90px;
+}
+
+.md.drtrial-dialogue p.drtrial-statement br {
+    clear: left;
+}
+.md.drtrial-dialogue p.drtrial-statement br:first-child {
+    display: none;
+}
+
+.md.drtrial-dialogue p.drtrial-statement::after {
+    content: "";
+    display: table;
+    clear: both;
+}
