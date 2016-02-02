@@ -3,12 +3,17 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     req.open('GET', 'sprites.json', true);
 
     req.onload = function() {
-        var lista = JSON.parse(this.response);
+        var character = character_map[request.character],
+            output = [],
+            lista = JSON.parse(this.response);
 
-        console.log(lista[request.character]);
+        output = output.concat(lista[character]);
+
+        if (request.spoilers)
+            output = output.concat(lista[character + '_spoiler']);
 
         sendResponse({
-            sprites: lista[request.character]
+            sprites: output
         });
     };
 
@@ -16,3 +21,38 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
     return true;
 });
+
+var character_map = {
+    'Aoi': 'asahina',
+    'Byakuya': 'togami',
+    'Celes': 'celes',
+    'Fujisaki': 'fujisaki',
+    'Hagakure': 'hagakure',
+    'Hifumi': 'yamada',
+    'Ishimaru': 'ishimaru',
+    'Junko': 'enoshima',
+    'Kyouko': 'kirigiri',
+    'Leon': 'kuwata',
+    'Maizono': 'maizono',
+    'Mondo': 'oowada',
+    'Naegi': 'naegi',
+    'Sakura': 'oogami',
+    'Touko': 'fukawa',
+    'Ikusaba': 'ikusaba',
+    'Akane': 'owari',
+    'Gundam': 'tanaka',
+    'Hanamura': 'hanamura',
+    'Hinata': 'hinata',
+    'Ibuki': 'mioda',
+    'Koizumi': 'koizumi',
+    'Kuzuryuu': 'kuzuryuu',
+    'Nagito': 'komaeda',
+    'Nanami': 'nanami',
+    'Nidaii': 'nidai',
+    'Pekoyama': 'pekoyama',
+    'Saionji': 'saionji',
+    'Sonia': 'sonia',
+    'Souda': 'souda',
+    'Togami': 'twogami',
+    'Tsumiki': 'tsumiki'
+};

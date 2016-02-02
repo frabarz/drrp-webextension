@@ -1,30 +1,35 @@
 (function (document) {
     "use strict";
 
-    var character = document.querySelector('span.flair').className.replace('flair flair-', '');
+    var container = document.querySelector('.usertext-edit .bottom-area'),
+        spritemenu = createSpriteMenuBtn(container);
 
-    chrome.runtime.sendMessage({
-        character: character.toLowerCase()
-    }, function (response) {
-        var container = document.querySelector('.usertext-edit .bottom-area'),
-            spritemenu = document.createElement('a');
+    createSpoilerCheckmark(container);
 
-        spritemenu.href = '#';
-        spritemenu.className = 'help-toggle drtrial-menubtn';
-        spritemenu.textContent = 'Insert DR sprite [' + character + ']';
-        spritemenu.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
+    spritemenu.addEventListener('mouseover', function (e) {
+        this.textContent = 'Insert DR sprite [' + getFlairCharacter() + ']';
+    }, false);
 
-            var w = 20 + 90 * Math.ceil(response.sprites.length / 5),
-                h = 20 + 90 * (response.sprites.length % 5),
-                win = window.open(null, 'sprites', 'width=' + w + ',height=' + h);
+    spritemenu.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        chrome.runtime.sendMessage({
+            character: getFlairCharacter(),
+            spoilers: getSpoilerApproval()
+        }, function (response) {
+            var w = Math.min(8, Math.ceil(response.sprites.length / 5)),
+                h = 20 + 94 * Math.ceil(response.sprites.length / w),
+                win = window.open(null, 'sprites', 'width=' + (20 + 94 * w) + ',height=' + h);
 
             response.sprites.forEach(function (sprite) {
                 var img = new Image();
                 img.src = sprite;
+                img.style.margin = '2px';
                 win.document.body.appendChild(img);
             });
+
+            win.document.body.style.textAlign = 'center';
 
             win.document.body.addEventListener('click', function (evt) {
                 if (evt.target.nodeName != 'IMG')
@@ -44,8 +49,49 @@
 
                 win.close();
             }, true);
-        }, false);
+        });
+    }, false);
+
+    spritemenu = null;
+    container = null;
+
+    function createSpriteMenuBtn(container) {
+        var spritemenu = document.createElement('a');
+
+        spritemenu.href = '#';
+        spritemenu.className = 'help-toggle drtrial-menubtn';
+        spritemenu.textContent = 'Insert DR sprite';
 
         container.insertBefore(spritemenu, container.firstElementChild);
-    });
+
+        return spritemenu;
+    }
+
+    function createSpoilerCheckmark(container) {
+        var label = document.createElement('label'),
+            check = document.createElement('input'),
+            text = document.createTextNode('Spoiler sprites');
+
+        label.className = 'help-toggle drtrial-menuopt';
+        check.className = 'drtrial-spoilersprites';
+
+        check.type = 'checkbox';
+
+        label.appendChild(check);
+        label.appendChild(text);
+
+        container.insertBefore(label, container.firstElementChild);
+    }
+
+    function getFlairCharacter() {
+        return document.querySelector('span.flair').className.replace('flair flair-', '');
+    }
+
+    function getSpoilerApproval() {
+        try {
+            return document.querySelector('.drtrial-spoilersprites').checked;
+        } catch (e) {
+            return false;
+        }
+    }
 })(document);

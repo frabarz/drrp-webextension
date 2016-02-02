@@ -1,3 +1,8 @@
+.bottom-area .drtrial-menuopt input.drtrial-spoilersprites {
+    vertical-align: top;
+    margin: 0 4px 0 0;
+}
+
 .md.drtrial-dialogue {
     padding-left: 40px;
 }
