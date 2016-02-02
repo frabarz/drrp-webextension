@@ -24,6 +24,7 @@
                 "style.css"
             ],
             "js": [
+                "monoflair.js",
                 "format.js",
                 "spritemenu.js"
             ],
