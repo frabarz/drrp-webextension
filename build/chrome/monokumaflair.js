@@ -1,0 +1,1 @@
+!function(e){"use strict";if(-1!=e.title.toLowerCase().indexOf("class trial"))for(var t=e.querySelectorAll(".entry .flair-Junko"),l=t.length;l--;)t[l].classList.remove("flair-Junko"),t[l].classList.add("flair-Monokuma2")}(document);
