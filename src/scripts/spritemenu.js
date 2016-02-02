@@ -1,6 +1,9 @@
 (function (document) {
     "use strict";
 
+    if (document.title.toLowerCase().indexOf('class trial') == -1)
+        return;
+
     var container = document.querySelector('.usertext-edit .bottom-area'),
         spritemenu = createSpriteMenuBtn(container);
 

@@ -1,0 +1,47 @@
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+.bottom-area .drtrial-menuopt input.drtrial-spoilersprites {
+    vertical-align: top;
+    margin: 0 4px 0 0;
+}
+
+.md.drtrial-dialogue {
+    @include clearfix;
+
+    clear: both;
+    padding-top: 4px;
+
+    .drtrial-evidence {
+        max-width: 240px;
+        max-height: 160px;
+    }
+
+    p.drtrial-statement {
+        @include clearfix;
+
+        .drtrial-sprite {
+            clear: left;
+            float: left;
+            display: block;
+            margin-right: 10px;
+            max-height: 90px;
+
+            border-left: 3px solid #000;
+            padding-left: 3px;
+        }
+
+        br {
+            clear: left;
+
+            &:first-child {
+                display: none;
+            }
+        }
+    }
+}
