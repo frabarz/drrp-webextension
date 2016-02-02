@@ -39,7 +39,8 @@
         br {
             clear: left;
 
-            &:first-child {
+            &:first-child,
+            & + br {
                 display: none;
             }
         }

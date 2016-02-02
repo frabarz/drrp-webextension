@@ -4,6 +4,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             output = [],
             lista = JSON.parse(this.response);
 
+        if (character == 'monomi')
+            output = output.concat(lista.usami);
+
         output = output.concat(lista[character]);
 
         if (request.spoilers)
