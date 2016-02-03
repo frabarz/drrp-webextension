@@ -34,15 +34,6 @@ gulp.task('styles', function () {
 });
 
 /*
- * Minify scripts
- */
-gulp.task('scripts', function () {
-	return gulp.src('./src/scripts/*')
-		// .pipe(uglify({ outSourceMap: true }))
-		.pipe(gulp.dest('./build/common'));
-});
-
-/*
  * Compress images
  */
 gulp.task('images', function () {
@@ -58,9 +49,31 @@ gulp.task('images', function () {
 /*
  * Pack the common tasks
  */
-gulp.task('commons', ['styles', 'scripts', 'images'], function() {
+gulp.task('commons', ['styles', 'images'], function() {
 	return gulp.src('./src/sprites.json')
+		.pipe(through(function (file, encoding, callback) {
+			file.contents = new Buffer(JSON.stringify(JSON.parse(file.contents.toString())));
+			this.push(file);
+			callback();
+		}, function (callback) {
+			callback();
+		}))
 		.pipe(gulp.dest('./build/common'));
+});
+
+/*
+ * Minify scripts
+ * Apparently Mozilla doesn't like uglified code
+ */
+gulp.task('scripts:chrome', function () {
+	return gulp.src('./src/scripts/*')
+		.pipe(uglify({ outSourceMap: true }))
+		.pipe(gulp.dest('./build/chrome'));
+});
+
+gulp.task('scripts:firefox', function () {
+	return gulp.src('./src/scripts/*')
+		.pipe(gulp.dest('./build/firefox'));
 });
 
 /*
@@ -113,12 +126,12 @@ gulp.task('manifest:firefox', function () {
 /*
  * Build extensions
  */
-gulp.task('build:chrome', ['commons', 'manifest:chrome'], function () {
+gulp.task('build:chrome', ['commons', 'scripts:chrome', 'manifest:chrome'], function () {
 	return gulp.src(['./build/common/*', '!*.map'])
 		.pipe(gulp.dest('./build/chrome'));
 });
 
-gulp.task('build:firefox', ['commons', 'manifest:firefox'], function () {
+gulp.task('build:firefox', ['commons', 'scripts:firefox', 'manifest:firefox'], function () {
 	return gulp.src(['./build/common/*', '!*.map'])
 		.pipe(gulp.dest('./build/firefox'));
 });
