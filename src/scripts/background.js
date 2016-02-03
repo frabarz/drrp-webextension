@@ -1,4 +1,8 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    function filterUndefined(itm) {
+        return !!itm;
+    }
+
     function sendSpritesBack() {
         var character = character_map[request.character],
             sprites = [],
@@ -13,8 +17,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         spoilers = spoilers.concat(lista[character + '_spoiler']);
 
         sendResponse({
-            sprites: sprites,
-            spoilers: spoilers
+            sprites: sprites.filter(filterUndefined),
+            spoilers: spoilers.filter(filterUndefined)
         });
     }
 

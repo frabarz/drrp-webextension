@@ -31,6 +31,8 @@
 
             document.body.appendChild(container);
 
+            container.querySelector('.drtrial-showspoilers').disabled = !response.spoilers.length;
+
             response.sprites.forEach(function (sprite) {
                 if (!sprite)
                     return;
@@ -115,7 +117,7 @@
     function createSpoilerCheckmark(container) {
         var label = document.createElement('label'),
             check = document.createElement('input'),
-            text = document.createTextNode('Spoiler sprites');
+            text = document.createElement('span');
 
         label.className = 'help-toggle drtrial-menuopt';
         check.className = 'drtrial-showspoilers';
@@ -131,6 +133,8 @@
 
             spoilers = null;
         });
+
+        text.textContent = 'Show spoiler sprites';
 
         label.appendChild(check);
         label.appendChild(text);

@@ -52,9 +52,9 @@
 
         button {
             float: right;
-            margin: 2px;
+            margin: 3px 0;
             padding: 0 10px;
-            height: 26px;
+            height: 24px;
 
             font-size: inherit;
             font-family: inherit;
@@ -88,6 +88,15 @@
     .drtrial-showspoilers {
         vertical-align: middle;
         margin-right: 4px;
+
+        & + span {
+            vertical-align: middle;
+        }
+
+        &:disabled + span {
+            color: #444;
+            text-shadow: -1px -1px 0 #222;
+        }
     }
 
     .drtrial-sprite {
