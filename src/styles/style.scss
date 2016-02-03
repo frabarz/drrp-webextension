@@ -77,8 +77,11 @@
     bottom: 10px;
     z-index: 99999;
 
+    min-width: 286px;
+    min-height: 40px;
     max-width: 50%;
     max-height: 90%;
+    
     text-align: center;
 
     .drtrial-menuopt {

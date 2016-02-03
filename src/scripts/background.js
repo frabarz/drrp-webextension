@@ -36,6 +36,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         'Maizono': 'maizono',
         'Mondo': 'oowada',
         'Monokuma': 'monokuma',
+        'Monokuma2': 'monokuma',
         'Monomi': 'monomi',
         'Naegi': 'naegi',
         'Sakura': 'oogami',
