@@ -17,16 +17,18 @@
         comments = document.querySelectorAll('.entry .md');
 
     for (c = 0; comment = comments[c]; c++) {
-        headers = comment.querySelectorAll('h2');
+        if (c > 0) {
+            headers = comment.querySelectorAll('h2');
 
-        for (h = 0; header = headers[h]; h++) {
-            paragraph = document.createElement('p');
+            for (h = 0; header = headers[h]; h++) {
+                paragraph = document.createElement('p');
 
-            for (kid = header.firstChild; kid; kid = kid.nextSibling)
-                paragraph.appendChild(kid);
+                for (kid = header.firstChild; kid; kid = kid.nextSibling)
+                    paragraph.appendChild(kid);
 
-            comment.replaceChild(paragraph, header);
-            header = null;
+                comment.replaceChild(paragraph, header);
+                header = null;
+            }
         }
 
         paragraphs = comment.querySelectorAll('p');

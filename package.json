@@ -1,6 +1,6 @@
 {
   "name": "reddit-drtrial",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "title": "danganreddit Class Trial helper",
   "description": "Help plugin to format comments for danganreddit class trials.",
   "main": "background.js",

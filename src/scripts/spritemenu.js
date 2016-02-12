@@ -11,11 +11,14 @@
         this.textContent = 'Insert DR sprite [' + getFlairCharacter() + ']';
     }, false);
 
-    spritemenu.addEventListener('click', function (e) {
+    document.querySelector('.commentarea').addEventListener('click', function (e) {
+        if (!e.target.classList.contains('drtrial-menubtn'))
+            return;
+
         e.preventDefault();
         e.stopPropagation();
 
-        var container = document.querySelectorAll('drtrial-spritemenu'),
+        var container = document.querySelectorAll('.drtrial-spritemenu'),
             n = container.length;
 
         while (n--)
@@ -59,16 +62,17 @@
                     return;
 
                 var index = 0,
-                    textarea = document.querySelector('.usertext-edit textarea');
+                    parent = e.target.previousElementSibling.form,
+                    textarea = parent.querySelector('.usertext-edit textarea');
 
                 if (textarea.textLength > 0)
                     textarea.value += "\n\n";
 
                 index = textarea.textLength;
 
-                textarea.value += '[{Sprite}](' + evt.target.src + ') ';
+                textarea.value += '[A few words of the](' + evt.target.src + ') comment';
                 textarea.focus();
-                textarea.setSelectionRange(index + 1, index + 9),
+                textarea.setSelectionRange(index + 1, index + 19),
 
                 this.remove();
             }, true);
@@ -79,13 +83,19 @@
     container = null;
 
     function createSpriteMenuBtn(container) {
-        var spritemenu = document.createElement('a');
+        var router = document.createElement('input'),
+            spritemenu = document.createElement('a');
 
         spritemenu.href = '#';
         spritemenu.className = 'help-toggle drtrial-menubtn';
         spritemenu.textContent = 'Insert DR sprite';
 
         container.insertBefore(spritemenu, container.firstElementChild);
+
+        router.type = 'hidden';
+        router.className = 'drtrial-formfinder';
+
+        container.insertBefore(router, spritemenu);
 
         return spritemenu;
     }
