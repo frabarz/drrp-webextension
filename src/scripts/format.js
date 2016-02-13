@@ -49,17 +49,12 @@
 
                 img.onerror = imageErrorOne;
 
-                switch (anchor.textContent) {
-                    case '{evidence}':
-                    case '[evidence]':
-                        img.onload = imageLoadEvidence.bind(img, paragraph, anchor);
-                        break;
-
-                    case '[sprite]':
-                    case '{sprite}':
-                    default:
-                        img.onload = imageLoadSprite.bind(img, paragraph, anchor);
-                        break;
+                if (paragraph.textContent.length < 14
+                    && RegExp('evidence|proof', 'i').test(anchor.textContent)
+                    ) {
+                    img.onload = imageLoadEvidence.bind(img, paragraph, anchor);
+                } else {
+                    img.onload = imageLoadSprite.bind(img, paragraph, anchor);
                 }
 
                 img.src = newsrc;
@@ -104,11 +99,11 @@
         p.parentNode.classList.add('drtrial-dialogue');
     }
 
-    function imageLoadEvidence(p) {
+    function imageLoadEvidence(p, a) {
         this.className = 'drtrial-evidence';
 
         p.parentNode.classList.add('drtrial-dialogue');
-        p.parentNode.insertBefore(this, p);
+        p.parentNode.insertBefore(this, p.nextSibling);
     }
 
 })(document);

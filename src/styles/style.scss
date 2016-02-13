@@ -121,8 +121,16 @@
     padding-top: 4px;
 
     .drtrial-evidence {
-        max-width: 240px;
+        clear: left;
+        display: block;
+        max-width: 100%;
         max-height: 160px;
+
+        border-left: 4px dotted red;
+        padding-left: 3px;
+
+        opacity: 0.9;
+        filter: sepia(0.5);
     }
 
     p.drtrial-statement {
