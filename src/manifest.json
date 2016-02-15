@@ -24,9 +24,12 @@
                 "style.css"
             ],
             "js": [
-                "monoflair.js",
+                "core.js",
+                "participants.js",
+                "flairchange.js",
                 "format.js",
-                "spritemenu.js"
+                "spritemenu.js",
+                "mentionmenu.js"
             ],
             "run_at": "document_end"
         }
