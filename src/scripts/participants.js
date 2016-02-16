@@ -222,7 +222,7 @@
     function processRoleList(text) {
         var result, character,
             roles = {},
-            regex = /^\*\s(.*)u\/([A-Za-z0-9-_]+)(.*)$/igm;
+            regex = /^(.*)u\/([A-Za-z0-9-_]+)(.*)$/igm;
 
         while (result = regex.exec(text)) {
             character = identifyCharacter(result[3]) || identifyCharacter(result[1]);
@@ -244,7 +244,7 @@
             var info = media[0].data.children[0].data,
                 roles = processRoleList(info.selftext);
 
-            if ( !(ROLES.MONOKUMA in roles) && !(info.author in roles) ) {
+            if ( !(/summary/i).test(document.title) && !(ROLES.MONOKUMA in roles) && !(info.author in roles) ) {
                 roles[info.author] = ROLES.MONOKUMA;
                 roles[ROLES.MONOKUMA] = info.author;
             }
