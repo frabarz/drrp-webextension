@@ -1,5 +1,4 @@
 /node_modules
 /resources
-/build/firefox
+/build
 dev.json
-*.zip
