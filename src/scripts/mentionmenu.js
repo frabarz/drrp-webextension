@@ -4,78 +4,85 @@
     if (document.title.toLowerCase().indexOf('class trial') == -1)
         return;
 
-    function createMentionMenuBtn(target) {
-        var container = document.querySelector(target),
-            button = document.createElement('button');
+    function createMentionButton(target) {
+        var button = document.createElement('a');
 
         button.href = '#';
-        button.className = 'drtrial-menubtn drtrial-insertmention';
+        button.className = 'drp-button drp-insertmention';
         button.textContent = 'Mention';
 
-        container.insertBefore(button, container.firstElementChild);
+        target = document.querySelector(target);
+        if (target)
+            target.appendChild(button);
 
-        return button;
+        target = null;
+        button = null;
     }
 
-    function userSelectionHandler(button, evt) {
+    function userSelectionHandler(evt) {
         var target = evt.target;
 
-        if (target.matches('.drtrial-mention span'))
+        if (target.matches('.drp-mention span'))
             target = target.parentNode;
 
-        if (!target.matches('.drtrial-mention'))
+        if (!target.matches('.drp-mention'))
             return;
 
         var index = 0,
             character = target.querySelector('.character-name').textContent,
             user = target.querySelector('.user-name').textContent,
-            parent = button.parentNode.querySelector('input.drtrial-formfinder').form,
+            parent = document.querySelector('.drp-targetmenu .drp-formfinder').form,
             textarea = parent.querySelector('.usertext-edit textarea');
 
-        if (textarea.value.substr(textarea.textLength - 1, 1) != ' ')
+        if (textarea.textLength > 0 && textarea.value.substr(textarea.textLength - 1, 1) != ' ')
             textarea.value += " ";
 
         index = textarea.textLength;
 
-        textarea.value += character + '^^' + user +' ';
+        textarea.value += character + '^^' + user + ' ';
         textarea.focus();
-        textarea.setSelectionRange(index, index + character.length),
+        textarea.setSelectionRange(index, index + character.length);
 
-        this.remove();
+        DR.hideHandbook();
 
         parent = null;
         textarea = null;
     }
 
-    createMentionMenuBtn('.usertext-edit .bottom-area');
+    DR.addListener('insertmention', userSelectionHandler);
 
-    DR.addListener('rolesidentified', function(roles) {
-        document.querySelector('.commentarea').addEventListener('click', function (e) {
-            if (!e.target.classList.contains('drtrial-insertmention'))
+    DR.addListener('rolesidentified', function (roles) {
+        createMentionButton('.commentarea .drp-menu');
+        createMentionButton('.sitetable .drp-menu');
+
+        document.querySelector('body').addEventListener('click', function (evt) {
+            if (!evt.target.classList.contains('drp-insertmention'))
                 return;
 
-            e.preventDefault();
-            e.stopPropagation();
+            evt.preventDefault();
+            evt.stopPropagation();
 
-            var container = document.querySelectorAll('.drtrial-modal'),
-                n = container.length;
+            var span = document.querySelectorAll('.drp-targetmenu'),
+                n = span.length;
+            while (n--) {
+                span[n].classList.remove('drp-targetmenu');
+            }
 
-            while (n--)
-                container[n].remove();
+            evt.target.parentNode.classList.add('drp-targetmenu');
 
-            container = DR.createModal('MENTION SELECTOR');
+            var container = DR.handbook('MENTION SELECTOR');
+            container.classList.add('drp-mentionmenu');
 
-            container.body.classList.add('drtrial-mentionmenu');
-            container.body.addEventListener('click', userSelectionHandler.bind(container.body, e.target), true);
-            document.body.appendChild(container.body);
-
-            var item, span;
+            var user, char,
+                item;
 
             for (n = 0; n < DR.NAMES.length; n++) {
-                if (n in roles && roles[n] in roles && n == roles[roles[n]]) {
+                user = roles.get(n);
+                char = roles.get(user);
+
+                if (user && char && char == n) {
                     item = document.createElement('a');
-                    item.className = 'drtrial-mention';
-                    container.body.appendChild(item);
+                    item.className = 'drp-mention';
 
                     span = document.createElement('span');
                     span.className = 'flair ' + DR.FLAIRS[n];
@@ -88,10 +95,15 @@
 
                     span = document.createElement('span');
                     span.className = 'user-name';
-                    span.textContent = '/u/' + roles[n];
+                    span.textContent = '/u/' + user;
                     item.appendChild(span);
+
+                    container.querySelector('.body').appendChild(item);
                 }
             }
+
+            container.classList.add('visible');
+            container = null;
         }, true);
     });
 

@@ -89,20 +89,20 @@
     }
 
     function imageLoadSprite(p, a) {
-        this.className = 'drtrial-sprite';
+        this.className = 'drp-sprite';
 
         p.insertBefore(document.createElement('br'), a);
 
-        p.classList.add('drtrial-statement');
+        p.classList.add('drp-statement');
         p.insertBefore(this, a);
 
-        p.parentNode.classList.add('drtrial-dialogue');
+        p.parentNode.classList.add('drp-dialogue');
     }
 
     function imageLoadEvidence(p, a) {
-        this.className = 'drtrial-evidence';
+        this.className = 'drp-evidence';
 
-        p.parentNode.classList.add('drtrial-dialogue');
+        p.parentNode.classList.add('drp-dialogue');
         p.parentNode.insertBefore(this, p.nextSibling);
     }
 

@@ -1,0 +1,37 @@
+@import "mixins";
+
+@import "common";
+
+
+.md.drp-dialogue {
+    @include clearfix;
+
+    clear: both;
+    padding-top: 4px;
+}
+
+.sitetable,
+.commentarea {
+    .usertext {
+        .drp-menu {
+            float: right;
+            margin-top: 5px;
+            margin-left: 10px;
+            font-size: smaller;
+        }
+
+        .drp-button {
+            margin-left: 8px;
+            padding-left: 12px;
+
+            font-family: inherit;
+            text-transform: lowercase;
+
+            border: 0;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+}

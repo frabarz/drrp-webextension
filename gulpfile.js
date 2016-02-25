@@ -13,13 +13,13 @@ var zip = require('gulp-zip'),
 	through = require('through-gulp');
 
 var SELF_INFO = require('./package.json'),
-	DEV_INFO = require('./dev.json');
+	ENV_INFO = require('./env.json');
 
 /*
- * Clean the /dist folder
+ * Clean the /build folder
  */
 gulp.task('clean', function () {
-	return del(['/build/**/*']);
+	return del.sync(['./build/**/*', './dist/*']);
 });
 
 /*
@@ -50,9 +50,17 @@ gulp.task('images', function () {
  * Pack the common tasks
  */
 gulp.task('commons', ['styles', 'images'], function() {
-	return gulp.src('./src/sprites.json')
+	return gulp.src('./src/busts.json')
 		.pipe(through(function (file, encoding, callback) {
-			file.contents = new Buffer(JSON.stringify(JSON.parse(file.contents.toString())));
+			var list = JSON.parse(file.contents.toString());
+
+			Object.keys(list).forEach(function(name) {
+				list[name] = list[name].map(function(src) {
+					return src.replace(/revision\/latest.+$/, '').replace(/\/$/, '') + '#sprite';
+				});
+			});
+
+			file.contents = new Buffer(JSON.stringify(list));
 			this.push(file);
 			callback();
 		}, function (callback) {
@@ -109,7 +117,7 @@ gulp.task('manifest:firefox', function () {
 
 			manifest.applications = {
 				gecko: {
-					id: DEV_INFO.mozilla_id
+					id: ENV_INFO.mozilla_id
 				}
 			};
 
@@ -136,7 +144,7 @@ gulp.task('build:firefox', ['commons', 'scripts:firefox', 'manifest:firefox'], f
 		.pipe(gulp.dest('./build/firefox'));
 });
 
-gulp.task('build', ['clean', 'build:chrome', 'build:firefox'], function() {
+gulp.task('extension:build', ['clean', 'build:chrome', 'build:firefox'], function() {
 	gulp.src(['./build/chrome/*'])
 		.pipe(zip('chrome.zip'))
 		.pipe(gulp.dest('./dist'));
@@ -147,3 +155,14 @@ gulp.task('build', ['clean', 'build:chrome', 'build:firefox'], function() {
 
 	return del(['./build/common']);
 });
+
+gulp.task('reddit:build', function () {
+	return gulp.src('./subreddit/*.scss')
+		.pipe(sass({ outputStyle: 'compressed' })
+			.on('error', sass.logError))
+		.pipe(cssprefix('> 2%'))
+		.pipe(gulp.dest('./subreddit/'));
+});
+
+
+gulp.task('build', ['extension:build']);

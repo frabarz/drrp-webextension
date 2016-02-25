@@ -4,46 +4,27 @@
     if (document.title.toLowerCase().indexOf('class trial') == -1)
         return;
 
-    function createSpriteMenuBtn(target) {
-        var container = document.querySelector(target),
-            button = document.createElement('button');
+    function createSpriteButton(target) {
+        var button = document.createElement('a');
 
         button.href = '#';
-        button.className = 'drtrial-menubtn drtrial-insertsprite';
-        button.textContent = 'Insert Sprite';
+        button.className = 'drp-button drp-insertsprite';
+        button.textContent = 'Sprite';
 
-        container.insertBefore(button, container.firstElementChild);
+        target = document.querySelector(target);
+        if (target)
+            target.appendChild(button);
 
-        return button;
+        target = null;
+        button = null;
     }
 
-    function createSpoilerCheckmark() {
-        var label = document.createElement('label'),
-            check = document.createElement('input'),
-            text = document.createElement('span');
-
-        label.className = 'help-toggle drtrial-menuopt';
-        check.className = 'drtrial-showspoilers';
-
-        check.type = 'checkbox';
-
-        text.textContent = 'Show spoiler sprites';
-
-        label.appendChild(check);
-        label.appendChild(text);
-
-        return {
-            box: check,
-            body: label
-        };
-    }
-
-    function spriteSelectionHandler(button, evt) {
+    function spriteSelectionHandler(evt) {
         if (evt.target.nodeName != 'IMG')
             return;
 
         var index = 0,
-            parent = button.parentNode.querySelector('input.drtrial-formfinder').form,
+            parent = document.querySelector('.drp-targetmenu .drp-formfinder').form,
             textarea = parent.querySelector('.usertext-edit textarea');
 
         if (textarea.textLength > 0)
@@ -55,71 +36,57 @@
         textarea.focus();
         textarea.setSelectionRange(index + 1, index + 19),
 
-        this.remove();
+        DR.hideHandbook();
 
-        button = null;
         parent = null;
         textarea = null;
     }
 
-    function spritesSpoilerApprovalHandler(evt) {
-        var spoilers = document.querySelectorAll('.drtrial-spritespoiler'),
-            n = spoilers.length;
-
-        while(n--)
-            spoilers[n].hidden = !this.checked;
-
-        spoilers = null;
+    function removeLoadingGif() {
+        this.classList.remove('loading');
+        this.onload = null;
     }
 
-    createSpriteMenuBtn('.usertext-edit .bottom-area');
+    function spriteListReceiver(response) {
+        var container = DR.handbook('SPRITE SELECTOR');
+        container.classList.add('drp-spritemenu');
 
-    document.querySelector('.commentarea').addEventListener('click', function (e) {
-        if (!e.target.classList.contains('drtrial-insertsprite'))
+        [].concat(response.sprites).forEach(function (sprite) {
+            var img = new Image();
+
+            img.onload = removeLoadingGif;
+            img.src = sprite;
+            img.className = 'loading drp-sprite';
+
+            container.querySelector('.body').appendChild(img);
+            img = null;
+        });
+
+        container.classList.add('visible');
+        container = null;
+    }
+
+    createSpriteButton('.commentarea .drp-menu');
+    createSpriteButton('.sitetable .drp-menu');
+
+    DR.addListener('insertsprite', spriteSelectionHandler);
+
+    document.querySelector('body').addEventListener('click', function (evt) {
+        if (!evt.target.classList.contains('drp-insertsprite'))
             return;
 
-        e.preventDefault();
-        e.stopPropagation();
+        evt.preventDefault();
+        evt.stopPropagation();
 
-        var container = document.querySelectorAll('.drtrial-modal'),
-            n = container.length;
+        var span = document.querySelectorAll('.drp-targetmenu'),
+            n = span.length;
+        while (n--) {
+            span[n].classList.remove('drp-targetmenu');
+        }
 
-        while (n--)
-            container[n].remove();
+        evt.target.parentNode.classList.add('drp-targetmenu');
 
-        chrome.runtime.sendMessage({
-            character: DR.currentFlair
-        }, function (response) {
-            var container = DR.createModal('SPRITE SELECTOR'),
-                marker = createSpoilerCheckmark();
-
-            marker.box.disabled = !response.spoilers.length;
-            marker.box.addEventListener('change', spritesSpoilerApprovalHandler, false);
-            container.menu.appendChild(marker.body);
-
-            response.total = response.sprites.length + response.spoilers.length;
-
-            container.body.classList.add('drtrial-spritemenu');
-            container.body.style.width = (94 * Math.min(8, Math.ceil(response.total / 5))) + 'px';
-            container.body.addEventListener('click', spriteSelectionHandler.bind(container.body, e.target), true);
-            document.body.appendChild(container.body);
-
-            [].concat(response.sprites, response.spoilers).forEach(function (sprite, i) {
-                var img = new Image();
-                img.src = sprite;
-                img.className = 'drtrial-sprite';
-
-                if (i >= response.sprites.length) {
-                    img.classList.add('drtrial-spritespoiler');
-                    img.hidden = true;
-                }
-
-                container.body.appendChild(img);
-            });
-
-            container = null;
-            marker = null;
-        });
-    }, false);
+        chrome.runtime.sendMessage({ character: DR.currentFlair }, spriteListReceiver);
+    }, true);
 
 })(window.DRreddit, document);

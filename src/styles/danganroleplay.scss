@@ -1,0 +1,44 @@
+@import "mixins";
+
+@import "common";
+
+.sitetable,
+.commentarea {
+    .usertext {
+        .drp-menu {
+            float: right;
+            margin-left: 8px;
+        }
+
+        .drp-button {
+            display: inline-block;
+            margin: 5px 0 0;
+            padding: 5px 10px;
+            padding-left: 20px;
+
+            border-top: 1px solid #f9f9f9;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+
+            line-height: normal;
+            text-indent: 0;
+            text-transform: lowercase;
+            font-size: smaller;
+            font-weight: 400;
+
+            color: #aaa;
+            background-color: #f0f0f0;
+
+            &:hover {
+                background-color: #e6e6e6;
+                color: #777;
+            }
+
+            &:first-child {
+                border-right: 0 none;
+                border-left: 1px solid #ddd;
+            }
+        }
+    }
+}
+

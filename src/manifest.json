@@ -18,18 +18,45 @@
     "content_scripts": [
         {
             "matches": [
+                "*://www.reddit.com/r/DanganRonpa/comments/*",
+                "*://www.reddit.com/r/Danganronpa/comments/*",
                 "*://www.reddit.com/r/danganronpa/comments/*"
             ],
             "css": [
-                "style.css"
+                "danganronpa.css"
             ],
             "js": [
+                "constants.js",
+                "constants_ronpa.js",
                 "core.js",
                 "participants.js",
                 "flairchange.js",
                 "format.js",
                 "spritemenu.js",
-                "mentionmenu.js"
+                "mentionmenu.js",
+                "bulletmenu.js"
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "*://www.reddit.com/r/DanganRoleplay/comments/*",
+                "*://www.reddit.com/r/Danganroleplay/comments/*",
+                "*://www.reddit.com/r/danganroleplay/comments/*"
+            ],
+            "css": [
+                "danganroleplay.css"
+            ],
+            "js": [
+                "constants.js",
+                "constants_roleplay.js",
+                "core.js",
+                "participants.js",
+                "flairchange.js",
+                "format.js",
+                "spritemenu.js",
+                "mentionmenu.js",
+                "bulletmenu.js"
             ],
             "run_at": "document_end"
         }
