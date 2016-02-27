@@ -4,11 +4,15 @@
     if (document.title.toLowerCase().indexOf('class trial') == -1)
         return;
 
+    function computeLocalTime(evt) {
+        this.title = 'Right now it\'s '+ DR.roleList.getLocalTime(this.getAttribute('data-user')).toLocaleString() +' in their time zone.';
+    }
+
     DR.addListener('rolesidentified', function (roles) {
         var t, tagline,
             taglines = document.querySelectorAll('.entry .tagline');
 
-        var user, author, character, flair;
+        var user, author, character, flair, offset;
 
         for (t = 0; tagline = taglines[t]; t++) {
             author = tagline.querySelector('.author');
@@ -18,12 +22,25 @@
 
             user = author.textContent;
             if (roles.exists(user)) {
+                tagline.classList.add('drp-participant');
+
+                author.insertBefore(document.createTextNode(' u/'), author.firstChild);
+
                 character = document.createElement('strong');
                 character.className = 'drp-charactername';
                 character.textContent = DR.NAMES[roles.get(user)];
 
-                author.parentNode.insertBefore(character, author);
-                author.parentNode.insertBefore(document.createTextNode(' / '), author);
+                author.insertBefore(character, author.firstChild);
+
+                if (roles.hasTz(user)) {
+                    offset = document.createElement('strong');
+                    offset.className = 'drp-localtime';
+                    offset.textContent = '[' + roles.getUTCLabel(user) + ']';
+                    offset.setAttribute('data-user', user);
+                    offset.addEventListener('mouseenter', computeLocalTime, true);
+
+                    author.appendChild(offset);
+                }
 
                 flair = tagline.querySelector('.flair');
                 if (flair) {

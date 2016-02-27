@@ -82,6 +82,7 @@
 
                 if (user && char && char == n) {
                     item = document.createElement('a');
+                    item.title = 'Right now it\'s '+ roles.getLocalTime(user).toLocaleString() +' in their time zone.';
                     item.className = 'drp-mention';
 
                     span = document.createElement('span');

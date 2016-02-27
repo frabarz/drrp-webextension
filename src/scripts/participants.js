@@ -7,6 +7,7 @@
     function RoleHandler() {
         this.users = [];
         this.characters = {};
+        this.timezones = {};
     }
 
     Object.defineProperties(RoleHandler.prototype, {
@@ -15,32 +16,97 @@
                 return Object.keys(this.characters).length;
             }
         },
-        'add': {
+        'get': {
+            writable: false,
+            value: function (user) {
+                if (typeof user == 'string')
+                    return this.characters[user];
+                else
+                    return this.users[user];
+            }
+        },
+        'set': {
+            writable: false,
             value: function (user, role) {
                 if (this.exists(user) || this.exists(role))
-                    console.error('Parsing gave duplicated role:', user, role);
+                    console.warn('Duplicated role:', user, DR.NAMES[role]);
 
                 this.users[role] = user;
                 this.characters[user] = role;
             }
         },
         'exists': {
-            value: function (who) {
-                if (typeof who == 'string')
-                    return (who in this.characters);
+            writable: false,
+            value: function (user) {
+                if (typeof user == 'string')
+                    return (user in this.characters);
                 else
-                    return (who in this.users);
+                    return (user in this.users);
             }
         },
-        'get': {
-            value: function (who) {
-                if (typeof who == 'string')
-                    return this.characters[who];
-                else
-                    return this.users[who];
+        'getTz': {
+            writable: false,
+            value: function (user) {
+                return this.timezones[user] || 0;
+            }
+        },
+        'setTz': {
+            writable: false,
+            value: function (user, offset) {
+                this.timezones[user] = offset;
+            }
+        },
+        'hasTz': {
+            writable: false,
+            value: function (user) {
+                return (user in this.timezones);
+            }
+        },
+        'getUTCLabel': {
+            writable: false,
+            value: function (user) {
+                var offset = this.getTz(user),
+                    output = 'UTC';
+
+                if (offset !== 0) {
+                    output += offset > 0 ? '+' : '';
+                    output += Math[offset < 0 ? 'ceil' : 'floor'](offset);
+
+                    if (offset % 1 !== 0)
+                        output += ':' + (Math.abs(offset % 1) * 60).toString().slice(0, 2);
+                }
+
+                return output;
+            }
+        },
+        'getLocalTime': {
+            writable: false,
+            value: function (user) {
+                var here = new Date();
+                return new Date(here.getTime() + (here.getTimezoneOffset() + this.getTz(user) * 60) * 60 * 1000);
             }
         }
     });
+
+    function parseTimezone(line) {
+        var offset;
+
+        line = line.replace(/\s/g, '');
+        offset = RegExp('[\\[\\(](UTC|GMT)([\\+\\-]\\d{1,2})\\:?(\\d\\d)?[\\]\\)]', 'i').exec(line);
+
+        if (offset && offset[2]) {
+            line = parseInt(offset[2]);
+
+            if (offset[3]) {
+                line += (line < 0 ? -1 : 1) * parseInt(offset[3]) / 60;
+            }
+
+            return line;
+        }
+
+        else if (offset && offset[1])
+            return 0;
+    }
 
     function identifyCharacter(line) {
         if (RegExp('monokuma', 'i').test(line))
@@ -55,7 +121,7 @@
         if (RegExp('heir|affluent|byakuya|togami', 'i').test(line))
             return DR.ROLES.BYAKUYA;
 
-        if (RegExp('gambler|celes(?:te|tia)?|ludenberg', 'i').test(line))
+        if (RegExp('gambler|celes(te|tia)?|ludenberg', 'i').test(line))
             return DR.ROLES.CELES;
 
         if (RegExp('programmer|fujisaki|chihiro', 'i').test(line))
@@ -74,7 +140,7 @@
             return DR.ROLES.JUNKO;
 
         if (RegExp('kyou?ko|kirigiri', 'i').test(line))
-            return DR.ROLES.KYOKO;
+            return DR.ROLES.KYOUKO;
 
         if (RegExp('baseball|leon|kuwata', 'i').test(line))
             return DR.ROLES.LEON;
@@ -92,7 +158,7 @@
             return DR.ROLES.SAKURA;
 
         if (RegExp('literar|tou?ko|fukawa|genocider', 'i').test(line))
-            return DR.ROLES.TOKO;
+            return DR.ROLES.TOUKO;
 
         if (RegExp('soldier|ikusaba|mukuro', 'i').test(line))
             return DR.ROLES.MUKURO;
@@ -124,7 +190,7 @@
         if (RegExp('gamer|nanami|chiaki', 'i').test(line))
             return DR.ROLES.CHIAKI;
 
-        if (RegExp('mecha[-\s]?maru', 'i').test(line))
+        if (RegExp('mecha[\\-\\s]?maru', 'i').test(line))
             return DR.ROLES.MECHAMARU;
 
         if (RegExp('coach|manager|nidai|nekomaru', 'i').test(line))
@@ -150,15 +216,20 @@
     }
 
     function processRoleList(text) {
-        var result, character,
+        var result, character, offset,
             roles = new RoleHandler(),
             regex = /^(.*)u\/([A-Za-z0-9-_]+)(.*)$/igm;
 
         while (result = regex.exec(text)) {
             character = identifyCharacter(result[3]) || identifyCharacter(result[1]);
 
-            if (character > 0)
-                roles.add(result[2], character);
+            if (character > 0) {
+                roles.set(result[2], character);
+
+                offset = parseTimezone(result[0]);
+                if (offset != null)
+                    roles.setTz(result[2], offset);
+            }
         }
 
         return roles;
@@ -173,7 +244,7 @@
             && !roles.exists(DR.ROLES.MONOKUMA)
             && !roles.exists(info.author)
             ) {
-            roles.add(info.author, DR.ROLES.MONOKUMA);
+            roles.set(info.author, DR.ROLES.MONOKUMA);
         }
 
         console.debug('Identified roles:', roles);
