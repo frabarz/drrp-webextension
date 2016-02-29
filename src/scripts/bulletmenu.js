@@ -26,7 +26,7 @@
         if (evt.target.nodeName == 'LI')
             text = '[' + evt.target.textContent + '](#bullet)\n';
 
-        else if (evt.target.matches('.drp-bulletdetail'))
+        else if (evt.target.matches('.drp-bulletdetail .description'))
             text = (evt.target.textContent || '').trim();
 
         if (text.length > 0) {
@@ -73,13 +73,20 @@
         bullets = document.querySelectorAll('#siteTable [href="#bullet"]');
 
         var bullet,
+            regeximg = RegExp('\\[(.+)\\]\\s?\\((.+)\\)'),
             list = document.createElement('ul');
 
         for (n = 0; n < bullets.length; n++) {
             bullet = document.createElement('li');
+
             bullet.className = 'drp-bulletitem';
+            if (regeximg.test(bullets[n].title))
+                bullet.className += ' has-media';
+
             bullet.textContent = bullets[n].textContent;
+
             bullet.setAttribute('data-detail', bullets[n].title);
+
             list.appendChild(bullet);
         }
 
@@ -88,7 +95,27 @@
             if (evt.target.nodeName != 'LI')
                 return;
 
-            this.parentNode.querySelector('.drp-bulletdetail').textContent = evt.target.getAttribute('data-detail') || '';
+            var box,
+                detail = this.parentNode.querySelector('.drp-bulletdetail'),
+                description = evt.target.getAttribute('data-detail') || '',
+                img = RegExp('\\[(.+)\\]\\s?\\((.+)\\)').exec(description);
+
+            detail.innerHTML = '';
+
+            if (img) {
+                box = document.createElement('div');
+                box.className = 'img-wrapper';
+                box.appendChild(new Image);
+                box.querySelector('img').src = img[2];
+                detail.appendChild(box);
+
+                description = description.replace(img[0], img[1]);
+            }
+
+            box = document.createElement('div');
+            box.className = 'description';
+            box.textContent = description;
+            detail.appendChild(box);
         }, true);
         container.querySelector('.body').appendChild(list);
 

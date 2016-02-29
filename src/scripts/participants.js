@@ -148,16 +148,19 @@
         if (RegExp('idol|maizono|sayaka', 'i').test(line))
             return DR.ROLES.SAYAKA;
 
-        if (RegExp('biker|mondo|oowada|ohwada', 'i').test(line))
+        if (RegExp('biker|mondo|oo?wada|ohwada', 'i').test(line))
             return DR.ROLES.MONDO;
 
-        if (RegExp('naegi|makoto', 'i').test(line))
+        if (RegExp('komaru', 'i').test(line))
+            return DR.ROLES.KOMARU;
+
+        if (RegExp('makoto', 'i').test(line))
             return DR.ROLES.MAKOTO;
 
-        if (RegExp('fighter|sakura|oogami|ohgami', 'i').test(line))
+        if (RegExp('sakura|oo?gami|ohgami', 'i').test(line))
             return DR.ROLES.SAKURA;
 
-        if (RegExp('literar|tou?ko|fukawa|genocider', 'i').test(line))
+        if (RegExp('tou?ko|fukawa|genocider', 'i').test(line))
             return DR.ROLES.TOUKO;
 
         if (RegExp('soldier|ikusaba|mukuro', 'i').test(line))
