@@ -1,7 +1,7 @@
 (function (document) {
     "use strict";
 
-    if (document.title.toLowerCase().indexOf('class trial') == -1)
+    if ( !RegExp("class trial|whodunnit", "i").test(document.title) )
         return;
 
     var img, kid,
@@ -9,11 +9,13 @@
         c, comment,
         h, header,
         p, paragraph,
-        a, anchor;
+        a, anchor,
+        b, blockquote;
 
     var headers,
         anchors,
         paragraphs,
+        blockquotes,
         comments = document.querySelectorAll('.entry .md');
 
     for (c = 0; comment = comments[c]; c++) {
@@ -61,7 +63,22 @@
                 lastsrc = newsrc;
             }
         }
+
+        blockquotes = comment.querySelectorAll('blockquote');
+
+        for (b = 0; blockquote = blockquotes[b]; b++) {
+            if (RegExp('added to your truth bullets?', 'i').test(blockquote.textContent)) {
+                blockquote.classList.add('drp-newbullet');
+                comment.classList.add('drp-dialogue');
+            }
+        }
     }
+
+    comments = (c = (comment = null));
+    headers = (h = (header = null));
+    anchors = (p = (paragraph = null));
+    paragraphs = (a = (anchor = null));
+    blockquotes = (b = (blockquote = null));
 
     function imageErrorOne() {
         if (this.src.indexOf('postimg.org') > -1) {

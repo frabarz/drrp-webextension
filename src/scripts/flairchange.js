@@ -1,7 +1,7 @@
 (function (DR, document) {
     "use strict";
 
-    if (document.title.toLowerCase().indexOf('class trial') == -1)
+    if ( !RegExp("class trial|whodunnit", "i").test(document.title) )
         return;
 
     function computeLocalTime(evt) {

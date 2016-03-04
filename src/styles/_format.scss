@@ -99,4 +99,27 @@ body .content .thing .entry {
             }
         }
     }
+
+    .drp-newbullet {
+        margin-left: 0;
+        padding: 10px;
+
+        font-weight: bold;
+
+        border: 0 none;
+        border-radius: 3px;
+        color: #0a0;
+        background-color: #333;
+
+        strong {
+            color: #fc0;
+
+            &::before {
+                content: open-quote;
+            }
+            &::after {
+                content: close-quote;
+            }
+        }
+    }
 }
