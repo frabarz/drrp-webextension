@@ -20,7 +20,7 @@
             writable: false,
             value: function (user) {
                 if (typeof user == 'string')
-                    return this.characters[user];
+                    return this.characters[user.toLowerCase()];
                 else
                     return this.users[user];
             }
@@ -32,14 +32,14 @@
                     console.warn('Duplicated role:', user, DR.NAMES[role]);
 
                 this.users[role] = user;
-                this.characters[user] = role;
+                this.characters[user.toLowerCase()] = role;
             }
         },
         'exists': {
             writable: false,
             value: function (user) {
                 if (typeof user == 'string')
-                    return (user in this.characters);
+                    return (user.toLowerCase() in this.characters);
                 else
                     return (user in this.users);
             }
