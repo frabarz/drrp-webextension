@@ -18,6 +18,17 @@
     "content_scripts": [
         {
             "matches": [
+                "*://www.reddit.com/r/DanganRoleplay/*",
+                "*://www.reddit.com/r/Danganroleplay/*",
+                "*://www.reddit.com/r/danganroleplay/*"
+            ],
+            "js": [
+                "settings.js"
+            ],
+            "run_at": "document_start"
+        },
+        {
+            "matches": [
                 "*://www.reddit.com/r/DanganRonpa/comments/*",
                 "*://www.reddit.com/r/Danganronpa/comments/*",
                 "*://www.reddit.com/r/danganronpa/comments/*"
