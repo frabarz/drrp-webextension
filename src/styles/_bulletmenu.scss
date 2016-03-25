@@ -17,26 +17,12 @@ $view-color: #ffe400;
     .drp-bulletlist {
         overflow: auto;
 
-        width: 51%;
+        width: 50%;
+        margin-right: 2px;
         padding-left: 2px;
-        padding-right: 2px;
 
         direction: rtl;
-
-        &::-webkit-scrollbar {
-            width: 16px;
-            height: 16px;
-        }
-        &::-webkit-scrollbar-button {
-            width: 0;
-            height: 0;
-        }
-        &::-webkit-scrollbar-track {
-            background-color: rgba(#fff, 0.4);
-        }
-        &::-webkit-scrollbar-thumb {
-            background-color: $view-color;
-        }
+        @include handbook-scrollbar;
     }
 
     .drp-bulletitem {
@@ -74,9 +60,14 @@ $view-color: #ffe400;
         flex-direction: column;
 
         overflow: auto;
-        width: 49%;
+        padding-right: 2px;
+        width: 50%;
+
+        @include handbook-scrollbar;
 
         .img-wrapper {
+            flex: 0 0 auto;
+
             position: relative;
             margin-bottom: 2px;
             padding: 5% 2%;
@@ -85,6 +76,7 @@ $view-color: #ffe400;
 
             img {
                 display: block;
+                margin: auto;
                 padding: 2px;
                 max-width: 100%;
 
@@ -109,7 +101,7 @@ $view-color: #ffe400;
         }
 
         .description {
-            flex: 1 1 auto;
+            flex: 1 0 auto;
             padding: 10px;
 
             font-size: 16px;

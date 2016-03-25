@@ -5,3 +5,20 @@
         clear: left;
     }
 }
+
+@mixin handbook-scrollbar {
+    &::-webkit-scrollbar {
+        width: 14px;
+        height: 14px;
+    }
+    &::-webkit-scrollbar-button {
+        width: 0;
+        height: 0;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: rgba(#fff, 0.4);
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $view-color;
+    }
+}

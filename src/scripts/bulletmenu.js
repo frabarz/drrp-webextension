@@ -1,7 +1,7 @@
-(function (DR, document) {
+(function(DR, document) {
     "use strict";
 
-    if ( !RegExp("class trial", "i").test(document.title) )
+    if (!RegExp("class trial", "i").test(document.title))
         return;
 
     function createBulletButton(target) {
@@ -52,7 +52,7 @@
 
     DR.addListener('insertbullet', bulletSelectionHandler);
 
-    document.querySelector('body').addEventListener('click', function (evt) {
+    document.querySelector('body').addEventListener('click', function(evt) {
         if (!evt.target.classList.contains('drp-insertbullet'))
             return;
 
@@ -72,7 +72,7 @@
 
         bullets = document.querySelectorAll('#siteTable [href="#bullet"]');
 
-        var bullet,
+        var bullet, descr,
             regeximg = RegExp('\\[(.+)\\]\\s?\\((.+)\\)'),
             list = document.createElement('ul');
 
@@ -85,7 +85,23 @@
 
             bullet.textContent = bullets[n].textContent;
 
-            bullet.setAttribute('data-detail', bullets[n].title);
+            descr = bullets[n].title || '';
+            descr = descr.trim();
+
+            if (!descr) {
+                descr = bullets[n].parentNode
+                    .textContent
+                    .replace(bullet.textContent, '')
+                    .trim();
+            }
+
+            if (!descr) {
+                descr = bullets[n].parentNode.nextElementSibling
+                    .textContent
+                    .trim();
+            }
+
+            bullet.setAttribute('data-detail', descr);
 
             list.appendChild(bullet);
         }
@@ -98,7 +114,7 @@
             var box,
                 detail = this.parentNode.querySelector('.drp-bulletdetail'),
                 description = evt.target.getAttribute('data-detail') || '',
-                img = RegExp('\\[(.+)\\]\\s?\\((.+)\\)').exec(description);
+                img = RegExp('\\[(.*)\\]\\s?\\((.+)\\)').exec(description);
 
             detail.innerHTML = '';
 
