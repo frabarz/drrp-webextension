@@ -9,6 +9,13 @@ $view-color: rgb(170,255,78);
 
     .body {
         text-align: center;
+
+        @include handbook-scrollbar;
+    }
+
+    &.expanded .drp-sprite {
+        width: 142px;
+        height: 142px;
     }
 
     .drp-sprite {

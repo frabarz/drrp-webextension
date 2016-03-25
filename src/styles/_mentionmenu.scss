@@ -7,7 +7,13 @@ $view-color: rgb(206,102,249);
         border-color: $view-color;
     }
 
+    .body {
+        @include handbook-scrollbar;
+    }
+
     .drp-mention {
+        direction: ltr;
+
         position: relative;
         display: inline-block;
         vertical-align: top;

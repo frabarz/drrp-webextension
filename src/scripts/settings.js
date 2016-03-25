@@ -41,6 +41,8 @@
     function buildSettingsPanel() {
         var target, container, item, label;
 
+        applySettings();
+
         container = document.createElement('ul');
         container.className = 'spacer';
 
@@ -71,10 +73,9 @@
         target = null;
         label = null;
         item = null;
+
+        document.removeEventListener('DOMContentLoaded', buildSettingsPanel, false);
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        applySettings();
-        buildSettingsPanel();
-    });
+    document.addEventListener('DOMContentLoaded', buildSettingsPanel, false);
 })();
