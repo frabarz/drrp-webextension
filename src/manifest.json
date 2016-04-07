@@ -20,20 +20,6 @@
             "matches": [
                 "*://www.reddit.com/r/DanganRoleplay/*",
                 "*://www.reddit.com/r/Danganroleplay/*",
-                "*://www.reddit.com/r/danganroleplay/*",
-                "*://www.reddit.com/r/DanganRonpa/*",
-                "*://www.reddit.com/r/Danganronpa/*",
-                "*://www.reddit.com/r/danganronpa/*"
-            ],
-            "js": [
-                "ibukicalipse.js"
-            ],
-            "run_at": "document_start"
-        },
-        {
-            "matches": [
-                "*://www.reddit.com/r/DanganRoleplay/*",
-                "*://www.reddit.com/r/Danganroleplay/*",
                 "*://www.reddit.com/r/danganroleplay/*"
             ],
             "js": [

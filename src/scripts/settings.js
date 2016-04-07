@@ -3,7 +3,8 @@
 
     var settings = {
         anibanner: localStorage.getItem('drtrial-anibanner'),
-        bulletcolor: localStorage.getItem('drtrial-bulletcolor')
+        bulletcolor: localStorage.getItem('drtrial-bulletcolor'),
+        ibukalipse: localStorage.getItem('drtrial-ibukalipse')
     };
 
     function applySettings() {
@@ -14,6 +15,9 @@
 
         if (settings.anibanner)
             target.classList.add(settings.anibanner);
+
+        if (settings.ibukalipse)
+            target.classList.add(settings.ibukalipse);
 
         target = null;
     }
@@ -34,6 +38,17 @@
             settings.bulletcolor = '';
 
         localStorage.setItem('drtrial-bulletcolor', settings.bulletcolor);
+
+        applySettings();
+    }
+
+    function setIbukalipseHandler() {
+        if (document.querySelector('body').classList.toggle('ibukalipse'))
+            settings.ibukalipse = 'ibukalipse';
+        else
+            settings.ibukalipse = '';
+
+        localStorage.setItem('drtrial-ibukalipse', settings.ibukalipse);
 
         applySettings();
     }
@@ -64,6 +79,14 @@
         item = document.createElement('li');
         item.className = 'switch bulletcolor';
         item.addEventListener('click', setBulletcolorHandler, false);
+        item.appendChild(label);
+        container.appendChild(item);
+
+        label = document.createElement('span');
+        label.textContent = 'Ibukalipse non-stop 2k16';
+        item = document.createElement('li');
+        item.className = 'switch ibukalipse';
+        item.addEventListener('click', setIbukalipseHandler, false);
         item.appendChild(label);
         container.appendChild(item);
 
