@@ -187,9 +187,6 @@
         if (RegExp('hinata|hajime', 'i').test(line))
             return DR.ROLES.HAJIME;
 
-        if (RegExp('ibuki|mioda', 'i').test(line))
-            return DR.ROLES.IBUKI;
-
         if (RegExp('koizumi|mahiru', 'i').test(line))
             return DR.ROLES.MAHIRU;
 
@@ -216,6 +213,9 @@
 
         if (RegExp('tsumiki|mikan', 'i').test(line))
             return DR.ROLES.MIKAN;
+
+        if (RegExp('ibuki|mioda', 'i').test(line))
+            return DR.ROLES.IBUKI;
     }
 
     function processRoleList(text) {
