@@ -1,7 +1,7 @@
 (function (DR, document) {
     "use strict";
 
-    if ( !RegExp("class trial|whodunnit", "i").test(document.title) )
+    if (RegExp('/r/danganronpa/', 'i').test(location.href) && !RegExp("class trial", "i").test(document.title))
         return;
 
     function createMentionButton(target) {

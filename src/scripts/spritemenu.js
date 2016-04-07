@@ -1,12 +1,7 @@
 (function (DR, document) {
     "use strict";
 
-    var now = Date.now(),
-        title = RegExp("class trial|whodunnit", "i").test(document.title),
-        ibuki_optout = !!localStorage.getItem('dont-ibukify'),
-        ibuki_day = (now > 1459418400000 && now < 1459512000000);
-
-    if (!title && (ibuki_optout || !ibuki_day))
+    if (RegExp('/r/danganronpa/', 'i').test(location.href) && !RegExp("class trial", "i").test(document.title))
         return;
 
     function createSpriteButton(target) {
