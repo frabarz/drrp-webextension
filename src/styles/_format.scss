@@ -71,7 +71,8 @@ body .content .thing .entry {
         @include clearfix;
 
         .drp-sprite,
-        img[src$="#sprite"] {
+        img[src$="#sprite"],
+        img[src$="#screen"] {
             clear: left;
             float: left;
             display: block;
@@ -83,11 +84,20 @@ body .content .thing .entry {
         }
 
         img[src^="http://vignette"],
+        img[src$="#screen"],
         img[src$="#sprite"] {
             height: 120px;
             width: 160px;
             max-height: 120px;
             object-fit: cover;
+        }
+
+        img[src$="#screen"] {
+            background: linear-gradient(#000 50%, #222 50%);
+            background-size: 100% 4px;
+            background-repeat: repeat-y;
+            box-shadow: inset 0px 0px 80px 1px rgba(0, 0, 0, .8);
+            filter: sepia(0.7) hue-rotate(57deg) saturate(2.5);
         }
 
         br {
