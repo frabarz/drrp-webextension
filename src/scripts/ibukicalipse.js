@@ -1,23 +1,21 @@
 (function() {
     "use strict";
 
-    // April Fools - Don't spoil it
-
-    var now = Date.now();
-    if (localStorage.getItem('dont-ibukify') || now < 1459418400000 || now > 1459512000000)
+    if (localStorage.getItem('user-driven-ibukalipse') != 'true')
         return;
 
     function getButtonMessage() {
-        var msg = [
-            'I don\'t want to.',
-            'Enough Ibuki for this year.',
-            'Nope. Go back to normal.',
-            'I think I\'ll pass.',
-            'Sorry, I won\'t betray my waifu.',
-            'I don\'t follow false gods.'
-        ];
+        // var msg = [
+        //     'I don\'t want to.',
+        //     'Enough Ibuki for this year.',
+        //     'Nope. Go back to normal.',
+        //     'I think I\'ll pass.',
+        //     'Sorry, I won\'t betray my waifu.',
+        //     'I don\'t follow false gods.'
+        // ];
 
-        return msg[Math.floor(msg.length * Math.random())];
+        // return msg[Math.floor(msg.length * Math.random())];
+        return 'Enough Ibuki for a while.';
     }
 
     function buildOptionalPanel() {
@@ -28,23 +26,23 @@
 
         item = document.createElement('li');
         item.className = 'title';
-        item.textContent = 'All Hail Ibuki 2k16';
+        item.textContent = 'All Hail Ibuki';
         container.appendChild(item);
 
         item = document.createElement('li');
         item.className = 'text-normal';
-        item.textContent = 'From April 1st, 0:00:00 UTC+14 to April 1st, 23:59:59 UTC-12 is Ibuki Mioda day on r/danganronpa and r/danganroleplay!';
+        item.textContent = 'You have chosen to continue spreading the greatness of best girl Ibuki. Enjoy.';
         container.appendChild(item);
 
-        item = document.createElement('li');
-        item.className = 'text-small';
-        item.textContent = '(Participation is mandatory for users of the danganreddit class trial extension.)';
-        container.appendChild(item);
+        // item = document.createElement('li');
+        // item.className = 'text-small';
+        // item.textContent = '(Participation is mandatory for users of the danganreddit class trial extension.)';
+        // container.appendChild(item);
 
-        item = document.createElement('li');
-        item.className = 'text-small';
-        item.textContent = '(Or not.)';
-        container.appendChild(item);
+        // item = document.createElement('li');
+        // item.className = 'text-small';
+        // item.textContent = '(Or not.)';
+        // container.appendChild(item);
 
         item = document.createElement('li');
         item.title = 'Warning: Non reversible.';
@@ -63,7 +61,7 @@
     }
 
     function stopIbukification() {
-        localStorage.setItem('dont-ibukify', 'true');
+        localStorage.removeItem('user-driven-ibukalipse');
         this.textContent = 'Ibukification stopped. You will back go to normal on the next refresh.';
         this.className = 'text-normal';
         this.removeEventListener('click', stopIbukification, true);
@@ -76,19 +74,19 @@
         ibuki += '.side ul.spacer .title { font-size:15px;text-transform:uppercase }';
         ibuki += '.side ul.spacer .text-normal { margin-bottom:4px; font-size:14px; line-height:18px; }';
         ibuki += '.side ul.spacer .text-small { margin-bottom:2px; font-size:12px; line-height:14px; }';
-        ibuki += '.side ul.spacer .stop-ibukification { margin: 6px 0; font-size: 14px; line-height: 30px; cursor: pointer; border: 1px solid #036; border-radius: 3px; text-align: center; font-weight: bold; color: #036; background-color: #08c; }';
+        ibuki += '.side ul.spacer .stop-ibukification { margin: 6px 0; font-size: 12px; line-height: 24px; cursor: pointer; border: 1px solid #036; border-radius: 2px; text-align: center; color: #036; background-color: #08c; }';
         ibuki += '.side ul.spacer .stop-ibukification:hover { background-color: #07a }';
 
         if ( RegExp('/r/danganronpa', 'i').test(location.href) ) {
-            ibuki += 'body .flair { background-position:0 -1342px!important;width:26px!important;height:31px!important }';
-            document.querySelector('.side .titlebox .flair').className = 'flair flair-Ibuki';
+            // ibuki += 'body .flair { background-position:0 -1342px!important;width:26px!important;height:31px!important }';
+            // document.querySelector('.side .titlebox .flair').className = 'flair flair-Ibuki';
 
         } else {
-            ibuki += 'body .flair { background-position:0 -272px!important;width:25px!important;height:29px!important }';
+            // ibuki += 'body .flair { background-position:0 -272px!important;width:25px!important;height:29px!important }';
             ibuki += 'body #header { background-image:url(http://i.imgur.com/8Ndwccp.png),url(http://i.imgur.com/8Ndwccp.png);background-position: 0 0,490px 0;animation-name: dr12reloadibuki;}';
             ibuki += '@-webkit-keyframes dr12reloadibuki{0%{background-position:0 0, 490px 0}100%{background-position:0 280px, 490px -280px}}';
             ibuki += '@keyframes dr12reloadibuki{0%{background-position:0 0, 490px 0}100%{background-position:0 280px, 490px -280px}}';
-            document.querySelector('.side .titlebox .flair').className = 'flair flair-ibuki';
+            // document.querySelector('.side .titlebox .flair').className = 'flair flair-ibuki';
         }
 
         style = document.createElement('style');
