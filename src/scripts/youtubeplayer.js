@@ -14,6 +14,14 @@
 
 		if (code) {
 			startTime = parseStartTime(vid.href);
+
+			if (startTime) {
+				if ( startTime[1] )
+					startTime = 60 * parseInt(startTime[1]) + parseInt(startTime[2]);
+				else
+					startTime = parseInt(startTime[2]);
+			}
+
 			vid.parentNode.insertBefore(createPlayer(code, startTime), vid.nextSibling);
 		}
 	}
@@ -43,13 +51,17 @@
 	}
 
 	function createPlayer(code, startTime) {
-		var frame = document.createElement('iframe');
+		var url = 'https://www.youtube.com/embed/' + code + '?',
+			frame = document.createElement('iframe');
+
+		if (startTime)
+			url += 'start='+ startTime +'&';
 
 		frame.setAttribute('width', '120');
 		frame.setAttribute('height', '36');
 		frame.setAttribute('frameborder', '0');
 		frame.setAttribute('style', 'float:right');
-		frame.src = 'https://www.youtube.com/embed/' + code + '?rel=0&autohide=0&showinfo=0&fs=0&disablekb=1';
+		frame.src = url + 'rel=0&autohide=0&showinfo=0&fs=0&disablekb=1';
 
 		return frame;
 	}
