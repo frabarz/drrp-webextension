@@ -21,7 +21,7 @@
                 continue;
 
             user = author.textContent;
-            if (roles.exists(user)) {
+            if (roles.exists(user) && DR.NAMES[roles.get(user)] != "TEMP_VAL") {
                 tagline.classList.add('drp-participant');
 
                 author.insertBefore(document.createTextNode(' u/'), author.firstChild);

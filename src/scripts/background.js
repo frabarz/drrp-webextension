@@ -8,17 +8,11 @@ function normalizeCharacterName(name) {
 }
 
 function getSpritesList(name) {
-    return new Promise(function (resolve) {
-        var req = new XMLHttpRequest();
-        req.open('GET', 'busts.json', true);
-        req.responseType = 'application/json';
-        req.onload = function () {
-            var batch = JSON.parse(this.response);
-            resolve(batch[name]);
-            batch = null;
-        };
-        req.send();
-    });
+	return fetch('busts.json')
+        .then(function (response) { return response.json() })
+        .then(function (batch) {
+        	return batch[name];
+    	});
 }
 
 function filterUndefined(itm) {
@@ -52,11 +46,17 @@ var character_map = {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
-    normalizeCharacterName(request.character)
-        .then(getSpritesList)
-        .then(sendSpritesBack)
-        .then(sendResponse);
-
+	if("custom_sprites" in request){
+		Promise.resolve(request["custom_sprites"])
+			.then(sendSpritesBack)
+			.then(sendResponse);
+	}
+	else{
+    	normalizeCharacterName(request.character)
+        	.then(getSpritesList)
+        	.then(sendSpritesBack)
+        	.then(sendResponse);
+	}
     function sendSpritesBack(lista) {
         return {
             sprites: lista.filter(filterUndefined)
