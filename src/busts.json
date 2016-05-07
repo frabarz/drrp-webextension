@@ -53,6 +53,23 @@
         "http://vignette2.wikia.nocookie.net/danganronpa/images/b/b3/Owari_%2826%29.png/revision/latest?cb=20130731180817",
         "http://vignette1.wikia.nocookie.net/danganronpa/images/6/63/Owari_%2827%29.png/revision/latest?cb=20130731180817"
     ],
+    "alterego": [
+        "http://i.imgur.com/PdQS301.png",
+        "http://i.imgur.com/yGvqOft.png",
+        "http://i.imgur.com/PdLQKF9.png",
+        "http://i.imgur.com/DxP6meI.png",
+        "http://i.imgur.com/brymNcw.png",
+        "http://i.imgur.com/phqjIMW.png",
+        "http://i.imgur.com/6Oip09B.png",
+        "http://i.imgur.com/qr39Q8b.png",
+        "http://i.imgur.com/BAdkF2h.png",
+        "http://i.imgur.com/BOZSXpw.png",
+        "http://i.imgur.com/bpUXxcb.png",
+        "http://i.imgur.com/zKeKXZS.png",
+        "http://i.imgur.com/2JrXWjO.png",
+        "http://i.imgur.com/JPHxw51.png",
+        "http://i.imgur.com/PJHz0vI.png"
+    ],
     "byakuya": [
         "http://vignette1.wikia.nocookie.net/danganronpa/images/1/14/2%28535%29.png/revision/latest?cb=20130703091245",
         "http://vignette2.wikia.nocookie.net/danganronpa/images/f/fe/2%28536%29.png/revision/latest?cb=20130703091245",
@@ -130,7 +147,7 @@
         "http://vignette2.wikia.nocookie.net/danganronpa/images/f/f9/5%28224%29.png/revision/latest?cb=20130705065057",
         "http://vignette3.wikia.nocookie.net/danganronpa/images/b/bc/5%28223%29.png/revision/latest?cb=20130705065057"
     ],
-    "fuyuhiko": [
+    "fuyuhiko_nopatch": [
         "http://vignette3.wikia.nocookie.net/danganronpa/images/e/e0/Kuzuryuu.png/revision/latest?cb=20130708112729",
         "http://vignette3.wikia.nocookie.net/danganronpa/images/f/f5/Kuzuryuu_%2818%29.png/revision/latest?cb=20130708112722",
         "http://vignette1.wikia.nocookie.net/danganronpa/images/7/70/Kuzuryuu_%2813%29.png/revision/latest?cb=20130708112721",
@@ -154,7 +171,7 @@
         "http://vignette3.wikia.nocookie.net/danganronpa/images/f/fc/Kuzuryuu_%2822%29.png/revision/latest?cb=20130708112724",
         "http://vignette3.wikia.nocookie.net/danganronpa/images/5/53/Kuzuryuu_%2816%29.png/revision/latest?cb=20130708113114"
     ],
-    "fuyuhiko_patch": [
+    "fuyuhiko": [
         "http://vignette1.wikia.nocookie.net/danganronpa/images/8/83/Kuzuryuu_%2831%29.png/revision/latest?cb=20130708113117",
         "http://vignette1.wikia.nocookie.net/danganronpa/images/a/a1/Kuzuryuu_%2830%29.png/revision/latest?cb=20130708113117",
         "http://vignette3.wikia.nocookie.net/danganronpa/images/2/2c/Kuzuryuu_%2829%29.png/revision/latest?cb=20130708113117",
@@ -247,7 +264,8 @@
         "http://vignette2.wikia.nocookie.net/danganronpa/images/f/f2/Hinata_%289%29.png/revision/latest?cb=20130702104047",
         "http://vignette1.wikia.nocookie.net/danganronpa/images/1/1a/Hinata_%2815%29.png/revision/latest?cb=20130702104254",
         "http://vignette1.wikia.nocookie.net/danganronpa/images/c/c1/Hinata_%2810%29.png/revision/latest?cb=20130702104047",
-        "http://vignette3.wikia.nocookie.net/danganronpa/images/b/ba/Hinata_%2824%29.png/revision/latest?cb=20130702104511"
+        "http://vignette3.wikia.nocookie.net/danganronpa/images/b/ba/Hinata_%2824%29.png/revision/latest?cb=20130702104511",
+        "https://40.media.tumblr.com/d7b51023d2c86c0fbdb21f3baa6f104d/tumblr_mrnvfkiQxq1sq98pyo5_500.png"
     ],
     "hajime_saiyan": [
         "http://vignette1.wikia.nocookie.net/danganronpa/images/c/c9/Hinata_%2827%29.png/revision/latest?cb=20130702104828",
@@ -333,21 +351,21 @@
         "https://40.media.tumblr.com/f18736d1824e9a7b1bd7cd76a17ce5b7/tumblr_inline_o4h7q5TGO21qzytu7_540.png"
     ],
     "imposter": [
-        "http://vignette3.wikia.nocookie.net/danganronpa/images/0/0d/Togami.png/revision/latest?cb=20130709070838",
-        "http://vignette1.wikia.nocookie.net/danganronpa/images/8/82/Togami_%282%29.png/revision/latest?cb=20130709071030",
-        "http://vignette1.wikia.nocookie.net/danganronpa/images/9/97/Togami_%2812%29.png/revision/latest?cb=20130709070836",
-        "http://vignette4.wikia.nocookie.net/danganronpa/images/2/2b/Togami_%2815%29.png/revision/latest?cb=20130709070837",
-        "http://vignette1.wikia.nocookie.net/danganronpa/images/7/73/Togami_%287%29.png/revision/latest?cb=20130709071032",
-        "http://vignette4.wikia.nocookie.net/danganronpa/images/4/41/Togami_%283%29.png/revision/latest?cb=20130709071030",
-        "http://vignette4.wikia.nocookie.net/danganronpa/images/c/c4/Togami_%284%29.png/revision/latest?cb=20130709071031",
-        "http://vignette1.wikia.nocookie.net/danganronpa/images/f/f2/Togami_%285%29.png/revision/latest?cb=20130709071031",
-        "http://vignette3.wikia.nocookie.net/danganronpa/images/5/5f/Togami_%286%29.png/revision/latest?cb=20130709071031",
-        "http://vignette3.wikia.nocookie.net/danganronpa/images/9/91/Togami_%288%29.png/revision/latest?cb=20130709071032",
-        "http://vignette1.wikia.nocookie.net/danganronpa/images/a/af/Togami_%289%29.png/revision/latest?cb=20130709071032",
-        "http://vignette4.wikia.nocookie.net/danganronpa/images/7/7c/Togami_%2810%29.png/revision/latest?cb=20130709071033",
-        "http://vignette4.wikia.nocookie.net/danganronpa/images/5/5e/Togami_%2811%29.png/revision/latest?cb=20130709071033",
-        "http://vignette1.wikia.nocookie.net/danganronpa/images/d/d2/Togami_%2813%29.png/revision/latest?cb=20130709070836",
-        "http://vignette1.wikia.nocookie.net/danganronpa/images/8/8d/Togami_%2814%29.png/revision/latest?cb=20130709070836"
+        "https://31.media.tumblr.com/ef26bfa60c22a9534ebb3b023cb7071a/tumblr_inline_mra7yeOZXK1qz4rgp.png",
+        "https://38.media.tumblr.com/1f7feea55978212e56cdb07df509f649/tumblr_inline_mra7z3yKTh1qz4rgp.png",
+        "https://33.media.tumblr.com/58a0ae695bcabfc779c755e7c3920ae9/tumblr_inline_mra7z5DRou1qz4rgp.png",
+        "https://38.media.tumblr.com/bd2bd94d428f764f841c112733bc86aa/tumblr_inline_mra7z9qjfW1qz4rgp.png",
+        "https://38.media.tumblr.com/8a46a20dfff7652a7a61c75ba17c9973/tumblr_inline_mra7zh87eU1qz4rgp.png",
+        "https://38.media.tumblr.com/1fcc49335908cb5a650b5f42d6cb5ee6/tumblr_inline_mra7zo0iCB1qz4rgp.png",
+        "https://31.media.tumblr.com/3e55e229a5d6d178f4c6c2fa6717e82e/tumblr_inline_mra7zpHJ0K1qz4rgp.png",
+        "https://31.media.tumblr.com/eefde3f8cde7cbc8db1ce70b5cd901ce/tumblr_inline_mra7ztbiiq1qz4rgp.png",
+        "https://38.media.tumblr.com/8d37a6c53bd22cbc793b704b123f9788/tumblr_inline_mra7zydkQP1qz4rgp.png",
+        "https://33.media.tumblr.com/11228dc641512688ec4b676f327877e1/tumblr_inline_mra8088eYR1qz4rgp.png",
+        "https://33.media.tumblr.com/e959f18dc25bc45d46ebb5632d19ec7b/tumblr_inline_mra80d0feT1qz4rgp.png",
+        "https://33.media.tumblr.com/3af88135fbd606abd100f1547d6a1323/tumblr_inline_mra80g0Hms1qz4rgp.png",
+        "https://38.media.tumblr.com/38489edf1604ca7cc494647ccb2e7f22/tumblr_inline_mra80jypet1qz4rgp.png",
+        "https://33.media.tumblr.com/8d7b03d477f8d163ae5a269c8fde83d9/tumblr_inline_mra80kmwSC1qz4rgp.png",
+        "https://38.media.tumblr.com/dd99910650f09f8a0c92bc577f23ae14/tumblr_inline_mra80mFyjR1qz4rgp.png"
     ],
     "ishida": [
         "http://vignette1.wikia.nocookie.net/danganronpa/images/e/ea/2%28529%29.png/revision/latest?cb=20130705123534",
@@ -395,7 +413,7 @@
         "http://vignette1.wikia.nocookie.net/danganronpa/images/e/e7/5%28212%29.png/revision/latest?cb=20130706050705",
         "http://vignette3.wikia.nocookie.net/danganronpa/images/d/de/5%28209%29.png/revision/latest?cb=20130706050704"
     ],
-    "kazuichi": [
+    "kazuichi_normal": [
         "http://vignette4.wikia.nocookie.net/danganronpa/images/2/2d/Souda.png/revision/latest?cb=20130719063953",
         "http://vignette2.wikia.nocookie.net/danganronpa/images/5/59/Souda_%2825%29.png/revision/latest?cb=20130719063953",
         "http://vignette3.wikia.nocookie.net/danganronpa/images/f/fe/Souda_%2824%29.png/revision/latest?cb=20130719063952",
@@ -416,6 +434,33 @@
         "http://vignette1.wikia.nocookie.net/danganronpa/images/2/2a/Souda_%289%29.png/revision/latest?cb=20130719063858",
         "http://vignette2.wikia.nocookie.net/danganronpa/images/7/79/Souda_%288%29.png/revision/latest?cb=20130719063857",
         "http://vignette4.wikia.nocookie.net/danganronpa/images/6/60/Souda_%287%29.png/revision/latest?cb=20130719063857",
+        "http://vignette1.wikia.nocookie.net/danganronpa/images/4/4f/Souda_%286%29.png/revision/latest?cb=20130719063857",
+        "http://vignette2.wikia.nocookie.net/danganronpa/images/0/00/Souda_%285%29.png/revision/latest?cb=20130719063857",
+        "http://vignette3.wikia.nocookie.net/danganronpa/images/a/ae/Souda_%284%29.png/revision/latest?cb=20130719063856",
+        "http://vignette2.wikia.nocookie.net/danganronpa/images/8/86/Souda_%283%29.png/revision/latest?cb=20130719063856",
+        "http://vignette4.wikia.nocookie.net/danganronpa/images/a/a0/Souda_%282%29.png/revision/latest?cb=20130719063856"
+    ],
+    "kazuichi": [
+        "https://i.imgur.com/5zLwvEi.png",
+        "https://i.imgur.com/onmnCmN.png",
+        "https://i.imgur.com/cQwbip0.png",
+        "https://i.imgur.com/F2LRo4Z.png",
+        "http://vignette4.wikia.nocookie.net/danganronpa/images/2/2d/Souda.png/revision/latest?cb=20130719063953",
+        "http://vignette2.wikia.nocookie.net/danganronpa/images/5/59/Souda_%2825%29.png/revision/latest?cb=20130719063953",
+        "http://vignette3.wikia.nocookie.net/danganronpa/images/f/fe/Souda_%2824%29.png/revision/latest?cb=20130719063952",
+        "http://vignette2.wikia.nocookie.net/danganronpa/images/2/25/Souda_%2823%29.png/revision/latest?cb=20130719063952",
+        "http://vignette3.wikia.nocookie.net/danganronpa/images/1/11/Souda_%2822%29.png/revision/latest?cb=20130719063951",
+        "http://vignette4.wikia.nocookie.net/danganronpa/images/0/0a/Souda_%2820%29.png/revision/latest?cb=20130719063920",
+        "http://vignette4.wikia.nocookie.net/danganronpa/images/d/df/Souda_%2819%29.png/revision/latest?cb=20130719063920",
+        "http://vignette3.wikia.nocookie.net/danganronpa/images/c/c2/Souda_%2818%29.png/revision/latest?cb=20130719063920",
+        "http://vignette1.wikia.nocookie.net/danganronpa/images/7/70/Souda_%2817%29.png/revision/latest?cb=20130719063919",
+        "http://vignette4.wikia.nocookie.net/danganronpa/images/f/fd/Souda_%2816%29.png/revision/latest?cb=20130719063919",
+        "http://vignette3.wikia.nocookie.net/danganronpa/images/7/7c/Souda_%2815%29.png/revision/latest?cb=20130719063918",
+        "http://vignette3.wikia.nocookie.net/danganronpa/images/e/ec/Souda_%2814%29.png/revision/latest?cb=20130719063918",
+        "http://vignette2.wikia.nocookie.net/danganronpa/images/f/fd/Souda_%2812%29.png/revision/latest?cb=20130719063917",
+        "http://vignette3.wikia.nocookie.net/danganronpa/images/9/97/Souda_%2811%29.png/revision/latest?cb=20130719063858",
+        "http://vignette3.wikia.nocookie.net/danganronpa/images/c/cc/Souda_%2810%29.png/revision/latest?cb=20130719063858",
+        "http://vignette1.wikia.nocookie.net/danganronpa/images/2/2a/Souda_%289%29.png/revision/latest?cb=20130719063858",
         "http://vignette1.wikia.nocookie.net/danganronpa/images/4/4f/Souda_%286%29.png/revision/latest?cb=20130719063857",
         "http://vignette2.wikia.nocookie.net/danganronpa/images/0/00/Souda_%285%29.png/revision/latest?cb=20130719063857",
         "http://vignette3.wikia.nocookie.net/danganronpa/images/a/ae/Souda_%284%29.png/revision/latest?cb=20130719063856",
@@ -447,29 +492,46 @@
         "https://40.media.tumblr.com/c85653cea85d36300aa77d9996a1bed0/tumblr_inline_o2kbziIf5u1sj4iq1_500.png",
         "https://36.media.tumblr.com/5b465294faca4ca9f7171f4eabb257a8/tumblr_inline_o2khyo5GAg1sj4iq1_500.png",
         "https://40.media.tumblr.com/acc95f241f72c749d26f518c381ca04c/tumblr_inline_o2ke8vvbrM1sj4iq1_500.png",
-        "https://41.media.tumblr.com/f743677ca1ed65c48a1d095cea323fd3/tumblr_inline_o2kifkBpiV1sj4iq1_500.png"
+        "https://41.media.tumblr.com/f743677ca1ed65c48a1d095cea323fd3/tumblr_inline_o2kifkBpiV1sj4iq1_500.png",
+        "https://41.media.tumblr.com/36a4eaf9cd9aaffbd2c164357d085a14/tumblr_inline_o4zszxwsPv1qzytu7_540.png"
     ],
     "komaru": [
-        "http://vignette3.wikia.nocookie.net/danganronpa/images/b/bc/Tumblr_natrkbS5EK1tpl0emo2_250.png/revision/latest?cb=20141013014307",
-        "http://vignette4.wikia.nocookie.net/danganronpa/images/4/42/Komaru_screee.png/revision/latest?cb=20150724063836",
-        "http://vignette3.wikia.nocookie.net/danganronpa/images/9/94/Komaru_says_oh_that_one.png/revision/latest?cb=20150415182057",
-        "http://vignette1.wikia.nocookie.net/danganronpa/images/9/9f/Komaru_%2814%29.png/revision/latest/scale-to-width-down/640?cb=20140927191132",
-        "http://vignette4.wikia.nocookie.net/danganronpa/images/9/9a/Komaru_%2815%29.png/revision/latest/scale-to-width-down/640?cb=20141003002206",
-        "http://vignette2.wikia.nocookie.net/danganronpa/images/4/4c/1412114146125.png/revision/latest?cb=20140930225437",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru15_zpsjeildmuv.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru2_zpsjbazpp2z.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komarucry_zpsad95z8vb.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru3_zpstnoplld3.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru4_zpssk8wdnnz.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru5_zpsjwwatrby.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru6_zpsgxhuzbuy.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru7_zpss7gmybbb.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru8_zpsjqlxytrk.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru9_zpsdtxzsosd.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru10_zpsisvfj04m.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru11_zpseejejahy.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru13_zpspz2vregq.png",
-        "http://i1077.photobucket.com/albums/w466/SilverFlame31/komaru14_zpsfp4gznis.png"
+        "https://36.media.tumblr.com/657596b544b51049e1781f6f34121d7b/tumblr_o577xnlo3j1qzzczko1_500.png",
+        "https://40.media.tumblr.com/1972ac5eb92c6a6235664e64505b6571/tumblr_o577xnlo3j1qzzczko2_500.png",
+        "https://36.media.tumblr.com/d835e345a59cb2691864cdc266c1055f/tumblr_o577xnlo3j1qzzczko3_500.png",
+        "https://40.media.tumblr.com/a6ff41b80ec3880c7bbb9f4bd2c18bb2/tumblr_o577xnlo3j1qzzczko4_500.png",
+        "https://40.media.tumblr.com/b1868177217e0bd2b445122f3945c2c6/tumblr_o577xnlo3j1qzzczko5_500.png",
+        "https://40.media.tumblr.com/3109f0fbd0709639ee433eda5e8740ff/tumblr_o577xnlo3j1qzzczko6_500.png",
+        "https://36.media.tumblr.com/d095473eecbd9df78b3e80bb32a930b1/tumblr_o577xnlo3j1qzzczko7_500.png",
+        "https://40.media.tumblr.com/973ff4324126b1544bb51e7da4af6eeb/tumblr_o577xnlo3j1qzzczko8_500.png",
+        "https://41.media.tumblr.com/734ee3e0348566307fe90c3cf88e24b1/tumblr_o577xnlo3j1qzzczko9_500.png",
+        "https://41.media.tumblr.com/911b78e295e0bf776c8107d659591896/tumblr_o577xnlo3j1qzzczko10_500.png",
+        "https://41.media.tumblr.com/127bfa0626f0e7073b46e49f3f86cb0b/tumblr_o5785vR30Q1qzzczko1_500.png",
+        "https://41.media.tumblr.com/5139919867cb631b5f805b12b659745d/tumblr_o5785vR30Q1qzzczko2_500.png",
+        "https://41.media.tumblr.com/d8fabb817a5933ee9a29109129e7b744/tumblr_o5785vR30Q1qzzczko3_500.png",
+        "https://40.media.tumblr.com/d60398cf46aace8abc798fe1a6d0f15d/tumblr_o5785vR30Q1qzzczko4_500.png",
+        "https://40.media.tumblr.com/3ea47d4ef13607f8c4ed9dac0dc13789/tumblr_o5785vR30Q1qzzczko5_500.png",
+        "https://41.media.tumblr.com/864b40d236698c1df6e9e9ff108c68bb/tumblr_o5785vR30Q1qzzczko6_500.png",
+        "https://41.media.tumblr.com/372ebe82cb79eb33251776c8baf78478/tumblr_o5785vR30Q1qzzczko7_500.png",
+        "https://41.media.tumblr.com/5d52e875b7bcf646ed7584b1f05d48a7/tumblr_o5785vR30Q1qzzczko8_500.png",
+        "https://40.media.tumblr.com/5730458d3149f49a03fa75db5e4ab1eb/tumblr_o5785vR30Q1qzzczko9_500.png",
+        "https://40.media.tumblr.com/bb119449468377b5935598791dfeccd8/tumblr_o5785vR30Q1qzzczko10_500.png",
+        "https://40.media.tumblr.com/074636db3aa308f1f4c00681fdd6fc22/tumblr_o578aazT2P1qzzczko1_500.png",
+        "https://40.media.tumblr.com/acb2857c7ca40d203e361be161d978c2/tumblr_o578aazT2P1qzzczko2_500.png",
+        "https://40.media.tumblr.com/9c3850615cfdcc050cc5cf148fcf830b/tumblr_o578aazT2P1qzzczko3_500.png",
+        "https://40.media.tumblr.com/c2f6719133442d1a3e6f6f7a63e183db/tumblr_o578aazT2P1qzzczko4_500.png",
+        "https://40.media.tumblr.com/37c7a03e39d3cb21a567a13f080b6cd9/tumblr_o578aazT2P1qzzczko5_500.png",
+        "https://41.media.tumblr.com/3cd6b2921cadf7ab5d31164acfb5c8cd/tumblr_o578aazT2P1qzzczko6_500.png",
+        "https://41.media.tumblr.com/fe2268fe242c9906af7683f1ecea32f7/tumblr_o578aazT2P1qzzczko7_500.png",
+        "https://40.media.tumblr.com/f62e632d13b21b4de8d07be3fe28c9b3/tumblr_o578aazT2P1qzzczko8_500.png",
+        "https://41.media.tumblr.com/f04b927876916cbfd1a0856335f8412d/tumblr_o578aazT2P1qzzczko9_500.png",
+        "https://41.media.tumblr.com/add6f3dd360327cfa82efc24b598182a/tumblr_o578aazT2P1qzzczko10_500.png",
+        "https://41.media.tumblr.com/ddbefcada41793735ffe5eff60206b5b/tumblr_o578efmHw91qzzczko1_500.png",
+        "https://41.media.tumblr.com/83ec16717ae70b36e85147a8c1e4d5da/tumblr_o578efmHw91qzzczko2_500.png",
+        "https://41.media.tumblr.com/08e86a9fb9cd1a0f8072f73949cf1c49/tumblr_o578efmHw91qzzczko3_500.png",
+        "https://40.media.tumblr.com/7d2bfe44b30d392eaaa2b229d5648278/tumblr_o578efmHw91qzzczko4_500.png",
+        "https://36.media.tumblr.com/8b8ea25d14ea08bd3918b15988ce2ee3/tumblr_o578efmHw91qzzczko5_500.png",
+        "https://36.media.tumblr.com/020ee73329043e90787bb1b5eb8be30e/tumblr_o578efmHw91qzzczko6_500.png"
     ],
     "kyouko": [
         "http://vignette2.wikia.nocookie.net/danganronpa/images/0/04/5%2898%29.png/revision/latest?cb=20130703085525",
@@ -632,9 +694,12 @@
         "https://31.media.tumblr.com/130488f47f29153125faa13da4b08a36/tumblr_inline_mr6pmvDZNP1qz4rgp.png",
         "https://33.media.tumblr.com/b3ffb9b7be754288c96639a4a523beff/tumblr_inline_mr6pn2shJA1qz4rgp.png",
         "https://38.media.tumblr.com/8504e5cc0c2ceb42acaa488a55a3659a/tumblr_inline_mr6pn5FWvt1qz4rgp.png",
-        "http://vignette1.wikia.nocookie.net/danganronpa/images/4/40/5%28253%29.png/revision/latest?cb=20130707010658",
-        "http://vignette2.wikia.nocookie.net/danganronpa/images/6/63/20140228112722.jpg/revision/latest/scale-to-width-down/483?cb=20140924150409",
-        "http://vignette2.wikia.nocookie.net/danganronpa/images/1/1c/Monokuma_sprite_muscles.png/revision/latest?cb=20150425000554"
+        "https://40.media.tumblr.com/7ef77347d4bc9ed1ef1ff660cb843002/tumblr_o5eszaof2W1qzzczko1_1280.png",
+        "https://41.media.tumblr.com/bd60f520c6242f41f515ff7851a3aca8/tumblr_o5eszaof2W1qzzczko2_500.png",
+        "https://40.media.tumblr.com/6df05280e2e26a3c1cae4afb7128d053/tumblr_o5eszaof2W1qzzczko3_500.png",
+        "https://40.media.tumblr.com/db07a2711b2e12958eabf7611d7bd222/tumblr_o5eszaof2W1qzzczko4_500.png",
+        "https://40.media.tumblr.com/98fdfa8931a5d2c01e066d2649a67754/tumblr_o5eszaof2W1qzzczko5_500.png",
+        "https://40.media.tumblr.com/0680e9f630509fa5a414ac7d785c96bf/tumblr_o5eszaof2W1qzzczko6_500.png"
     ],
     "monomi": [
         "http://vignette2.wikia.nocookie.net/danganronpa/images/7/7d/MonomiA.png/revision/latest?cb=20130806063037",
@@ -734,7 +799,10 @@
         "http://vignette3.wikia.nocookie.net/danganronpa/images/a/ae/Komaeda_%2827%29.png/revision/latest?cb=20130703064146",
         "http://vignette2.wikia.nocookie.net/danganronpa/images/e/ed/Komaeda_%2826%29.png/revision/latest?cb=20130703064146",
         "http://vignette3.wikia.nocookie.net/danganronpa/images/e/e7/Komaeda_%2824%29.png/revision/latest?cb=20130703064145",
-        "http://vignette1.wikia.nocookie.net/danganronpa/images/c/c3/Komaeda_%2823%29.png/revision/latest?cb=20130703064145"
+        "http://vignette1.wikia.nocookie.net/danganronpa/images/c/c3/Komaeda_%2823%29.png/revision/latest?cb=20130703064145",
+        "https://40.media.tumblr.com/568a23987ddf69aad71b897c3419c025/tumblr_inline_nrzf2sy3PN1two1y3_500.png",
+        "https://40.media.tumblr.com/7965eaa343c134ca02deaf90930909c1/tumblr_inline_o2hse10dp21tmkdg1_500.png",
+        "https://38.media.tumblr.com/4f2f0bb327d2da7a2870b559e9609973/tumblr_inline_mjs08cVz3C1qz4rgp.png"
     ],
     "nekomaru": [
         "http://vignette1.wikia.nocookie.net/danganronpa/images/f/f7/Nidai_sprite_1.png/revision/latest?cb=20130804024332",
