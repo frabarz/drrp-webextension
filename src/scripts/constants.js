@@ -65,7 +65,12 @@ Object.defineProperty(window.DRreddit, 'NAMES', {
         "Hajime Hinata plugged-in",
         "Kuzuryuu's Little Sis"
     ],
-    writable: false
+    writable: true
+})
+
+Object.defineProperty(window.DRreddit, 'SPRITES', {
+    value: [null],
+    writable: true
 })
 
 Object.defineProperty(window.DRreddit, 'ROLES', {

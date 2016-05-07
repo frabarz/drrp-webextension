@@ -63,5 +63,5 @@ Object.defineProperty(window.DRreddit, 'FLAIRS', {
         "flair-saiyanhajime",
         "flair-kuzuryuu"
     ],
-    writable: false
+    writable: true
 });

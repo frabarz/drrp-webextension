@@ -117,7 +117,7 @@
         },
         currentCharacter: {
             get: function () {
-                return this.NAMES[this.roleList.get(document.querySelector('#header .user a').textContent)]
+            	return this.NAMES[this.roleList.get(document.querySelector('#header .user a').textContent)]
             }
         },
         isParticipant: {
