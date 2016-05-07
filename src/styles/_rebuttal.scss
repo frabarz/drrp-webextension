@@ -1,0 +1,15 @@
+body div.content .thing.drp-crossswords {
+    & > .entry::before,
+    & > .entry:hover::before {
+        background-image: repeating-linear-gradient(45deg, yellow 0, yellow 7.0711px, black 7.0711px, black 14.1421px);
+    }
+
+    &:hover > .entry::before {
+        animation: rebuttal-tape infinite 1s linear;
+    }
+}
+
+@keyframes rebuttal-tape {
+    0%   { background-position: 0 -10px }
+    100% { background-position: 0 10px }
+}

@@ -34,6 +34,8 @@ body .content .thing .entry {
     }
 }
 
+@import "rebuttal";
+
 .md.drp-dialogue {
     @include clearfix;
 
@@ -97,6 +99,7 @@ body .content .thing .entry {
             background-size: 100% 4px;
             background-repeat: repeat-y;
             box-shadow: inset 0px 0px 80px 1px rgba(0, 0, 0, .8);
+            border-radius: 5px;
             filter: sepia(0.7) hue-rotate(57deg) saturate(2.5);
         }
 

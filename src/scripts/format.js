@@ -16,9 +16,15 @@
         anchors,
         paragraphs,
         blockquotes,
-        comments = document.querySelectorAll('.entry .md');
+        comments = document.querySelectorAll('.thing.self, .thing.comment');
+        // comments = document.querySelectorAll('.entry .md');
 
-    for (c = 0; comment = comments[c]; c++) {
+    for (c = 0; c < comments.length; c++) {
+        comment = comments[c].querySelector('.entry .md');
+
+        if (!comment)
+            continue;
+
         if (c > 0) {
             headers = comment.querySelectorAll('h2');
 
@@ -40,6 +46,13 @@
             anchors = paragraph.querySelectorAll('a');
 
             for (a = 0; anchor = anchors[a]; a++) {
+
+                if (anchor.href.indexOf('mymjF4AZJrg') > -1
+                    || anchor.href.indexOf('#rebuttal') > -1) {
+                    comments[c].classList.add('drp-crossswords');
+                    continue;
+                }
+
                 newsrc = anchor.href
                     .replace(/revision\/latest.+$/, '')
                     .replace(/\/$/, '');
@@ -51,7 +64,7 @@
 
                 img.onerror = imageErrorOne;
 
-                if (paragraph.textContent.length < 14
+                if (paragraph.textContent.length < 25
                     && RegExp('evidence|proof', 'i').test(anchor.textContent)
                     ) {
                     img.onload = imageLoadEvidence.bind(img, paragraph, anchor);
@@ -67,7 +80,7 @@
         blockquotes = comment.querySelectorAll('blockquote');
 
         for (b = 0; blockquote = blockquotes[b]; b++) {
-            if (RegExp('added to your truth bullets?', 'i').test(blockquote.textContent)) {
+            if (RegExp('added to (?:your|the) truth bullets?', 'i').test(blockquote.textContent)) {
                 blockquote.classList.add('drp-newbullet');
                 comment.classList.add('drp-dialogue');
             }
