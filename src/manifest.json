@@ -15,6 +15,10 @@
         ],
         "persistent": false
     },
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+    },
     "content_scripts": [
         {
             "matches": [
@@ -54,7 +58,9 @@
             "matches": [
                 "*://www.reddit.com/r/DanganRoleplay/comments/*",
                 "*://www.reddit.com/r/Danganroleplay/comments/*",
-                "*://www.reddit.com/r/danganroleplay/comments/*"
+                "*://www.reddit.com/r/danganroleplay/comments/*",
+                "*://www.reddit.com/message/*",
+                "*://www.reddit.com/user/*"
             ],
             "css": [
                 "danganroleplay.css"
