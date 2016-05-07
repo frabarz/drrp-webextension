@@ -30,7 +30,6 @@ var character_map = {
     'fujisaki':  'chihiro',
     'hagakure':  'yasuhiro',
     'ishimaru':  'kiyotaka',
-    'junko':     'monokuma',
     'kyoko':     'kyouko',
     'maizono':   'sayaka',
     'monokuma2': 'monokuma',

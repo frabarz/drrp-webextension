@@ -109,6 +109,39 @@
     }
 
     function identifyCharacter(line) {
+        if (RegExp('yui|samidare', 'i').test(line))
+            return DR.ROLES.YUI;
+
+        if (RegExp('yasuke|matsuda', 'i').test(line))
+            return DR.ROLES.YASUKE;
+
+        if (RegExp('santa|shikiba', 'i').test(line))
+            return DR.ROLES.SANTA;
+
+        if (RegExp('masaru|daimon', 'i').test(line))
+            return DR.ROLES.MASARU;
+
+        if (RegExp('jataro|kemuri', 'i').test(line))
+            return DR.ROLES.JATAROU;
+
+        if (RegExp('kotoko|utsugi', 'i').test(line))
+            return DR.ROLES.KOTOKO;
+
+        if (RegExp('nagisa|shingetsu', 'i').test(line))
+            return DR.ROLES.NAGISA;
+
+        if (RegExp('monaca|monaka', 'i').test(line))
+            return DR.ROLES.MONACA;
+
+        if (RegExp('haiji|towa', 'i').test(line))
+            return DR.ROLES.HAIJI;
+
+        if (RegExp('taichi.+fujisaki', 'i').test(line))
+            return DR.ROLES.TAICHI;
+
+        if (RegExp('yuu?ta.+asahina', 'i').test(line))
+            return DR.ROLES.YUUTA;
+
         if (RegExp('monokuma', 'i').test(line))
             return DR.ROLES.MONOKUMA;
 
@@ -216,6 +249,9 @@
 
         if (RegExp('ibuki|mioda', 'i').test(line))
             return DR.ROLES.IBUKI;
+
+        if (RegExp('alter\\s?ego', 'i').test(line))
+            return DR.ROLES.ALTEREGO;
     }
 
     function processRoleList(text) {
