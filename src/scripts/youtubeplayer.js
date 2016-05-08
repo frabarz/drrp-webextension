@@ -1,9 +1,6 @@
 (function() {
 	"use strict";
 
-	// if ( !RegExp("fanfiction", "i").test(document.querySelector('.content .sitetable .thing .title').textContent) )
-	// 	return;
-
 	var v, vid,
 		code, startTime,
 		vids = document.querySelectorAll('.content a[href*="youtube.com"], .content a[href*="youtu.be"]');
@@ -16,10 +13,15 @@
 			startTime = parseStartTime(vid.href);
 
 			if (startTime) {
+				// If there are hours
 				if ( startTime[1] )
-					startTime = 60 * parseInt(startTime[1]) + parseInt(startTime[2]);
+					startTime = 3600 * parseInt(startTime[1]) + 60 * parseInt(startTime[2]) + parseInt(startTime[3]);
+				// If there are minutes
+				else if ( startTime[2] )
+					startTime = 60 * parseInt(startTime[2]) + parseInt(startTime[3]);
+				// There are only seconds
 				else
-					startTime = parseInt(startTime[2]);
+					startTime = parseInt(startTime[3]);
 			}
 
 			vid.parentNode.insertBefore(createPlayer(code, startTime), vid.nextSibling);
@@ -45,7 +47,7 @@
 	function parseStartTime(url) {
 		var match;
 
-		match = (/(?:start|from|t)\=(?:(\d+)m)?(\d+?)s/).exec(url);
+		match = (/(?:start|from|t)\=(?:(\d+)h)?(?:(\d+)m)?(\d+?)s/).exec(url);
 		if (match)
 			return match;
 	}
