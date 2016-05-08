@@ -8,11 +8,15 @@ function normalizeCharacterName(name) {
 }
 
 function getSpritesList(name) {
-	return fetch('busts.json')
-        .then(function (response) { return response.json() })
+    return fetch('https://frbrz-kumo.appspot.com/reddit-trial/api/busts.json')
+        .then(function (response) {
+            return response.json();
+        }, function(err) {
+            return fetch('busts.json').then(function (response) { return response.json() });
+        })
         .then(function (batch) {
-        	return batch[name];
-    	});
+            return batch[name];
+        });
 }
 
 function filterUndefined(itm) {
@@ -45,18 +49,18 @@ var character_map = {
 };
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if ("custom_sprites" in request) {
+        Promise.resolve(request.custom_sprites)
+            .then(sendSpritesBack)
+            .then(sendResponse);
 
-	if("custom_sprites" in request){
-		Promise.resolve(request["custom_sprites"])
-			.then(sendSpritesBack)
-			.then(sendResponse);
-	}
-	else{
-    	normalizeCharacterName(request.character)
-        	.then(getSpritesList)
-        	.then(sendSpritesBack)
-        	.then(sendResponse);
-	}
+    } else {
+        normalizeCharacterName(request.character)
+            .then(getSpritesList)
+            .then(sendSpritesBack)
+            .then(sendResponse);
+    }
+
     function sendSpritesBack(lista) {
         return {
             sprites: lista.filter(filterUndefined)

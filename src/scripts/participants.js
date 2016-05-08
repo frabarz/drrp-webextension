@@ -35,6 +35,41 @@
                 this.characters[user.toLowerCase()] = role;
             }
         },
+        'setExternal': {
+            writable: false,
+            value: function (username, url) {
+                // Load the JSON
+                return DR.fetch('GET', url)
+                    .then(function (data) {
+                        // Get a new Role Slot
+                        var role = DR.ROLES.assign(data.name);
+                        // and assign it to the new guy
+                        this.set(username, role.code);
+                        // along with their resources
+                        DR.NAMES[role.code] = data.name;
+                        DR.FLAIRS[role.code] = 'flair-' + role.key.toLowerCase();
+                        DR.SPRITES[role.code] = data.sprites;
+
+                        // Now for their flair
+                        return new Promise(function (resolve, reject) {
+                            // download it
+                            var flair = new Image();
+                            flair.src = data.flair;
+                            flair.onload = resolve;
+                            flair.onerror = reject;
+                        }).then(function (evt) {
+                            var style = document.createElement('style');
+                            // get the flair size and prepare to...
+                            style.textContent = '.flair.flair-' + role.key.toLowerCase() + '{background-image:url(' + evt.target.src + ');background-position:center;width:'+evt.target.naturalWidth+'px;height:'+evt.target.naturalHeight+'px}';
+                            // ...put it in the sub
+                            document.querySelector('head').appendChild(style);
+                        });
+                    }.bind(this))
+                    .then(null, function(err) {
+                        console.warn('An external character failed to load:', username, err);
+                    });
+            }
+        },
         'exists': {
             writable: false,
             value: function (user) {
@@ -107,55 +142,8 @@
         else if (offset && offset[1])
             return 0;
     }
-    
-    function createCORSRequest(method, url) {
-  		var xhr = new XMLHttpRequest();
-  		if ("withCredentials" in xhr) {
-    		// Check if the XMLHttpRequest object has a "withCredentials" property.
-    		// "withCredentials" only exists on XMLHTTPRequest2 objects.
-    		xhr.open(method, url, true);
-  		} else if (typeof XDomainRequest != "undefined") {
-    		// Otherwise, check if XDomainRequest.
-    		// XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-    		xhr = new XDomainRequest();
-    		xhr.open(method, url);
-  		} else {
-    		// Otherwise, CORS is not supported by the browser.
-    		xhr = null;
-  		}
- 		return xhr;
-	}
 
-	var permaVal = 8192;
-
-    function identifyCharacter(line) {        
-        if (RegExp('\\\[.*\\\]\\\(.*\\\.json\\\)', 'i').test(line)){
-        
-        	var url = line.split("](")[1].split(")")[0];
-        	var xhr = createCORSRequest("GET", url);
-        	var using = permaVal;
-        	xhr.onload = function(){
-        		var jsonText = xhr.responseText;
-        		
-        		var json = JSON.parse(jsonText);
-        		
-        		DR.NAMES[using] = json["name"];
-        		DR.FLAIRS[using] = "flair-" + json["flair"].toLowerCase();
-        		DR.SPRITES[json["flair"]] = json["sprites"];
-        		
-        		DR.triggerEvent('rolesidentified', DR.roleList);
-        	}
-        	
-        	xhr.onerror = function() {
- 				console.log('There was an error!');
-			};
-			
-			DR.NAMES[using] = "TEMP_VAL";
-			
-			xhr.send()
-			
-        	return permaVal++;
-        }
+    function identifyCharacter(line) {
         if (RegExp('yui|samidare', 'i').test(line))
             return DR.ROLES.YUI;
 
@@ -302,41 +290,68 @@
     }
 
     function processRoleList(text) {
-        var result, character, offset,
+        var promises = [],
             roles = new RoleHandler(),
+            // The regex matches a whole line if it contains a reddit username [u/user-name_0]
             regex = /^(.*)u\/([A-Za-z0-9-_]+)(.*)$/igm;
 
+        var result,
+            promise,
+            line, username,
+            character, offset,
+            url, url_start, url_end;
+
         while (result = regex.exec(text)) {
-            character = identifyCharacter(result[3]) || identifyCharacter(result[1]);
+            line = result[0];
+            username = result[2];
 
-            if (character > 0) {
-                roles.set(result[2], character);
+            // Find an external role assignment
+            url_start = line.indexOf('http');
+            url_end = line.indexOf('.json');
 
-                offset = parseTimezone(result[0]);
-                if (offset != null)
-                    roles.setTz(result[2], offset);
+            if (url_start > -1 && url_end > -1 && url_start < url_end) {
+                url = line.slice(url_start, url_end + 5);
+
+                promise = roles.setExternal(username, url);
+                promises.push(promise);
+
+            } else {
+                character = identifyCharacter(result[3]) || identifyCharacter(result[1]);
+
+                if (character > 0) {
+                    roles.set(result[2], character);
+
+                    offset = parseTimezone(result[0]);
+                    if (offset != null)
+                        roles.setTz(result[2], offset);
+                }
             }
         }
 
-        return roles;
+        return Promise.all(promises)
+            .then(function () {
+                return roles;
+            });
     }
 
     DR.fetch('GET', './this.json').then(function (media) {
-        var info = media[0].data.children[0].data,
-            roles = processRoleList(info.selftext);
+        var info = media[0].data.children[0].data;
 
-        if (!(/summary/i).test(document.title)
-            && roles.length > 10
-            && !roles.exists(DR.ROLES.MONOKUMA)
-            && !roles.exists(info.author)
-            ) {
-            roles.set(info.author, DR.ROLES.MONOKUMA);
-        }
+        processRoleList(info.selftext)
+            .then(function (roles) {
+                if (!(/summary/i).test(document.title)
+                    && roles.length > 10
+                    && !roles.exists(DR.ROLES.MONOKUMA)
+                    && !roles.exists(info.author)
+                ) {
+                    roles.set(info.author, DR.ROLES.MONOKUMA);
+                }
 
-        console.debug('Identified roles:', roles);
+                console.debug('Identified roles:', roles);
 
-        DR.roleList = roles;
-        DR.triggerEvent('rolesidentified', roles);
+                DR.roleList = roles;
+                DR.triggerEvent('rolesidentified', roles);
+            });
     });
 
     DR.identifyCharacter = identifyCharacter;

@@ -117,7 +117,7 @@
         },
         currentCharacter: {
             get: function () {
-            	return this.NAMES[this.roleList.get(document.querySelector('#header .user a').textContent)]
+                return this.NAMES[this.roleList.get(document.querySelector('#header .user a').textContent)]
             }
         },
         isParticipant: {
@@ -140,7 +140,7 @@
                         var req = new XMLHttpRequest();
                         req.open(method, url, true);
 
-                        req.responseType = 'application/json';
+                        req.responseType = 'json';
 
                         req.onload = function() {
                             try {
