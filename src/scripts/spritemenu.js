@@ -11,9 +11,7 @@
         button.className = 'drp-button drp-insertsprite';
         button.textContent = 'Sprite';
 
-        target = document.querySelector(target);
-        if (target)
-            target.appendChild(button);
+        target.appendChild(button);
 
         target = null;
         button = null;
@@ -66,8 +64,10 @@
         container = null;
     }
 
-    createSpriteButton('.commentarea .drp-menu');
-    createSpriteButton('.sitetable .drp-menu');
+    Array.prototype.forEach.call(
+        document.querySelectorAll('.bottom-area .drp-menu'),
+        createSpriteButton
+    );
 
     DR.addListener('insertsprite', spriteSelectionHandler);
 

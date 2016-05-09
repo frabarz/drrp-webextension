@@ -12,9 +12,7 @@
         menu.appendChild(router);
         router = null;
 
-        target = document.querySelector(target);
-        if (target)
-            target.insertBefore(menu, target.firstElementChild);
+        target.insertBefore(menu, target.firstElementChild);
         target = null;
 
         menu = null;
@@ -227,8 +225,11 @@
         }
     });
 
-    prepareButtonMenu('.commentarea .usertext .bottom-area');
-    prepareButtonMenu('.sitetable .usertext .bottom-area');
+    Array.prototype.forEach.call(
+        document.querySelectorAll('.usertext .bottom-area'),
+        prepareButtonMenu
+    );
+
     prepareModal();
 
 })(window.DRreddit, document);

@@ -11,9 +11,7 @@
         button.className = 'drp-button drp-insertmention';
         button.textContent = 'Mention';
 
-        target = document.querySelector(target);
-        if (target)
-            target.appendChild(button);
+        target.appendChild(button);
 
         target = null;
         button = null;
@@ -52,8 +50,10 @@
     DR.addListener('insertmention', userSelectionHandler);
 
     DR.addListener('rolesidentified', function (roles) {
-        createMentionButton('.commentarea .drp-menu');
-        createMentionButton('.sitetable .drp-menu');
+        Array.prototype.forEach.call(
+            document.querySelectorAll('.bottom-area .drp-menu'),
+            createMentionButton
+        );
 
         document.querySelector('body').addEventListener('click', function (evt) {
             if (!evt.target.classList.contains('drp-insertmention'))

@@ -11,9 +11,7 @@
         button.className = 'drp-button drp-insertbullet';
         button.textContent = 'Bullets';
 
-        target = document.querySelector(target);
-        if (target)
-            target.appendChild(button);
+        target.appendChild(button);
 
         target = null;
         button = null;
@@ -47,8 +45,10 @@
         }
     }
 
-    createBulletButton('.commentarea .drp-menu');
-    createBulletButton('.sitetable .drp-menu');
+    Array.prototype.forEach.call(
+        document.querySelectorAll('.bottom-area .drp-menu'),
+        createBulletButton
+    );
 
     DR.addListener('insertbullet', bulletSelectionHandler);
 
