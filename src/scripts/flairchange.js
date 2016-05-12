@@ -12,7 +12,8 @@
         var t, tagline,
             taglines = document.querySelectorAll('.entry .tagline');
 
-        var user, author, character, flair, offset;
+        var user, author, character,
+            flair, flair_class, offset;
 
         for (t = 0; tagline = taglines[t]; t++) {
             author = tagline.querySelector('.author');
@@ -43,10 +44,9 @@
                 }
 
                 flair = tagline.querySelector('.flair');
-                if (flair) {
-                    flair.className = 'flair';
-                    flair.classList.add(DR.FLAIRS[roles.get(user)]);
-                }
+                flair_class = DR.FLAIRS[roles.get(user)];
+                if (flair && flair_class && flair_class.indexOf('flair-external') != 0)
+                    flair.className = 'flair '+ flair_class;
             }
         }
     });

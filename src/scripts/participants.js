@@ -47,7 +47,7 @@
                         this.set(username, role.code);
                         // along with their resources
                         DR.NAMES[role.code] = data.name;
-                        DR.FLAIRS[role.code] = 'flair-' + role.key.toLowerCase();
+                        DR.FLAIRS[role.code] = 'flair-external' + role.key.toLowerCase();
                         DR.SPRITES[role.code] = data.sprites;
 
                         // Now for their flair
@@ -58,6 +58,8 @@
                             flair.onload = resolve;
                             flair.onerror = reject;
                         }).then(function (evt) {
+                            DR.FLAIRS[role.code] = 'flair-' + role.key.toLowerCase();
+
                             var style = document.createElement('style');
                             // get the flair size and prepare to...
                             style.textContent = '.flair.flair-' + role.key.toLowerCase() + '{background-image:url(' + evt.target.src + ');background-position:center;width:'+evt.target.naturalWidth+'px;height:'+evt.target.naturalHeight+'px}';
