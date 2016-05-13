@@ -1,7 +1,7 @@
-var SettingsStorage = (function() {
+var SettingStorage = (function() {
 	"use strict";
 
-	function SettingsStorage() {}
+	function SettingStorage() {}
 
 	function storageSyncGet(key) {
 		return new Promise(function(resolve) {
@@ -31,17 +31,28 @@ var SettingsStorage = (function() {
 		return new Promise(function(resolve) {
 			var i, output = {};
 
-			if (typeof key == 'string' && key.trim() === '')
-				return output;
+			// If key is a valid string, prepare it as array
+			if (typeof key == 'string' && key != '')
+				key = [key];
 
-			else if (!Array.isArray(key) && typeof key == 'object')
-				key = Object.keys(key);
+			// If key is an object,
+			else if (typeof key == 'object') {
+				// If it isn't an array, retrieve its keys
+				if (!Array.isArray(key))
+					key = Object.keys(key);
 
+				// else, leave it as is
+			}
+
+			// If key isn't set, retrieve everything
 			else if (key == null || key == undefined) {
 				key = [];
 				for (i = 0; i < localStorage.length; i++)
 					key.push(localStorage.key(i));
 			}
+
+			else
+				throw new Error('Referenced key is not valid.');
 
 			for (i = 0; i < key.length; i++)
 				output[key[i]] = localStorage.getItem(key[i]);
@@ -50,9 +61,9 @@ var SettingsStorage = (function() {
 		});
 	}
 
-	function localStorageSet(object, value) {
+	function localStorageSet(object) {
 		return new Promise(function(resolve) {
-			var i;
+			var i, value;
 
 			if (typeof object == 'string' && object.trim() != '')
 				localStorage.setItem(object, JSON.stringify(value));
@@ -71,7 +82,9 @@ var SettingsStorage = (function() {
 
 	if ('storage' in chrome) {
 		if ('sync' in chrome.storage) {
-			Object.defineProperties(SettingsStorage, {
+			console.debug('Using chrome.storage.sync');
+
+			Object.defineProperties(SettingStorage, {
 				get: {
 					writable: false,
 					value: storageSyncGet
@@ -83,7 +96,9 @@ var SettingsStorage = (function() {
 			});
 
 		} else {
-			Object.defineProperties(SettingsStorage, {
+			console.debug('Using chrome.storage.local');
+
+			Object.defineProperties(SettingStorage, {
 				get: {
 					writable: false,
 					value: storageLocalGet
@@ -96,17 +111,19 @@ var SettingsStorage = (function() {
 		}
 
 	} else {
-			Object.defineProperties(SettingsStorage, {
-				get: {
-					writable: false,
-					value: localStorageGet
-				},
-				set: {
-					writable: false,
-					value: localStorageSet
-				}
-			});
+		console.debug('Using localStorage');
+
+		Object.defineProperties(SettingStorage, {
+			get: {
+				writable: false,
+				value: localStorageGet
+			},
+			set: {
+				writable: false,
+				value: localStorageSet
+			}
+		});
 	}
 
-	return SettingsStorage;
+	return SettingStorage;
 })();

@@ -8,11 +8,17 @@ function normalizeCharacterName(name) {
 }
 
 function getSpritesList(name) {
-    return fetch('https://frbrz-kumo.appspot.com/reddit-trial/api/busts.json')
+    SettingStorage.get('sprites_sourcelist')
+        .then(function (settings) {
+            return fetch(settings.sprites_sourcelist);
+        })
         .then(function (response) {
             return response.json();
-        }, function(err) {
-            return fetch('busts.json').then(function (response) { return response.json() });
+        }, function (err) {
+            return fetch('busts.json')
+                .then(function (response) {
+                    return response.json()
+                });
         })
         .then(function (batch) {
             return batch[name];
@@ -69,3 +75,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
     return true;
 });
+
+chrome.runtime.onInstalled.addListener(function() {
+    SettingStorage.get(['sprites_sourcelist'])
+        .then(function(settings) {
+            return {
+                theme:              settings.theme              || 'default',
+                bullets_bgred:      settings.bullets_bgred      || false,
+                banner_paused:      settings.banner_paused      || false,
+                sprites_sourcelist: settings.sprites_sourcelist || 'https://frbrz-kumo.appspot.com/postit/busts.json'
+            };
+        })
+        .then(SettingStorage.set)
+})

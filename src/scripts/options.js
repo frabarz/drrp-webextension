@@ -2,40 +2,46 @@ var promise_load = new Promise(function(resolve) {
 	document.addEventListener('DOMContentLoaded', resolve);
 });
 
-Promise.all(
-	SettingsStorage.get(),
+Promise.all([
+	SettingStorage.get(),
 	promise_load
-).then(function(settings) {
-	//http://frbrz-kumo.appspot.com/reddit-trial/api/busts.json
-})
+]).then(function(settings) {
+	settings = settings[0];
 
-function save_options() {
-	var color = document.getElementById('color').value;
-	var likesColor = document.getElementById('like').checked;
-	chrome.storage.sync.set({
-		favoriteColor: color,
-		likesColor: likesColor
-	}, function () {
-		// Update status to let user know options were saved.
-		var status = document.getElementById('status');
-		status.textContent = 'Options saved.';
-		setTimeout(function () {
-			status.textContent = '';
-		}, 750);
-	});
+	var options = document.getElementById('options');
+
+	options.theme.value = settings.theme || 'default';
+	options.bullets_bgred.checked = checkBoolean(settings.bullets_bgred, 'true');
+	options.banner_paused.checked = checkBoolean(settings.banner_paused, 'true');
+	options.sprites_sourcelist.value = settings.sprites_sourcelist;
+
+	options.addEventListener('submit', save_options, false);
+});
+
+function checkBoolean(bool, truth_value) {
+	if (typeof bool == "boolean")
+		return bool;
+	else
+		return bool == truth_value;
 }
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
-function restore_options() {
-	// Use default value color = 'red' and likesColor = true.
-	chrome.storage.sync.get({
-		favoriteColor: 'red',
-		likesColor: true
-	}, function (items) {
-		document.getElementById('color').value = items.favoriteColor;
-		document.getElementById('like').checked = items.likesColor;
-	});
-}
+function save_options(evt) {
+	evt.preventDefault();
+	evt.stopPropagation();
 
-document.getElementById('save').addEventListener('click', save_options);
+	var settings = {
+		theme: this.theme.value,
+		bullets_bgred: this.bullets_bgred.checked,
+		banner_paused: this.banner_paused.checked,
+		sprites_sourcelist: this.sprites_sourcelist.value
+	};
+
+	SettingStorage.set(settings)
+		.then(function() {
+			// Update status to let user know options were saved.
+			document.getElementById('status').textContent = 'Options saved.';
+			setTimeout(function () {
+				document.getElementById('status').textContent = '';
+			}, 750);
+		});
+}

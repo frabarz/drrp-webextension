@@ -11,10 +11,14 @@
     },
     "background": {
         "scripts": [
+            "settingstorage.js",
             "background.js"
         ],
         "persistent": false
     },
+    "permissions": [
+        "storage"
+    ],
     "options_ui": {
         "page": "options.html",
         "chrome_style": true

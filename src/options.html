@@ -2,32 +2,65 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
 
-    <title>Settings / Danganreddit Class Trial Helper</title>
+	<title>Settings / Danganreddit Class Trial Helper</title>
 
-    <link rel="stylesheet" type="text/css" href="config.css">
-    <script src="settings.js"></script>
+	<link rel="stylesheet" type="text/css" href="config.css">
+	<script src="settingstorage.js"></script>
+	<script src="options.js"></script>
 </head>
 
 <body>
-    Favorite color:
-    <select id="color">
-   <option value="red">red</option>
-   <option value="green">green</option>
-   <option value="blue">blue</option>
-   <option value="yellow">yellow</option>
-  </select>
+	<form id="options">
+		<section>
+			<h3>Theme</h3>
+			<div class="radio">
+				<label>
+					<input type="radio" name="theme" value="default">
+					<span>Default theme</span>
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="theme" value="ibuki">
+					<span>Ibukalipse non-stop 2k16</span>
+				</label>
+			</div>
+		</section>
 
-    <label>
-    <input type="checkbox" id="like">
-    I like colors.
-  </label>
+		<section>
+			<h3>Performance</h3>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="banner_paused">
+					<span>Pause banner animation</span>
+				</label>
+			</div>
+		</section>
 
-    <div id="status"></div>
-    <button id="save">Save</button>
+		<section>
+			<h3>Visibility</h3>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="bullets_bgred">
+					<span>Use red bullets instead of yellow</span>
+				</label>
+			</div>
+		</section>
 
-    <script src="options.js"></script>
+		<section>
+			<h3>Sprites</h3>
+			<label>
+				<span>External list URL:</span>
+				<input type="url" name="sprites_sourcelist" size="36" />
+			</label>
+			<p>If no URL is set, the internal list will be used.</p>
+		</section>
+
+		<button id="save">Save</button>
+		<span id="status"></span>
+	</form>
 </body>
 
 </html>
