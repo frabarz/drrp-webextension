@@ -55,7 +55,7 @@ var character_map = {
 };
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if ("custom_sprites" in request) {
+    if (Array.isArray(request.custom_sprites)) {
         Promise.resolve(request.custom_sprites)
             .then(sendSpritesBack)
             .then(sendResponse);
