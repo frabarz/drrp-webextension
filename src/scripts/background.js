@@ -8,7 +8,7 @@ function normalizeCharacterName(name) {
 }
 
 function getSpritesList(name) {
-    SettingStorage.get('sprites_sourcelist')
+    return SettingStorage.get('sprites_sourcelist')
         .then(function (settings) {
             return fetch(settings.sprites_sourcelist);
         })
