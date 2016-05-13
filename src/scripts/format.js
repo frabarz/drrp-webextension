@@ -1,4 +1,4 @@
-(function (document) {
+document.addEventListener('DOMContentLoaded', function () {
     "use strict";
 
     if (RegExp('/r/danganronpa/', 'i').test(location.href) && !RegExp("class trial", "i").test(document.title))
@@ -17,7 +17,6 @@
         paragraphs,
         blockquotes,
         comments = document.querySelectorAll('.thing.self, .thing.comment');
-        // comments = document.querySelectorAll('.entry .md');
 
     for (c = 0; c < comments.length; c++) {
         comment = comments[c].querySelector('.entry .md');
@@ -136,4 +135,4 @@
         p.parentNode.insertBefore(this, p.nextSibling);
     }
 
-})(document);
+}, false);
