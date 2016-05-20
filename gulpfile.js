@@ -1,3 +1,6 @@
+var SELF_INFO = require('./package.json'),
+	ENV_INFO = require('./env.json');
+
 var del = require('del'),
 	gulp = require('gulp');
 
@@ -11,9 +14,6 @@ var imagemin = require('gulp-imagemin'),
 
 var zip = require('gulp-zip'),
 	through = require('through-gulp');
-
-var SELF_INFO = require('./package.json'),
-	ENV_INFO = require('./env.json');
 
 /*
  * Clean the /build folder
@@ -47,9 +47,17 @@ gulp.task('images', function () {
 });
 
 /*
+ * Static resources
+ */
+gulp.task('static', function() {
+	return gulp.src('./src/*.html')
+		.pipe(gulp.dest('./build/common'));
+});
+
+/*
  * Pack the common tasks
  */
-gulp.task('commons', ['styles', 'images'], function() {
+gulp.task('commons', ['styles', 'images', 'static'], function() {
 	return gulp.src('./src/busts.json')
 		.pipe(through(function (file, encoding, callback) {
 			var list = JSON.parse(file.contents.toString());
@@ -96,6 +104,11 @@ gulp.task('manifest:chrome', function () {
 			manifest.description = SELF_INFO.description;
 			manifest.version = SELF_INFO.version;
 
+			manifest.options_ui = {
+				page: "options.html",
+				chrome_style: true
+			};
+
 			file.contents = new Buffer(JSON.stringify(manifest));
 
 			this.push(file);
@@ -120,6 +133,8 @@ gulp.task('manifest:firefox', function () {
 					id: ENV_INFO.mozilla_id
 				}
 			};
+
+			manifest.options_page = "options.html";
 
 			file.contents = new Buffer(JSON.stringify(manifest));
 
@@ -155,14 +170,5 @@ gulp.task('extension:build', ['clean', 'build:chrome', 'build:firefox'], functio
 
 	return del(['./build/common']);
 });
-
-gulp.task('reddit:build', function () {
-	return gulp.src('./subreddit/*.scss')
-		.pipe(sass({ outputStyle: 'compressed' })
-			.on('error', sass.logError))
-		.pipe(cssprefix('> 2%'))
-		.pipe(gulp.dest('./subreddit/'));
-});
-
 
 gulp.task('build', ['extension:build']);
