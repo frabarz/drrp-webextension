@@ -1,17 +1,13 @@
 {
   "name": "reddit-drtrial",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "title": "danganreddit Class Trial helper",
   "description": "Help plugin to format comments for danganreddit class trials.",
-  "main": "background.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/frabarz/reddit-drtrial.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/frabarz/reddit-drtrial/issues"

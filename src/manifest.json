@@ -5,6 +5,7 @@
     "version": "0.1.2",
     "icons": {
         "16": "icon-16.png",
+        "48": "icon-48.png",
         "64": "icon-64.png",
         "96": "icon-96.png",
         "128": "icon-128.png"
@@ -52,6 +53,9 @@
                 "*://*.reddit.com/r/Danganroleplay/*",
                 "*://*.reddit.com/r/danganroleplay/*"
             ],
+            "css": [
+                "danganroleplay_all.css"
+            ],
             "js": [
                 "settingstorage.js",
                 "settingapplication.js"
@@ -65,7 +69,7 @@
                 "*://*.reddit.com/r/danganroleplay/comments/*"
             ],
             "css": [
-                "danganroleplay.css"
+                "danganroleplay_comments.css"
             ],
             "js": [
                 "constants.js",

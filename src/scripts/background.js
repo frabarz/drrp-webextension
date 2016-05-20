@@ -55,6 +55,11 @@ var character_map = {
 };
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.openSettings) {
+        chrome.runtime.openOptionsPage();
+        return false;
+    }
+
     if (Array.isArray(request.custom_sprites)) {
         Promise.resolve(request.custom_sprites)
             .then(sendSpritesBack)
@@ -76,7 +81,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     return true;
 });
 
-chrome.runtime.onInstalled.addListener(function() {
+function install() {
     SettingStorage.get(['sprites_sourcelist'])
         .then(function(settings) {
             return {
@@ -87,4 +92,18 @@ chrome.runtime.onInstalled.addListener(function() {
             };
         })
         .then(SettingStorage.set)
-})
+}
+
+function installIfFirefoxStillDoesntImplementTheOnInstalledEvent() {
+    var installed = localStorage.getItem('installed');
+
+    if (installed != 'true') {
+        install();
+        localStorage.setItem('installed', 'true');
+    }
+}
+
+if ('onInstalled' in chrome.runtime)
+    chrome.runtime.onInstalled.addListener(install);
+else
+    installIfFirefoxStillDoesntImplementTheOnInstalledEvent();

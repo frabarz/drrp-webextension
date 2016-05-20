@@ -104,11 +104,6 @@ gulp.task('manifest:chrome', function () {
 			manifest.description = SELF_INFO.description;
 			manifest.version = SELF_INFO.version;
 
-			manifest.options_ui = {
-				page: "options.html",
-				chrome_style: true
-			};
-
 			file.contents = new Buffer(JSON.stringify(manifest));
 
 			this.push(file);
@@ -133,8 +128,6 @@ gulp.task('manifest:firefox', function () {
 					id: ENV_INFO.mozilla_id
 				}
 			};
-
-			manifest.options_page = "options.html";
 
 			file.contents = new Buffer(JSON.stringify(manifest));
 

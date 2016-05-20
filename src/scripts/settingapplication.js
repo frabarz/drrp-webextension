@@ -20,5 +20,17 @@ Promise.all([
 	if (settings.banner_paused)
 		target.classList.add('banner-static');
 
+	target = document.createElement('a');
+	target.className = 'trialhelper-settings';
+	target.textContent = 'Class Trial Helper Settings';
+	target.addEventListener('click', function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+
+		chrome.runtime.sendMessage({ openSettings: true });
+	}, true);
+
+	document.querySelector('body .side .spacer').appendChild(target);
+
 	target = null;
 });

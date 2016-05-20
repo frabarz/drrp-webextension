@@ -1,11 +1,15 @@
-body section {
-    -webkit-padding-start: 18px;
-    margin-bottom: 24px;
-    margin-top: 8px;
-    max-width: 600px;
+body {
+    font-family: sans-serif;
 
-    & > h3 {
-        -webkit-margin-start: -18px;
-        margin-bottom: 0.1em;
+    section {
+        -webkit-padding-start: 18px;
+        margin-bottom: 24px;
+        margin-top: 8px;
+        max-width: 600px;
+
+        & > h3 {
+            -webkit-margin-start: -18px;
+            margin-bottom: 0.1em;
+        }
     }
 }
