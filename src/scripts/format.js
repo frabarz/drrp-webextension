@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 img.onerror = imageErrorOne;
 
-                if (paragraph.textContent.length < 25
-                    && RegExp('evidence|proof', 'i').test(anchor.textContent)
+                if (newsrc.indexOf('#evidence') > -1
+                    || RegExp('evidence|proof', 'i').test(anchor.textContent)
                     ) {
                     img.onload = imageLoadEvidence.bind(img, paragraph, anchor);
                 } else {
@@ -93,23 +93,23 @@ document.addEventListener('DOMContentLoaded', function () {
     blockquotes = (b = (blockquote = null));
 
     function imageErrorOne() {
-        if (this.src.indexOf('postimg.org') > -1) {
-            this.onerror = imageErrorTwo;
-            this.src = this.src.replace('://', '://proxy-4-web.appspot.com/');
-        } else {
-            this.onerror = null;
-            this.onload = null;
-        }
+        this.onerror = imageErrorTwo;
+        this.src = this.src.replace(/^https?\:\/\//, 'https://proxy-4-web.appspot.com/');
     }
 
     function imageErrorTwo() {
-        if (this.src.indexOf('postimg.org') > -1) {
-            this.onerror = imageErrorLast;
-            this.src = this.src.replace('://proxy-4-web.appspot.com/', '://icracks-53.appspot.com/');
-        } else {
-            this.onerror = null;
-            this.onload = null;
-        }
+        this.onerror = imageErrorThree;
+        this.src = this.src.replace('://proxy-4-web.appspot.com/', '://icracks-53.appspot.com/');
+    }
+
+    function imageErrorThree() {
+        this.onerror = imageErrorFour;
+        this.src = this.src.replace('://icracks-53.appspot.com/', '://harkproxy.appspot.com/');
+    }
+
+    function imageErrorFour() {
+        this.onerror = imageErrorLast;
+        this.src = this.src.replace('://harkproxy.appspot.com/', '://go-go-proxy.appspot.com/');
     }
 
     function imageErrorLast() {
@@ -118,6 +118,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function imageLoadSprite(p, a) {
+        if (!this.naturalWidth && !this.naturalHeight) {
+            this.onerror();
+            return;
+        }
+
         this.className = 'drp-sprite';
 
         p.insertBefore(document.createElement('br'), a);
@@ -129,6 +134,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function imageLoadEvidence(p, a) {
+        if (!this.naturalWidth && !this.naturalHeight) {
+            this.onerror();
+            return;
+        }
+
         this.className = 'drp-evidence';
 
         p.parentNode.classList.add('drp-dialogue');
