@@ -167,7 +167,7 @@
         if (RegExp('nagisa|shingetsu', 'i').test(line))
             return DR.ROLES.NAGISA;
 
-        if (RegExp('monaca|monaka', 'i').test(line))
+        if (RegExp('mona[ck]a', 'i').test(line))
             return DR.ROLES.MONACA;
 
         if (RegExp('haiji|towa', 'i').test(line))
@@ -188,7 +188,7 @@
         if (RegExp('mecha[\\-\\s]?maru', 'i').test(line))
             return DR.ROLES.MECHAMARU;
 
-        if (RegExp('coach|manager|nidai|nekomaru', 'i').test(line))
+        if (RegExp('nidai|nekomaru', 'i').test(line))
             return DR.ROLES.NEKOMARU;
 
         if (RegExp('impost[eo]r|twogami', 'i').test(line))
@@ -224,13 +224,13 @@
         if (RegExp('kyou?ko|kirigiri', 'i').test(line))
             return DR.ROLES.KYOUKO;
 
-        if (RegExp('baseball|leon|kuwata', 'i').test(line))
+        if (RegExp('leon|kuwata', 'i').test(line))
             return DR.ROLES.LEON;
 
-        if (RegExp('idol|maizono|sayaka', 'i').test(line))
+        if (RegExp('maizono|sayaka', 'i').test(line))
             return DR.ROLES.SAYAKA;
 
-        if (RegExp('biker|mondo|oo?wada|ohwada', 'i').test(line))
+        if (RegExp('mondo|o[oh]?wada', 'i').test(line))
             return DR.ROLES.MONDO;
 
         if (RegExp('komaru', 'i').test(line))
@@ -239,7 +239,7 @@
         if (RegExp('makoto', 'i').test(line))
             return DR.ROLES.MAKOTO;
 
-        if (RegExp('sakura|oo?gami|ohgami', 'i').test(line))
+        if (RegExp('sakura|o[oh]?gami', 'i').test(line))
             return DR.ROLES.SAKURA;
 
         if (RegExp('tou?ko|fukawa|genocider', 'i').test(line))
