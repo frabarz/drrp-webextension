@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
         blockquotes,
         comments = document.querySelectorAll('.thing.self, .thing.comment');
 
+    var read, time;
+
     for (c = 0; c < comments.length; c++) {
         comment = comments[c].querySelector('.entry .md');
 
@@ -36,6 +38,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 comment.replaceChild(paragraph, header);
                 header = null;
             }
+        }
+
+        time = comments[c].querySelector('.edited-timestamp') || comments[c].querySelector('.live-timestamp');
+        time = (new Date(time.getAttribute('datetime'))).getTime();
+
+        if ( time > sessionStorage.getItem(comments[c].dataset.fullname) ) {
+            comments[c].classList.add('new-comment');
+            sessionStorage.setItem(comments[c].dataset.fullname, time);
         }
 
         paragraphs = comment.querySelectorAll('p');
