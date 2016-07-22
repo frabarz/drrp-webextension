@@ -56,7 +56,11 @@ var character_map = {
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.openSettings) {
-        chrome.runtime.openOptionsPage();
+        if ('runtime' in chrome && 'openOptionsPage' in chrome.runtime)
+            chrome.runtime.openOptionsPage();
+        else
+            chrome.tabs.create({ url: chrome.extension.getURL('options.html') });
+
         return false;
     }
 
@@ -81,17 +85,21 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     return true;
 });
 
+function getOption(first, defecto) {
+    return (first != null ? first : defecto);
+}
+
 function install() {
-    SettingStorage.get(['sprites_sourcelist'])
+    SettingStorage.get()
         .then(function(settings) {
             return {
-                theme:              settings.theme              || 'default',
-                bullets_bgred:      settings.bullets_bgred      || false,
-                banner_paused:      settings.banner_paused      || false,
-                sprites_sourcelist: settings.sprites_sourcelist || 'https://frbrz-kumo.appspot.com/postit/busts.json'
+                theme:              getOption(settings.theme,              'default'),
+                bullets_bgred:      getOption(settings.bullets_bgred,      false),
+                banner_paused:      getOption(settings.banner_paused,      true),
+                sprites_sourcelist: getOption(settings.sprites_sourcelist, 'https://frbrz-kumo.appspot.com/postit/busts.json')
             };
         })
-        .then(SettingStorage.set)
+        .then(SettingStorage.set);
 }
 
 function installIfFirefoxStillDoesntImplementTheOnInstalledEvent() {

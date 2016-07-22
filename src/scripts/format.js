@@ -56,6 +56,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             for (a = 0; anchor = anchors[a]; a++) {
 
+                if (anchor.href.indexOf('reddit.com/u/') > -1)
+                    continue;
+
                 if (anchor.href.indexOf('mymjF4AZJrg') > -1
                     || anchor.href.indexOf('#rebuttal') > -1) {
                     comments[c].classList.add('drp-crossswords');
@@ -89,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
         blockquotes = comment.querySelectorAll('blockquote');
 
         for (b = 0; blockquote = blockquotes[b]; b++) {
-            if (RegExp('added to (?:your|the) truth bullets?', 'i').test(blockquote.textContent)) {
+            if (RegExp('(?:added|updated) (?:to|in) (?:your|the) truth bullets?', 'i').test(blockquote.textContent)) {
                 blockquote.classList.add('drp-newbullet');
                 comment.classList.add('drp-dialogue');
             }

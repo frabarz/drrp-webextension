@@ -83,7 +83,7 @@ gulp.task('commons', ['styles', 'images', 'static'], function() {
  */
 gulp.task('scripts:chrome', function () {
 	return gulp.src('./src/scripts/*')
-		.pipe(uglify({ outSourceMap: true }))
+		// .pipe(uglify({ outSourceMap: true }))
 		.pipe(gulp.dest('./build/chrome'));
 });
 
@@ -103,6 +103,13 @@ gulp.task('manifest:chrome', function () {
 			manifest.name = SELF_INFO.title;
 			manifest.description = SELF_INFO.description;
 			manifest.version = SELF_INFO.version;
+
+			manifest.background.persistent = false;
+
+			manifest.options_ui = {
+				"page": "options.html",
+				"chrome_style": true
+			};
 
 			file.contents = new Buffer(JSON.stringify(manifest));
 

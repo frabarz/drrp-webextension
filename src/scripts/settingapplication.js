@@ -28,6 +28,7 @@ Promise.all([
 		evt.stopPropagation();
 
 		chrome.runtime.sendMessage({ openSettings: true });
+		localStorage.setItem('banner_paused', true);
 	}, true);
 
 	document.querySelector('body .side .spacer').appendChild(target);
