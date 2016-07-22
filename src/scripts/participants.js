@@ -62,12 +62,12 @@
 
                             var style = document.createElement('style');
                             // get the flair size and prepare to...
-                            style.textContent = '.flair.flair-' + role.key.toLowerCase() + '{background-image:url(' + evt.target.src + ');background-position:center;width:'+evt.target.naturalWidth+'px;height:'+evt.target.naturalHeight+'px}';
+                            style.textContent = '.flair.flair-' + role.key.toLowerCase() + '{background-image:url(' + evt.target.src + ');background-position:center;width:' + evt.target.naturalWidth + 'px;height:' + evt.target.naturalHeight + 'px}';
                             // ...put it in the sub
                             document.querySelector('head').appendChild(style);
                         });
                     }.bind(this))
-                    .then(null, function(err) {
+                    .then(null, function (err) {
                         console.warn('An external character failed to load:', username, err);
                     });
             }
@@ -146,148 +146,150 @@
     }
 
     function identifyCharacter(line) {
-        if (RegExp('yui|samidare', 'i').test(line))
+        line = ' ' + line + ' ';
+
+        if (RegExp('\\W(yui|samidare)\\W', 'i').test(line))
             return DR.ROLES.YUI;
 
-        if (RegExp('yasuke|matsuda', 'i').test(line))
+        if (RegExp('\\W(yasuke|matsuda)\\W', 'i').test(line))
             return DR.ROLES.YASUKE;
 
-        if (RegExp('santa|shikiba', 'i').test(line))
+        if (RegExp('\\W(santa|shikiba)\\W', 'i').test(line))
             return DR.ROLES.SANTA;
 
-        if (RegExp('masaru|daimon', 'i').test(line))
+        if (RegExp('\\W(masaru|daimon)\\W', 'i').test(line))
             return DR.ROLES.MASARU;
 
-        if (RegExp('jataro|kemuri', 'i').test(line))
+        if (RegExp('\\W(jataro|kemuri)\\W', 'i').test(line))
             return DR.ROLES.JATAROU;
 
-        if (RegExp('kotoko|utsugi', 'i').test(line))
+        if (RegExp('\\W(kotoko|utsugi)\\W', 'i').test(line))
             return DR.ROLES.KOTOKO;
 
-        if (RegExp('nagisa|shingetsu', 'i').test(line))
+        if (RegExp('\\W(nagisa|shingetsu)\\W', 'i').test(line))
             return DR.ROLES.NAGISA;
 
-        if (RegExp('mona[ck]a', 'i').test(line))
+        if (RegExp('\\Wmona[ck]a\\W', 'i').test(line))
             return DR.ROLES.MONACA;
 
-        if (RegExp('haiji|towa', 'i').test(line))
+        if (RegExp('\\W(haiji|towa)\\W', 'i').test(line))
             return DR.ROLES.HAIJI;
 
-        if (RegExp('taichi.+fujisaki', 'i').test(line))
+        if (RegExp('\\Wtaichi.+fujisaki\\W', 'i').test(line))
             return DR.ROLES.TAICHI;
 
-        if (RegExp('yuu?ta.+asahina', 'i').test(line))
+        if (RegExp('\\Wyuu?ta.+asahina\\W', 'i').test(line))
             return DR.ROLES.YUUTA;
 
-        if (RegExp('monokuma', 'i').test(line))
+        if (RegExp('\\Wmonokuma\\W', 'i').test(line))
             return DR.ROLES.MONOKUMA;
 
-        if (RegExp('monomi|usami', 'i').test(line))
+        if (RegExp('\\W(monomi|usami)\\W', 'i').test(line))
             return DR.ROLES.MONOMI;
 
-        if (RegExp('mecha[\\-\\s]?maru', 'i').test(line))
+        if (RegExp('\\Wmecha[-\\s]?maru\\W', 'i').test(line))
             return DR.ROLES.MECHAMARU;
 
-        if (RegExp('nidai|nekomaru', 'i').test(line))
+        if (RegExp('\\W(nidai|nekomaru)\\W', 'i').test(line))
             return DR.ROLES.NEKOMARU;
 
-        if (RegExp('impost[eo]r|twogami', 'i').test(line))
+        if (RegExp('\\W(impost[eo]r|twogami)\\W', 'i').test(line))
             return DR.ROLES.IMPOSTER;
 
-        if (RegExp('ikusaba|mukuro', 'i').test(line))
+        if (RegExp('\\W(ikusaba|mukuro)\\W', 'i').test(line))
             return DR.ROLES.MUKURO;
 
-        if (RegExp('aoi|asahina', 'i').test(line))
+        if (RegExp('\\W(aoi|asahina)\\W', 'i').test(line))
             return DR.ROLES.AOI;
 
-        if (RegExp('byakuya|togami', 'i').test(line))
+        if (RegExp('\\W(byakuya|togami)\\W', 'i').test(line))
             return DR.ROLES.BYAKUYA;
 
-        if (RegExp('celes(te|tia)?|ludenberg', 'i').test(line))
+        if (RegExp('\\W(celes(te|tia)?|ludenberg)\\W', 'i').test(line))
             return DR.ROLES.CELES;
 
-        if (RegExp('fujisaki|chihiro', 'i').test(line))
+        if (RegExp('\\W(fujisaki|chihiro)\\W', 'i').test(line))
             return DR.ROLES.CHIHIRO;
 
-        if (RegExp('hagakure|yasuhiro', 'i').test(line))
+        if (RegExp('\\W(hagakure|yasuhiro)\\W', 'i').test(line))
             return DR.ROLES.YASUHIRO;
 
-        if (RegExp('hifumi|yamada', 'i').test(line))
+        if (RegExp('\\W(hifumi|yamada)\\W', 'i').test(line))
             return DR.ROLES.HIFUMI;
 
-        if (RegExp('ishimaru|kiyotaka', 'i').test(line))
+        if (RegExp('\\W(ishimaru|kiyotaka)\\W', 'i').test(line))
             return DR.ROLES.KIYOTAKA;
 
-        if (RegExp('junko|enoshima', 'i').test(line))
+        if (RegExp('\\W(junko|enoshima)\\W', 'i').test(line))
             return DR.ROLES.JUNKO;
 
-        if (RegExp('kyou?ko|kirigiri', 'i').test(line))
+        if (RegExp('\\W(kyou?ko|kirigiri)\\W', 'i').test(line))
             return DR.ROLES.KYOUKO;
 
-        if (RegExp('leon|kuwata', 'i').test(line))
+        if (RegExp('\\W(leon|kuwata)\\W', 'i').test(line))
             return DR.ROLES.LEON;
 
-        if (RegExp('maizono|sayaka', 'i').test(line))
+        if (RegExp('\\W(maizono|sayaka)\\W', 'i').test(line))
             return DR.ROLES.SAYAKA;
 
-        if (RegExp('mondo|o[oh]?wada', 'i').test(line))
+        if (RegExp('\\W(mondo|o[oh]?wada)\\W', 'i').test(line))
             return DR.ROLES.MONDO;
 
-        if (RegExp('komaru', 'i').test(line))
+        if (RegExp('\\Wkomaru\\W', 'i').test(line))
             return DR.ROLES.KOMARU;
 
-        if (RegExp('makoto', 'i').test(line))
+        if (RegExp('\\Wmakoto\\W', 'i').test(line))
             return DR.ROLES.MAKOTO;
 
-        if (RegExp('sakura|o[oh]?gami', 'i').test(line))
+        if (RegExp('\\W(sakura|o[oh]?gami)\\W', 'i').test(line))
             return DR.ROLES.SAKURA;
 
-        if (RegExp('tou?ko|fukawa|genocider', 'i').test(line))
+        if (RegExp('\\W(tou?ko|fukawa|genocider)\\W', 'i').test(line))
             return DR.ROLES.TOUKO;
 
-        if (RegExp('akane|owari', 'i').test(line))
+        if (RegExp('\\W(akane|owari)\\W', 'i').test(line))
             return DR.ROLES.AKANE;
 
-        if (RegExp('gundh?am|tanaka', 'i').test(line))
+        if (RegExp('\\W(gundh?am|tanaka)\\W', 'i').test(line))
             return DR.ROLES.GUNDHAM;
 
-        if (RegExp('hanamura|teruteru', 'i').test(line))
+        if (RegExp('\\W(hanamura|teruteru)\\W', 'i').test(line))
             return DR.ROLES.TERUTERU;
 
-        if (RegExp('hinata|hajime', 'i').test(line))
+        if (RegExp('\\W(hinata|hajime)\\W', 'i').test(line))
             return DR.ROLES.HAJIME;
 
-        if (RegExp('koizumi|mahiru', 'i').test(line))
+        if (RegExp('\\W(koizumi|mahiru)\\W', 'i').test(line))
             return DR.ROLES.MAHIRU;
 
-        if (RegExp('kuzuryu|fuyuhiko', 'i').test(line))
+        if (RegExp('\\W(kuzuryu|fuyuhiko)\\W', 'i').test(line))
             return DR.ROLES.FUYUHIKO;
 
-        if (RegExp('nagito|komaeda', 'i').test(line))
+        if (RegExp('\\W(nagito|komaeda)\\W', 'i').test(line))
             return DR.ROLES.NAGITO;
 
-        if (RegExp('nanami|chiaki', 'i').test(line))
+        if (RegExp('\\W(nanami|chiaki)\\W', 'i').test(line))
             return DR.ROLES.CHIAKI;
 
-        if (RegExp('pekoyama|peko', 'i').test(line))
+        if (RegExp('\\W(pekoyama|peko)\\W', 'i').test(line))
             return DR.ROLES.PEKO;
 
-        if (RegExp('saionji|hiyoko', 'i').test(line))
+        if (RegExp('\\W(saionji|hiyoko)\\W', 'i').test(line))
             return DR.ROLES.HIYOKO;
 
-        if (RegExp('sonia|nevermind', 'i').test(line))
+        if (RegExp('\\W(sonia|nevermind)\\W', 'i').test(line))
             return DR.ROLES.SONIA;
 
-        if (RegExp('sou?da|kazuichi', 'i').test(line))
+        if (RegExp('\\W(sou?da|kazuichi)\\W', 'i').test(line))
             return DR.ROLES.KAZUICHI;
 
-        if (RegExp('tsumiki|mikan', 'i').test(line))
+        if (RegExp('\\W(tsumiki|mikan)\\W', 'i').test(line))
             return DR.ROLES.MIKAN;
 
-        if (RegExp('ibuki|mioda', 'i').test(line))
+        if (RegExp('\\W(ibuki|mioda)\\W', 'i').test(line))
             return DR.ROLES.IBUKI;
 
-        if (RegExp('alter\\s?ego', 'i').test(line))
+        if (RegExp('\\Walter\\s?ego\\W', 'i').test(line))
             return DR.ROLES.ALTEREGO;
     }
 
