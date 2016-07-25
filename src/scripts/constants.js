@@ -136,7 +136,7 @@ Object.defineProperty(window.DRreddit, 'ROLES', {
         KENISHIRO: 59,
         IZURU: 60,
         SAIYANHAJIME: 61,
-        KUZURYUUSISTER: 62,
+        NATSUMI: 62,
         assign: function(constant) {
             var code = Object.keys(this).length;
             constant = constant.replace(/\W/g, '').toUpperCase() + Math.ceil(Math.random() * 1000);

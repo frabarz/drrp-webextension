@@ -61,6 +61,6 @@ Object.defineProperty(window.DRreddit, 'FLAIRS', {
         "flair-Kenishiro",
         "flair-Izuru",
         "flair-Saiyanhajime",
-        "flair-Kuzuryuu"
+        "flair-Natsumi"
     ], writable: false
 });
