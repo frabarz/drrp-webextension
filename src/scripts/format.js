@@ -4,18 +4,33 @@ document.addEventListener('DOMContentLoaded', function () {
     if (RegExp('/r/danganronpa/', 'i').test(location.href) && !RegExp("class trial", "i").test(document.title))
         return;
 
+    executeFormat();
+
+    // document.addEventListener('new_things_inserted', executeFormat, true);
+    Array.prototype.forEach.call(
+        document.querySelectorAll('.morecomments a.button'),
+        function(button) {
+            button.addEventListener('click', function() {
+                setTimeout(executeFormat, 3000);
+            }, true);
+            button = null;
+        }
+    );
+}, true);
+
+function executeFormat() {
     removeHeaders(document.querySelectorAll('.thing.comment h2'));
 
     Array.prototype.forEach.call(
         document.querySelectorAll('.thing.self, .thing.comment'),
-        executeFormat
+        loadSprites
     );
 
     Array.prototype.forEach.call(
         document.querySelectorAll('.thing.comment blockquote'),
         formatSystemMessage
     );
-}, true);
+}
 
 function removeHeaders(headers) {
     // Convert the H2 nodes from the post replies in P nodes.
@@ -39,13 +54,18 @@ function removeHeaders(headers) {
     kid = null;
 }
 
-function executeFormat(entry) {
+function loadSprites(entry) {
     var p, paragraph, paragraphs,
         a, anchor, anchors;
 
     var time,
         img, kid,
         newsrc, lastsrc;
+
+    if (entry.classList.contains('drt-scanned'))
+        return;
+
+    entry.classList.add('drt-scanned');
 
     var comment = entry.querySelector('.entry .md');
 
@@ -73,6 +93,10 @@ function executeFormat(entry) {
 
             // Mentions are ignored
             if (newsrc.indexOf('reddit.com/u/') > -1)
+                continue;
+
+            // Subreddits are ignored
+            if (newsrc.indexOf('reddit.com/r/') > -1)
                 continue;
 
             // TODO: Format for Rebuttal Showdown
@@ -124,6 +148,8 @@ function executeFormat(entry) {
 
 function imageError() {
     var counter = parseInt(this.dataset.attempts) || 0;
+
+    console.debug('DANGANREDDIT:DEBUG_SPRITE_LOAD', counter, this.src);
 
     switch (counter) {
         case 0:
