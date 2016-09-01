@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     executeFormat();
 
-    // document.addEventListener('new_things_inserted', executeFormat, true);
     Array.prototype.forEach.call(
         document.querySelectorAll('.morecomments a.button'),
         function(button) {
@@ -111,6 +110,9 @@ function loadSprites(entry) {
                     .replace(/\/$/, '');
             }
 
+            // Ensure imgur images are loaded through https
+            newsrc = newsrc.replace('http://i.imgur.com', 'https://i.imgur.com');
+
             // If the same image is linked twice in the
             // same paragraph, the second one is ignored
             if (newsrc == lastsrc)
@@ -149,7 +151,7 @@ function loadSprites(entry) {
 function imageError() {
     var counter = parseInt(this.dataset.attempts) || 0;
 
-    console.debug('DANGANREDDIT:DEBUG_SPRITE_LOAD', counter, this.src);
+    console.debug('DANGANREDDIT:FORMAT_SPRITE_LOADATTEMPT', counter, this.src);
 
     switch (counter) {
         case 0:
@@ -189,7 +191,7 @@ function imageLoadSprite(p, a) {
     p.classList.add('drp-statement');
     p.insertBefore(this, a);
 
-    p.parentNode.classList.add('drp-dialogue');
+    p.parentNode.classList.add('drt-dialogue');
 }
 
 function imageLoadEvidence(p, a) {
@@ -200,7 +202,7 @@ function imageLoadEvidence(p, a) {
 
     this.className = 'drp-evidence';
 
-    p.parentNode.classList.add('drp-dialogue');
+    p.parentNode.classList.add('drt-dialogue');
     p.parentNode.insertBefore(this, p.nextSibling);
 }
 
