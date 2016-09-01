@@ -154,6 +154,9 @@
         if (RegExp('\\W(yasuke|matsuda)\\W', 'i').test(line))
             return DR.ROLES.YASUKE;
 
+        if (RegExp('\\W(ryou?ko|otonashi)\\W', 'i').test(line))
+            return DR.ROLES.RYOUKO;
+
         if (RegExp('\\W(santa|shikiba)\\W', 'i').test(line))
             return DR.ROLES.SANTA;
 

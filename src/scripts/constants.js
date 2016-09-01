@@ -63,7 +63,7 @@ Object.defineProperty(window.DRreddit, 'NAMES', {
         "Kenishiro",
         "Izuru Kamukura",
         "Hajime Hinata plugged-in",
-        "Kuzuryuu's Little Sis"
+        "Natsumi Kuzuryuu"
     ],
     writable: true
 })
