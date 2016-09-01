@@ -96,9 +96,14 @@
     }
 
     Object.defineProperties(DR, {
+        currentUser: {
+            get: function() {
+                return document.querySelector('#header .user a').textContent;
+            }
+        },
         currentId: {
             get: function() {
-                return this.roleList.get(document.querySelector('#header .user a').textContent);
+                return this.roleList.get(this.currentUser);
             }
         },
         currentFlair: {
@@ -181,7 +186,7 @@
             value: function (event, detail) {
                 event = event.toLowerCase();
 
-                console.log('Event triggered:', event);
+                // console.log('Event triggered:', event);
 
                 if (event in this.events) {
                     var n = this.events[event].length;
@@ -222,6 +227,12 @@
                 document.querySelector('.drp-modal').classList.remove('expanded');
                 document.querySelector('.drp-modal').classList.remove('visible');
             }
+        },
+        getThreadSource: {
+            writable: false,
+            value: function() {
+                return Promise.resolve(this._threadSource);
+            }
         }
     });
 
@@ -231,5 +242,7 @@
     );
 
     prepareModal();
+
+    DR._threadSource = DR.fetch('GET', './this.json');
 
 })(window.DRreddit, document);

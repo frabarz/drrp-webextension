@@ -75,7 +75,8 @@
                 "spritemenu.js",
                 "mentionmenu.js",
                 "bulletmenu.js",
-                "youtubeplayer.js"
+                "youtubeplayer.js",
+                "signup.js"
             ],
             "run_at": "document_end"
         },

@@ -341,7 +341,8 @@
             });
     }
 
-    DR.fetch('GET', './this.json').then(function (media) {
+    DR.getThreadSource()
+    .then(function (media) {
         var info = media[0].data.children[0].data;
 
         processRoleList(info.selftext)
@@ -360,6 +361,4 @@
                 DR.triggerEvent('rolesidentified', roles);
             });
     });
-
-    DR.identifyCharacter = identifyCharacter;
 })(window.DRreddit, document);
