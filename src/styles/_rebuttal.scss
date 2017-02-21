@@ -1,15 +1,42 @@
-body div.content .thing.drp-crossswords {
-    & > .entry::before,
-    & > .entry:hover::before {
-        background-image: repeating-linear-gradient(45deg, yellow 0, yellow 7.0711px, black 7.0711px, black 14.1421px);
+.thing.comment .entry.rl-showdown {
+    $gradient-1: repeating-linear-gradient(0deg,
+        rgba(#fc0, 0) 0,   rgba(#fc0, 0) 5px,
+        rgba(#fc0, 0.2) 5px, rgba(#fc0, 0.2) 6px,
+        rgba(#fc0, 0) 6px, rgba(#fc0, 0) 20px
+        );
+    $gradient-2: repeating-linear-gradient(90deg,
+        rgba(#fc0, 0) 0,   rgba(#fc0, 0) 5px,
+        rgba(#fc0, 0.2) 5px, rgba(#fc0, 0.2) 6px,
+        rgba(#fc0, 0) 6px, rgba(#fc0, 0) 20px
+        );
+    $gradient-3: repeating-linear-gradient(45deg,
+        rgba(#fc0, 0) 0, rgba(#fc0, 0) 10px,
+        rgba(#fc0, 1) 10px, rgba(#fc0, 1) 20px
+        );
+
+    position: relative;
+
+    .usertext-body,
+    .flat-list {
+        padding-left: 15px;
     }
 
-    &:hover > .entry::before {
-        animation: rebuttal-tape infinite 1s linear;
-    }
-}
+    .usertext-body {
+        background: mix(#fff, #fc0, 90%) top left;
+        background-image: $gradient-1, $gradient-2;
 
-@keyframes rebuttal-tape {
-    0%   { background-position: 0 -10px }
-    100% { background-position: 0 10px }
+        &::before {
+            content: '';
+
+            position: absolute;
+            top: 0;
+            bottom: -30px;
+            left: -15px;
+
+            width: 15px;
+
+            background: $gradient-3 0 -20px;
+            background-attachment: fixed;
+        }
+    }
 }

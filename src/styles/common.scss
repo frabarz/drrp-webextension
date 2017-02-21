@@ -1,6 +1,6 @@
 @import "mixins";
 
-.drp-modal {
+.rl-modal {
     position: fixed;
     right: 0;
     bottom: 0;
@@ -164,7 +164,7 @@
 
 .sitetable,
 .commentarea {
-    .usertext .drp-button {
+    .usertext .rl-button {
         background-size: contain;
         background-repeat: no-repeat;
         background-position: left bottom;

@@ -30,6 +30,7 @@
                 "*://*.reddit.com/r/DanganRoleplay/comments/*",
                 "*://*.reddit.com/r/Danganroleplay/comments/*",
                 "*://*.reddit.com/r/danganroleplay/comments/*",
+                "*://*.reddit.com/r/vlnq/comments/*",
                 "*://*.reddit.com/r/DRWelcomeBackDespair/comments/*",
                 "*://*.reddit.com/r/DRwelcomebackdespair/comments/*",
                 "*://*.reddit.com/r/drwelcomebackdespair/comments/*"
@@ -38,6 +39,7 @@
                 "common.css"
             ],
             "js": [
+                "classnames.js",
                 "format.js"
             ],
             "run_at": "document_start"
@@ -46,7 +48,8 @@
             "matches": [
                 "*://*.reddit.com/r/DanganRoleplay/*",
                 "*://*.reddit.com/r/Danganroleplay/*",
-                "*://*.reddit.com/r/danganroleplay/*"
+                "*://*.reddit.com/r/danganroleplay/*",
+                "*://*.reddit.com/r/vlnq/*"
             ],
             "css": [
                 "danganroleplay_all.css"
@@ -61,7 +64,8 @@
             "matches": [
                 "*://*.reddit.com/r/DanganRoleplay/comments/*",
                 "*://*.reddit.com/r/Danganroleplay/comments/*",
-                "*://*.reddit.com/r/danganroleplay/comments/*"
+                "*://*.reddit.com/r/danganroleplay/comments/*",
+                "*://*.reddit.com/r/vlnq/comments/*"
             ],
             "css": [
                 "danganroleplay_comments.css"
@@ -71,12 +75,12 @@
                 "constants_roleplay.js",
                 "core.js",
                 "participants.js",
-                "flairchange.js",
+                "format-tagline.js",
+                "format-comments.js",
                 "spritemenu.js",
                 "mentionmenu.js",
                 "bulletmenu.js",
-                "youtubeplayer.js",
-                "signup.js"
+                "youtubeplayer.js"
             ],
             "run_at": "document_end"
         },
@@ -94,7 +98,7 @@
                 "constants_ronpa.js",
                 "core.js",
                 "participants.js",
-                "flairchange.js",
+                "format-tagline.js",
                 "spritemenu.js",
                 "mentionmenu.js",
                 "bulletmenu.js",
@@ -102,5 +106,8 @@
             ],
             "run_at": "document_end"
         }
+    ],
+    "web_accessible_resources": [
+        "icon-*.png"
     ]
 }

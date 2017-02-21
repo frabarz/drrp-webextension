@@ -1,6 +1,6 @@
 @import "mixins";
 
-.md.drt-dialogue {
+.md.rl-dialogue {
     @include clearfix;
 
     clear: both;
@@ -10,14 +10,14 @@
 .sitetable,
 .commentarea {
     .usertext {
-        .drp-menu {
+        .rl-menu {
             float: right;
             margin-top: 5px;
             margin-left: 10px;
             font-size: smaller;
         }
 
-        .drp-button {
+        .rl-button {
             margin-left: 8px;
             padding-left: 12px;
 

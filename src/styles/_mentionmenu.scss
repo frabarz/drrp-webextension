@@ -1,6 +1,6 @@
 $view-color: rgb(206,102,249);
 
-.drp-mentionmenu {
+.rl-mentionmenu {
     .title,
     .menu {
         color: $view-color;
@@ -11,7 +11,7 @@ $view-color: rgb(206,102,249);
         @include handbook-scrollbar;
     }
 
-    .drp-mention {
+    .rl-mention {
         direction: ltr;
 
         position: relative;

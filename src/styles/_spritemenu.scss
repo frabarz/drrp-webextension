@@ -1,6 +1,6 @@
 $view-color: rgb(170,255,78);
 
-.drp-spritemenu {
+.rl-spritemenu {
     .title,
     .menu {
         color: $view-color;
@@ -13,12 +13,12 @@ $view-color: rgb(170,255,78);
         @include handbook-scrollbar;
     }
 
-    &.expanded .drp-sprite {
+    &.expanded .rl-sprite {
         width: 142px;
         height: 142px;
     }
 
-    .drp-sprite {
+    .rl-sprite {
         margin: 2px;
         vertical-align: top;
 

@@ -3,38 +3,26 @@
 .sitetable,
 .commentarea {
     .usertext {
-        .drp-menu {
-            float: right;
-            margin-left: 8px;
-        }
-
-        .drp-button {
-            display: inline-block;
+        .rl-button {
+            display: block;
             margin: 5px 0 0;
-            padding: 5px 10px;
-            padding-left: 20px;
-
-            border-top: 1px solid #f9f9f9;
-            border-right: 1px solid #ddd;
-            border-bottom: 1px solid #ddd;
+            padding: 4px 10px;
+            padding-left: 24px;
 
             line-height: normal;
-            text-indent: 0;
             text-transform: lowercase;
-            font-size: smaller;
+            font-size: inherit;
             font-weight: 400;
 
-            color: #aaa;
-            background-color: #f0f0f0;
+            color: #333;
+            background-color: #fff;
+            border: 0 none;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
             &:hover {
                 background-color: #e6e6e6;
-                color: #777;
-            }
-
-            &:first-child {
-                border-right: 0 none;
-                border-left: 1px solid #ddd;
+                color: #222;
             }
         }
     }

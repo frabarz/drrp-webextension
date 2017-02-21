@@ -1,157 +1,153 @@
 "use strict";
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', executeFormat, true);
+
+var uri_showdown = RegExp('mymjF4AZJrg|\#rebuttal'),
+    uri_https = RegExp('i\.imgur\.com|media\.tumblr\.com'),
+    uri_continue = RegExp('reddit\.com\/r\/\w+\/comments\/[a-z0-9]+\/\w+\/[a-z0-9]+'),
+    uri_ignored = RegExp([
+        '\#ignore',
+        '\.json',
+        'youtu\.?be',
+        'discord',
+        'redd\.it\/',
+        'reddit\.com\/',
+        'localhost'
+    ].join('|'));
+
+function executeFormat() {
     if (RegExp('/r/danganronpa/', 'i').test(location.href) && !RegExp("class trial", "i").test(document.title))
         return;
 
-    executeFormat();
+    document.body.classList.add(CLASSNAMES.RLACTIVE);
 
-    Array.prototype.forEach.call(
-        document.querySelectorAll('.morecomments a.button'),
-        function(button) {
-            button.addEventListener('click', function() {
+    // Transform the H2 nodes in P nodes, in thread comments.
+    document.querySelectorAll('.thing.comment h2')
+        .forEach(function (h2) {
+            let paragraph = document.createElement('p');
+
+            for (let kid = h2.firstChild; kid; kid = kid.nextSibling)
+                paragraph.appendChild(kid);
+
+            h2.parentNode.replaceChild(paragraph, h2);
+        });
+
+    // Format system messages
+    document.querySelectorAll('.thing.comment .usertext-body blockquote')
+        .forEach(function (blockquote) {
+            if (blockquote.classList.contains(CLASSNAMES.COMMENT_SYSMESSAGE))
+                return;
+
+            let sysmsg = RegExp('(?:added|updated) (?:to|in) (?:your|the) truth bullets?', 'i');
+
+            if (sysmsg.test(blockquote.textContent)) {
+                blockquote.parentNode.classList.add(CLASSNAMES.DIALOGUE);
+                blockquote.classList.add(CLASSNAMES.COMMENT_SYSMESSAGE);
+            }
+        });
+
+    // Insert sprites for comments loaded dynamically
+    document.querySelectorAll('.morecomments a.button')
+        .forEach(function (button) {
+            if (button.classList.contains(CLASSNAMES.SCANNED))
+                return;
+
+            button.classList.add(CLASSNAMES.SCANNED);
+            button.classList.add(CLASSNAMES.BUTTON_FORMATLISTENING);
+            button.addEventListener('click', function () {
+                // I know. But there's no other way.
                 setTimeout(executeFormat, 3000);
             }, true);
-            button = null;
-        }
-    );
-}, true);
+        });
 
-function executeFormat() {
-    removeHeaders(document.querySelectorAll('.thing.comment h2'));
-
-    Array.prototype.forEach.call(
-        document.querySelectorAll('.thing.self, .thing.comment'),
-        loadSprites
-    );
-
-    Array.prototype.forEach.call(
-        document.querySelectorAll('.thing.comment blockquote'),
-        formatSystemMessage
-    );
+    document.querySelectorAll('.thing.self, .thing.comment')
+        .forEach(loadSprites);
 }
 
-function removeHeaders(headers) {
-    // Convert the H2 nodes from the post replies in P nodes.
-    // This one is for you, Factorz.
-
-    var h,
-        header, paragraph, kid;
-
-    for (h = 0; header = headers[h]; h++) {
-        paragraph = document.createElement('p');
-
-        for (kid = header.firstChild; kid; kid = kid.nextSibling)
-            paragraph.appendChild(kid);
-
-        header.parentNode.replaceChild(paragraph, header);
+function normalizeImageSource(uri) {
+    // Ensure certain domains are loaded through https
+    if (uri_https.test(uri)) {
+        return uri.replace('http://', 'https://');
     }
 
-    headers = null;
-    header = null;
-    paragraph = null;
-    kid = null;
+    // Normalize Wikia images
+    if (uri.indexOf('.wikia.') > -1) {
+        return uri
+            .replace(/revision\/latest.+$/, '')
+            .replace(/\/$/, '');
+    }
+
+    return uri;
 }
 
-function loadSprites(entry) {
-    var p, paragraph, paragraphs,
-        a, anchor, anchors;
-
-    var time,
-        img, kid,
-        newsrc, lastsrc;
-
-    if (entry.classList.contains('drt-scanned'))
+function loadSprites(thing) {
+    if (thing.classList.contains(CLASSNAMES.SCANNED))
         return;
 
-    entry.classList.add('drt-scanned');
+    thing.classList.add(CLASSNAMES.SCANNED);
 
-    var comment = entry.querySelector('.entry .md');
-
+    let comment = thing.querySelector('.entry .md');
     if (!comment)
         return;
 
     // New reply highlighter
-    time = entry.querySelector('.edited-timestamp') || entry.querySelector('.live-timestamp');
+    let time = thing.querySelector('.edited-timestamp') || thing.querySelector('.live-timestamp');
     time = (new Date(time.getAttribute('datetime'))).getTime();
 
-    if (time > sessionStorage.getItem(entry.dataset.fullname)) {
-        entry.classList.add('new-comment');
-        sessionStorage.setItem(entry.dataset.fullname, time);
+    if (time > sessionStorage.getItem(thing.dataset.fullname)) {
+        thing.classList.add('new-comment');
+        sessionStorage.setItem(thing.dataset.fullname, time);
     }
 
     // The true formatter
-    paragraphs = comment.querySelectorAll('p');
+    let paragraphs = comment.querySelectorAll('p');
 
-    for (p = 0; paragraph = paragraphs[p]; p++) {
-        lastsrc = '';
-        anchors = paragraph.querySelectorAll('a');
+    for (let paragraph of paragraphs) {
+        let anchors = paragraph.querySelectorAll('a');
 
-        for (a = 0; anchor = anchors[a]; a++) {
-            newsrc = anchor.href;
+        for (let anchor of anchors) {
+            let uri = anchor.href;
 
-            // Mentions are ignored
-            if (newsrc.indexOf('reddit.com/u/') > -1)
+            if (uri.trim() == '')
                 continue;
 
-            // Subreddits are ignored
-            if (newsrc.indexOf('reddit.com/r/') > -1)
+            // IGNORED URL PATTERNS
+            if (uri_ignored.test(uri))
                 continue;
 
-            // TODO: Format for Rebuttal Showdown
-            // if (newsrc.indexOf('mymjF4AZJrg') > -1 || newsrc.indexOf('#rebuttal') > -1) {
-            //     entry.classList.add('drt-crossswords');
-            //     continue;
-            // }
-
-            if (newsrc.indexOf('.wikia.') > -1) {
-                newsrc = newsrc
-                    .replace(/revision\/latest.+$/, '')
-                    .replace(/\/$/, '');
+            // REBUTTAL SHOWDOWN!
+            if (uri_showdown.test(uri)) {
+                console.log('rebuttal', thing);
+                thing.querySelector('.entry').classList.add(CLASSNAMES.COMMENT_SHOWDOWN);
+                continue;
             }
 
-            // Ensure imgur images are loaded through https
-            newsrc = newsrc.replace('http://i.imgur.com', 'https://i.imgur.com');
-
-            // If the same image is linked twice in the
-            // same paragraph, the second one is ignored
-            if (newsrc == lastsrc)
+            if (uri_continue.test(uri)) {
+                paragraph.classList.add(CLASSNAMES.COMMENT_COMESFROM);
                 continue;
-
-            img = new Image();
-
-            img.onerror = imageError;
-
-            if (newsrc.indexOf('#evidence') > -1) {
-                img.onload = imageLoadEvidence.bind(img, paragraph, anchor);
-
-            // } else if (anchor.textContent.length < 15) {
-            //     if (anchor.textContent.indexOf('evidence') > -1 || anchor.textContent.indexOf('proof') > -1)
-            //         img.onload = imageLoadEvidence.bind(img, paragraph, anchor);
-
-            } else {
-                img.onload = imageLoadSprite.bind(img, paragraph, anchor);
             }
 
-            img.src = newsrc;
+            let src = normalizeImageSource(anchor.href),
+                img = new Image();
+
+            if (src.indexOf('#evidence') > -1)
+                img.onload = loadEvidenceImage.bind(img, anchor, paragraph);
+            else
+                img.onload = loadSpriteImage.bind(img, anchor, paragraph);
+
+            img.onerror = errorLoadingImage;
+            img.src = src;
 
             if (img.complete)
                 img.onload();
-
-            lastsrc = newsrc;
         }
     }
-
-    paragraph = (paragraphs = null);
-    anchor = (anchors = null);
-    entry = null;
-    img = null;
 }
 
-function imageError() {
-    var counter = parseInt(this.dataset.attempts) || 0;
+function errorLoadingImage(err) {
+    let counter = parseInt(this.dataset.attempts) || 0;
 
-    console.debug('DANGANREDDIT:FORMAT_SPRITE_LOADATTEMPT', counter, this.src);
+    console.debug('ROLELAYER:FORMAT_SPRITELOAD_ATTEMPTFAILED', counter, this.src);
 
     switch (counter) {
         case 0:
@@ -163,55 +159,44 @@ function imageError() {
             break;
 
         case 2:
-            this.src = this.src.replace('://icracks-53.appspot.com/', '://harkproxy.appspot.com/');
+            this.src = this.src.replace('://icracks-53.appspot.com/', '://fresh-proxy.appspot.com/');
             break;
 
         case 3:
-            this.src = this.src.replace('://harkproxy.appspot.com/', '://go-go-proxy.appspot.com/');
+            this.src = this.src.replace('://fresh-proxy.appspot.com/', '://go-go-proxy.appspot.com/');
             break;
 
         default:
             this.onload = null;
             this.onerror = null;
+            return;
     }
 
     this.dataset.attempts = (counter + 1);
 }
 
-function imageLoadSprite(p, a) {
-    if (!this.naturalWidth && !this.naturalHeight) {
-        this.onerror();
-        return;
-    }
+function loadSpriteImage(a, p) {
+    p.parentNode.classList.add(CLASSNAMES.DIALOGUE);
 
-    this.className = 'drp-sprite';
+    p.classList.add(CLASSNAMES.STATEMENT);
 
-    p.insertBefore(document.createElement('br'), a);
+    let hr = document.createElement('hr');
+    hr.classList.add(CLASSNAMES.STMNTSPLIT);
+    a.parentNode.insertBefore(hr, a);
 
-    p.classList.add('drp-statement');
-    p.insertBefore(this, a);
+    this.classList.add(CLASSNAMES.SPRITE_ROOT);
+    a.parentNode.insertBefore(this, a);
 
-    p.parentNode.classList.add('drt-dialogue');
+    this.onload = null;
+    this.onerror = null;
 }
 
-function imageLoadEvidence(p, a) {
-    if (!this.naturalWidth && !this.naturalHeight) {
-        this.onerror();
-        return;
-    }
+function loadEvidenceImage(a, p) {
+    p.parentNode.classList.add(CLASSNAMES.DIALOGUE);
 
-    this.className = 'drp-evidence';
-
-    p.parentNode.classList.add('drt-dialogue');
+    this.classList.add(CLASSNAMES.EVIDENCE);
     p.parentNode.insertBefore(this, p.nextSibling);
-}
 
-function formatSystemMessage(blockquote) {
-    if (blockquote.classList.contains('drt-sysmessage'))
-        return;
-
-    if (RegExp('(?:added|updated) (?:to|in) (?:your|the) truth bullets?', 'i').test(blockquote.textContent)) {
-        blockquote.classList.add('drt-sysmessage');
-        blockquote.parentNode.classList.add('drt-dialogue');
-    }
+    this.onload = null;
+    this.onerror = null;
 }

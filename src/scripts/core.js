@@ -5,10 +5,10 @@
         var menu = document.createElement('div'),
             router = document.createElement('input');
 
-        menu.className = 'drp-menu';
+        menu.className = 'rl-menu';
 
         router.type = 'hidden';
-        router.className = 'drp-formfinder';
+        router.className = 'rl-formfinder';
         menu.appendChild(router);
         router = null;
 
@@ -22,7 +22,7 @@
         var section, tag,
             modal = document.createElement('div');
 
-        modal.className = 'drp-modal';
+        modal.className = 'rl-modal';
 
         // TITLEBAR
         section = document.createElement('div');
@@ -59,13 +59,13 @@
         section = document.createElement('div');
         section.className = 'body';
         section.addEventListener('click', function(evt) {
-            if ( modal.classList.contains('drp-spritemenu') )
+            if ( modal.classList.contains('rl-spritemenu') )
                 DR.triggerEvent('insertsprite', evt);
 
-            else if ( modal.classList.contains('drp-mentionmenu') )
+            else if ( modal.classList.contains('rl-mentionmenu') )
                 DR.triggerEvent('insertmention', evt);
 
-            else if ( modal.classList.contains('drp-bulletmenu') )
+            else if ( modal.classList.contains('rl-bulletmenu') )
                 DR.triggerEvent('insertbullet', evt);
         }, true);
         modal.appendChild(section);
@@ -120,13 +120,13 @@
         },
         currentCharacter: {
             get: function () {
-                return this.NAMES[this.roleList.get(document.querySelector('#header .user a').textContent)]
+                return this.NAMES[this.currentId];
             }
         },
         isParticipant: {
             get: function () {
                 try {
-                    return this.roleList.exists(document.querySelector('#header .user a').textContent);
+                    return this.roleList.exists(this.currentUser);
                 } catch (e) {
                     console.log(e.stack);
                     console.log(e.message);
@@ -199,10 +199,10 @@
         },
         handbook: {
             value: function (texttitle) {
-                var modal = document.querySelector('.drp-modal'),
+                var modal = document.querySelector('.rl-modal'),
                     inter;
 
-                modal.className = 'drp-modal';
+                modal.className = 'rl-modal';
                 modal.querySelector('.title .mini').textContent = texttitle || '';
 
                 modal.querySelector('.self.username').textContent = 'u/'+ document.querySelector('#header .user a').textContent;
@@ -224,8 +224,8 @@
         },
         hideHandbook: {
             value: function () {
-                document.querySelector('.drp-modal').classList.remove('expanded');
-                document.querySelector('.drp-modal').classList.remove('visible');
+                document.querySelector('.rl-modal').classList.remove('expanded');
+                document.querySelector('.rl-modal').classList.remove('visible');
             }
         },
         getThreadSource: {
@@ -243,6 +243,6 @@
 
     prepareModal();
 
-    DR._threadSource = DR.fetch('GET', './this.json');
+    DR._threadSource = DR.fetch('GET', location.origin + location.pathname + '.json');
 
 })(window.DRreddit, document);

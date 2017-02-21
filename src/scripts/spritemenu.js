@@ -8,7 +8,7 @@
         var button = document.createElement('a');
 
         button.href = '#';
-        button.className = 'drp-button drp-insertsprite';
+        button.className = 'rl-button rl-insertsprite';
         button.textContent = 'Sprite';
 
         target.appendChild(button);
@@ -22,7 +22,7 @@
             return;
 
         var index = 0,
-            parent = document.querySelector('.drp-targetmenu .drp-formfinder').form,
+            parent = document.querySelector('.rl-targetmenu .rl-formfinder').form,
             textarea = parent.querySelector('.usertext-edit textarea');
 
         if (textarea.textLength > 0)
@@ -47,14 +47,14 @@
 
     function spriteListReceiver(response) {
         var container = DR.handbook('SPRITE SELECTOR');
-        container.classList.add('drp-spritemenu');
+        container.classList.add('rl-spritemenu');
 
         [].concat(response.sprites).forEach(function (sprite) {
             var img = new Image();
 
             img.onload = removeLoadingGif;
             img.src = sprite;
-            img.className = 'loading drp-sprite';
+            img.className = 'loading rl-sprite';
 
             container.querySelector('.body').appendChild(img);
             img = null;
@@ -65,26 +65,26 @@
     }
 
     Array.prototype.forEach.call(
-        document.querySelectorAll('.bottom-area .drp-menu'),
+        document.querySelectorAll('.bottom-area .rl-menu'),
         createSpriteButton
     );
 
     DR.addListener('insertsprite', spriteSelectionHandler);
 
     document.querySelector('body').addEventListener('click', function (evt) {
-        if (!evt.target.classList.contains('drp-insertsprite'))
+        if (!evt.target.classList.contains('rl-insertsprite'))
             return;
 
         evt.preventDefault();
         evt.stopPropagation();
 
-        var span = document.querySelectorAll('.drp-targetmenu'),
+        var span = document.querySelectorAll('.rl-targetmenu'),
             n = span.length;
         while (n--) {
-            span[n].classList.remove('drp-targetmenu');
+            span[n].classList.remove('rl-targetmenu');
         }
 
-        evt.target.parentNode.classList.add('drp-targetmenu');
+        evt.target.parentNode.classList.add('rl-targetmenu');
 
         chrome.runtime.sendMessage({
             character: DR.currentFlair,

@@ -1,6 +1,6 @@
 $view-color: #ffe400;
 
-.drp-bulletmenu {
+.rl-bulletmenu {
     .title,
     .menu {
         color: $view-color;
@@ -14,7 +14,7 @@ $view-color: #ffe400;
         padding: 2px 20px;
     }
 
-    .drp-bulletlist {
+    .rl-bulletlist {
         overflow: auto;
 
         width: 50%;
@@ -25,7 +25,7 @@ $view-color: #ffe400;
         @include handbook-scrollbar;
     }
 
-    .drp-bulletitem {
+    .rl-bulletitem {
         display: block;
         padding: 10px;
         margin-bottom: 2px;
@@ -54,7 +54,7 @@ $view-color: #ffe400;
         }
     }
 
-    .drp-bulletdetail {
+    .rl-bulletdetail {
         flex: 1 1 auto;
         display: flex;
         flex-direction: column;

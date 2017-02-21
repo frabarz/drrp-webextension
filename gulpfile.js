@@ -130,6 +130,11 @@ gulp.task('manifest:firefox', function () {
 			manifest.description = SELF_INFO.description;
 			manifest.version = SELF_INFO.version;
 
+			manifest.options_ui = {
+				"page": "options.html",
+				"chrome_style": true
+			};
+
 			manifest.applications = {
 				gecko: {
 					id: ENV_INFO.mozilla_id

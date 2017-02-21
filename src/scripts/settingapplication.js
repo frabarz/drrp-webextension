@@ -1,37 +1,37 @@
-Promise.all([
-	SettingStorage.get(),
-	new Promise(function(resolve) {
-		document.addEventListener('DOMContentLoaded', resolve);
-	})
-]).then(function(settings) {
-	settings = settings[0];
+document.addEventListener('DOMContentLoaded', function () {
+	requestAnimationFrame(function () {
+		SettingStorage.get().then(loadSettings);
+		injectSettingsButton();
+	});
 
-	var target = document.querySelector('body');
+	function loadSettings(settings) {
+		let target = document.querySelector('body');
 
-	switch (settings.theme) {
-		case 'ibuki':
-			target.classList.add('ibukalipse');
-			break;
+		switch (settings.theme) {
+			case 'ibuki':
+				target.classList.add('ibukalipse');
+				break;
+		}
+
+		if (settings.bullets_bgred)
+			target.classList.add('red-bullet');
+
+		if (settings.banner_paused)
+			target.classList.add('banner-static');
 	}
 
-	if (settings.bullets_bgred)
-		target.classList.add('red-bullet');
+	function injectSettingsButton() {
+		let button = document.createElement('a');
+		button.className = 'rl-settingsbutton';
+		button.title = 'Class Trial Helper Settings';
+		button.addEventListener('click', function (evt) {
+			evt.preventDefault();
+			evt.stopPropagation();
 
-	if (settings.banner_paused)
-		target.classList.add('banner-static');
+			chrome.runtime.sendMessage({ openSettings: true });
+		}, true);
 
-	target = document.createElement('a');
-	target.className = 'trialhelper-settings';
-	target.textContent = 'Class Trial Helper Settings';
-	target.addEventListener('click', function(evt) {
-		evt.preventDefault();
-		evt.stopPropagation();
-
-		chrome.runtime.sendMessage({ openSettings: true });
-		localStorage.setItem('banner_paused', true);
-	}, true);
-
-	document.querySelector('body .side .spacer').appendChild(target);
-
-	target = null;
-});
+		let target = document.querySelector('#header span.user');
+		target.parentNode.insertBefore(button, target.nextElementSibling);
+	}
+}, false);

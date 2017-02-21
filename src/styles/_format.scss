@@ -1,85 +1,58 @@
-body .content .thing .entry {
-    .tagline.drp-participant {
-        .author {
-            display: inline-block;
-            vertical-align: middle;
-
-            border-radius: 0;
-            padding: 0;
-            font-size: 13px;
-            font-weight: bold;
-
-            color: #3b8dbd !important;
-            background-color: transparent !important;
-            text-decoration: none !important;
-
-            .drp-charactername {
-                display: block;
-
-                line-height: 14px;
-                font-size: 11px;
-                font-weight: bold;
-
-                color: #000;
-            }
-
-            .drp-localtime {
-                margin-left: 3px;
-
-                font-size: 12px;
-
-                cursor: default;
-            }
-        }
-    }
+.rl-charactername {
+    font-style: italic;
 }
 
 @import "rebuttal";
 
-.md.drt-dialogue {
+.md.rl-dialogue {
     @include clearfix;
 
-    .drp-evidence {
+    .rl-localtime {
+        cursor: default;
+    }
+
+    .rl-evidence {
         clear: left;
         display: block;
-        max-width: 100%;
-
-        border-left: 4px dotted red;
         padding-left: 4px;
 
-        opacity: 0.9;
-        filter: sepia(0.5);
-        transition: filter 0.2s;
+        max-width: 100%;
+        max-height: 400px;
 
-        &:hover {
-            filter: sepia(0);
-        }
+        border-left: 4px dotted red;
     }
 
-    sup > sup > a {
-        display: inline-block;
-        vertical-align: top;
-        overflow: hidden;
+    .rl-statement {
+        clear: left;
+        padding-left: 170px;
 
-        height: 1em;
-        line-height: 1em;
-        max-width: 70px;
-
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    p.drp-statement {
         @include clearfix;
 
-        .drp-sprite,
+        .rl-splitter {
+            display: block;
+            clear: left;
+            height: 0;
+            border: 0 none;
+
+            &:first-child {
+                display: none;
+            }
+        }
+
+        a ~ .rl-splitter {
+            margin-bottom: 5px;
+        }
+
+        .rl-sprite,
+        img[src^="http://vignette"],
         img[src$="#sprite"],
         img[src$="#screen"] {
-            clear: left;
             float: left;
             display: block;
-            margin-right: 10px;
 
+            margin-left: -170px;
+
+            height: 120px;
             max-width: 160px;
             max-height: 120px;
 
@@ -91,7 +64,6 @@ body .content .thing .entry {
         img[src$="#sprite"] {
             height: 120px;
             width: 160px;
-            max-height: 120px;
             object-fit: cover;
         }
 
@@ -103,20 +75,37 @@ body .content .thing .entry {
             border-radius: 5px;
             filter: sepia(0.7) hue-rotate(57deg) saturate(2.5);
         }
+    }
 
-        br {
-            clear: left;
+    .rl-sysmessage {
+        a[href="#bullet"],
+        a[href="#bullet"]::before,
+        a[href="#bullet"]::after {
+            position: static;
+            display: inline;
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            border: 0 none;
+            box-shadow: none;
+        }
 
-            &:first-child,
-            & + br {
-                display: none;
+        strong,
+        a[href="#bullet"] {
+            color: #fc0;
+
+            &::before {
+                content: open-quote;
+            }
+            &::after {
+                content: close-quote;
             }
         }
     }
 }
 
-.md.drt-dialogue {
-    .drt-sysmessage {
+.md.rl-dialogue {
+    .rl-sysmessage {
         margin-left: 0;
         padding: 10px;
 

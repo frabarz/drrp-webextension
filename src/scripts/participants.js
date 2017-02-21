@@ -115,13 +115,6 @@
 
                 return output;
             }
-        },
-        'getLocalTime': {
-            writable: false,
-            value: function (user) {
-                var here = new Date();
-                return new Date(here.getTime() + (here.getTimezoneOffset() + this.getTz(user) * 60) * 60 * 1000);
-            }
         }
     });
 

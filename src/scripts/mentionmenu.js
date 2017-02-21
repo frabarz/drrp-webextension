@@ -8,7 +8,7 @@
         var button = document.createElement('a');
 
         button.href = '#';
-        button.className = 'drp-button drp-insertmention';
+        button.className = 'rl-button rl-insertmention';
         button.textContent = 'Mention';
 
         target.appendChild(button);
@@ -20,16 +20,16 @@
     function userSelectionHandler(evt) {
         var target = evt.target;
 
-        if (target.matches('.drp-mention span'))
+        if (target.matches('.rl-mention span'))
             target = target.parentNode;
 
-        if (!target.matches('.drp-mention'))
+        if (!target.matches('.rl-mention'))
             return;
 
         var index = 0,
             character = target.querySelector('.character-name').textContent,
             user = target.querySelector('.user-name').textContent,
-            parent = document.querySelector('.drp-targetmenu .drp-formfinder').form,
+            parent = document.querySelector('.rl-targetmenu .rl-formfinder').form,
             textarea = parent.querySelector('.usertext-edit textarea');
 
         if (textarea.textLength > 0 && textarea.value.substr(textarea.textLength - 1, 1) != ' ')
@@ -51,27 +51,27 @@
 
     DR.addListener('rolesidentified', function (roles) {
         Array.prototype.forEach.call(
-            document.querySelectorAll('.bottom-area .drp-menu'),
+            document.querySelectorAll('.bottom-area .rl-menu'),
             createMentionButton
         );
 
         document.querySelector('body').addEventListener('click', function (evt) {
-            if (!evt.target.classList.contains('drp-insertmention'))
+            if (!evt.target.classList.contains('rl-insertmention'))
                 return;
 
             evt.preventDefault();
             evt.stopPropagation();
 
-            var span = document.querySelectorAll('.drp-targetmenu'),
+            var span = document.querySelectorAll('.rl-targetmenu'),
                 n = span.length;
             while (n--) {
-                span[n].classList.remove('drp-targetmenu');
+                span[n].classList.remove('rl-targetmenu');
             }
 
-            evt.target.parentNode.classList.add('drp-targetmenu');
+            evt.target.parentNode.classList.add('rl-targetmenu');
 
             var container = DR.handbook('MENTION SELECTOR');
-            container.classList.add('drp-mentionmenu');
+            container.classList.add('rl-mentionmenu');
 
             var user, char,
                 item;
@@ -82,8 +82,7 @@
 
                 if (user && char && char == n) {
                     item = document.createElement('a');
-                    item.title = 'Right now it\'s '+ roles.getLocalTime(user).toLocaleString() +' in their time zone.';
-                    item.className = 'drp-mention';
+                    item.className = 'rl-mention';
 
                     span = document.createElement('span');
                     span.className = 'flair ' + DR.FLAIRS[n];
