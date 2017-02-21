@@ -30,7 +30,6 @@
                 "*://*.reddit.com/r/DanganRoleplay/comments/*",
                 "*://*.reddit.com/r/Danganroleplay/comments/*",
                 "*://*.reddit.com/r/danganroleplay/comments/*",
-                "*://*.reddit.com/r/vlnq/comments/*",
                 "*://*.reddit.com/r/DRWelcomeBackDespair/comments/*",
                 "*://*.reddit.com/r/DRwelcomebackdespair/comments/*",
                 "*://*.reddit.com/r/drwelcomebackdespair/comments/*"
@@ -48,8 +47,7 @@
             "matches": [
                 "*://*.reddit.com/r/DanganRoleplay/*",
                 "*://*.reddit.com/r/Danganroleplay/*",
-                "*://*.reddit.com/r/danganroleplay/*",
-                "*://*.reddit.com/r/vlnq/*"
+                "*://*.reddit.com/r/danganroleplay/*"
             ],
             "css": [
                 "danganroleplay_all.css"
@@ -64,8 +62,7 @@
             "matches": [
                 "*://*.reddit.com/r/DanganRoleplay/comments/*",
                 "*://*.reddit.com/r/Danganroleplay/comments/*",
-                "*://*.reddit.com/r/danganroleplay/comments/*",
-                "*://*.reddit.com/r/vlnq/comments/*"
+                "*://*.reddit.com/r/danganroleplay/comments/*"
             ],
             "css": [
                 "danganroleplay_comments.css"
