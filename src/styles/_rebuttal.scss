@@ -16,27 +16,27 @@
 
     position: relative;
 
-    .usertext-body,
-    .flat-list {
-        padding-left: 15px;
+    .usertext::before {
+        content: '';
+
+        position: absolute;
+        top: 24px;
+        bottom: 0;
+        left: 0;
+
+        margin: 1px;
+        width: 15px;
+
+        background: $gradient-3 0 -20px;
+        background-attachment: fixed;
+        transform: translate(0,0);
     }
 
-    .usertext-body {
-        background: mix(#fff, #fc0, 90%) top left;
-        background-image: $gradient-1, $gradient-2;
+    .usertext-body,
+    .flat-list {
+        padding-left: 25px !important;
 
-        &::before {
-            content: '';
-
-            position: absolute;
-            top: 0;
-            bottom: -30px;
-            left: -15px;
-
-            width: 15px;
-
-            background: $gradient-3 0 -20px;
-            background-attachment: fixed;
-        }
+        background: mix(#fff, #fc0, 90%) top left !important;
+        background-image: $gradient-1, $gradient-2 !important;
     }
 }

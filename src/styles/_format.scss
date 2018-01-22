@@ -2,8 +2,6 @@
     font-style: italic;
 }
 
-@import "rebuttal";
-
 .md.rl-dialogue {
     @include clearfix;
 
@@ -44,9 +42,9 @@
         }
 
         .rl-sprite,
-        img[src^="http://vignette"],
         img[src$="#sprite"],
-        img[src$="#screen"] {
+        img[src$="#screen"],
+        img[src$="#testimony"] {
             float: left;
             display: block;
 
@@ -59,9 +57,9 @@
             border-right: 1px solid;
         }
 
-        img[src^="http://vignette"],
         img[src$="#screen"],
-        img[src$="#sprite"] {
+        img[src$="#sprite"],
+        img[src$="#testimony"] {
             height: 120px;
             width: 160px;
             object-fit: cover;
@@ -74,6 +72,10 @@
             box-shadow: inset 0px 0px 80px 1px rgba(0, 0, 0, .8);
             border-radius: 5px;
             filter: sepia(0.7) hue-rotate(57deg) saturate(2.5);
+        }
+        
+        img[src$="#testimony"] {
+            filter: brightness(0.75) sepia(1);
         }
     }
 

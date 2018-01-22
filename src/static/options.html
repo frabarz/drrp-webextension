@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+
+	<title>Settings / Danganreddit Class Trial Helper</title>
+
+	<link rel="stylesheet" type="text/css" href="config.css">
+	<script src="settingstorage.js"></script>
+	<script src="options.js"></script>
+</head>
+
+<body>
+	<form id="options">
+		<section>
+			<h3>Theme</h3>
+			<div class="radio">
+				<label>
+					<input type="radio" name="theme" value="default">
+					<span>Default theme</span>
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="theme" value="ibuki">
+					<span>Ibukalipse non-stop 2k16</span>
+				</label>
+			</div>
+		</section>
+
+		<section>
+			<h3>Performance</h3>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="banner_paused">
+					<span>Pause banner animation</span>
+				</label>
+			</div>
+		</section>
+
+		<section>
+			<h3>Visibility</h3>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="bullets_bgred">
+					<span>Use red bullets instead of yellow</span>
+				</label>
+			</div>
+		</section>
+
+		<section>
+			<h3>Sprites</h3>
+			<label>
+				<span>External list URL:</span>
+				<input type="url" name="sprites_sourcelist" size="36" />
+			</label>
+			<p>If no URL is set, the internal list will be used.</p>
+		</section>
+
+		<button id="save">Save</button>
+		<span id="status"></span>
+	</form>
+</body>
+
+</html>

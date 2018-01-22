@@ -1,5 +1,7 @@
-/node_modules
-/resources
 /build
-/subreddit
+!/dist/*.zip
+!/dist/*.xpi
+/node_modules
+
 env.json
+yarn.lock
