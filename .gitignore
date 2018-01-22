@@ -1,6 +1,6 @@
+/.vscode
 /build
-!/dist/*.zip
-!/dist/*.xpi
+/dist
 /node_modules
 
 env.json
