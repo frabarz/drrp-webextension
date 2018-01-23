@@ -19,6 +19,7 @@ const CLASSNAMES = {
 	MODAL_WRAPPER: "rl-modal",
 
 	SPRITE_ROOT: "rl-sprite",
+	SPRITE_VERTICAL: "rl-sprite-vertical",
 	SPRITE_TABWRAPPER: "rl-sprite-wrapper",
 	SPRITE_TABITEM: "rl-sprite-tab",
 	SPRITE_TABINPUT: "rl-sprite-radio",

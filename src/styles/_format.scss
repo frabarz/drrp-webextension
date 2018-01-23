@@ -41,28 +41,21 @@
             margin-bottom: 5px;
         }
 
-        .rl-sprite,
-        img[src$="#sprite"],
-        img[src$="#screen"],
-        img[src$="#testimony"] {
+        .rl-sprite {
             float: left;
             display: block;
 
             margin-left: -170px;
 
+            width: 160px;
             height: 120px;
-            max-width: 160px;
-            max-height: 120px;
+            object-fit: cover;
 
             border-right: 1px solid;
-        }
 
-        img[src$="#screen"],
-        img[src$="#sprite"],
-        img[src$="#testimony"] {
-            height: 120px;
-            width: 160px;
-            object-fit: cover;
+            &.rl-sprite-vertical {
+                object-fit: contain;
+            }
         }
 
         img[src$="#screen"] {

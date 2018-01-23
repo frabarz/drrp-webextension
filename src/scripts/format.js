@@ -70,23 +70,32 @@ function executeFormat() {
 		);
 	});
 
-	document.querySelectorAll(".thing.self, .thing.comment").forEach(loadSprites);
+	document
+		.querySelectorAll(".thing.self, .thing.comment")
+		.forEach(function(thing) {
+			if (thing.classList.contains(CLASSNAMES.SCANNED)) return;
+			thing.classList.add(CLASSNAMES.SCANNED);
+
+			loadSprites(thing);
+			requestAnimationFrame(function() {
+				highlightNewComments(thing);
+			});
+		});
 }
 
 function findFinalUri(uri) {
-	let image = new Image();
-	image.onload = function() {
-		sessionStorage.setItem(uri, this.currentSrc);
-	}
-	image.src = uri;
+	let request = new XMLHttpRequest();
+	request.open("GET", uri, true);
+	request.onload = function() {
+		sessionStorage.setItem(uri, this.responseURL);
+	};
+	request.send();
+	return uri;
 }
 
 function normalizeImageSource(uri) {
 	if (uri_appspot.test(uri)) {
-		let finaluri = sessionStorage.getItem(uri);
-		if (!finaluri)
-			findFinalUri(uri);
-		return finaluri || uri;
+		return sessionStorage.getItem(uri) || findFinalUri(uri);
 	}
 
 	// Ensure certain domains are loaded through https
@@ -102,35 +111,38 @@ function normalizeImageSource(uri) {
 	return uri;
 }
 
-function loadSprites(thing) {
-	if (thing.classList.contains(CLASSNAMES.SCANNED)) return;
-
-	thing.classList.add(CLASSNAMES.SCANNED);
-
-	let comment = thing.querySelector(".entry .md");
-	if (!comment) return;
-
-	// New reply highlighter
+function highlightNewComments(thing) {
 	let time =
 		thing.querySelector(".edited-timestamp") ||
 		thing.querySelector(".live-timestamp");
-	time = new Date(time.getAttribute("datetime")).getTime();
 
-	if (time > sessionStorage.getItem(thing.dataset.fullname)) {
-		thing.classList.add("new-comment");
-		sessionStorage.setItem(thing.dataset.fullname, time);
+	if (time) {
+		let last_update = sessionStorage.getItem(thing.dataset.fullname);
+		let current = new Date(time.getAttribute("datetime")).getTime();
+
+		if (current > last_update) {
+			thing.classList.add("new-comment");
+			sessionStorage.setItem(thing.dataset.fullname, time);
+		}
 	}
 
-	// The true formatter
+	thing = null;
+}
+
+function loadSprites(thing) {
+	let comment = thing.querySelector(".entry .md");
+	if (!comment) return;
+
+	// The actual formatter
 	let paragraphs = comment.querySelectorAll("p");
 
 	for (let paragraph of paragraphs) {
 		let anchors = paragraph.querySelectorAll("a");
 
 		for (let anchor of anchors) {
-			let uri = anchor.href;
+			let uri = anchor.href.trim();
 
-			if (uri.trim() == "") continue;
+			if (!uri) continue;
 
 			// REBUTTAL SHOWDOWN!
 			if (uri_showdown.test(uri)) {
@@ -143,67 +155,24 @@ function loadSprites(thing) {
 			// IGNORED URL PATTERNS
 			if (uri_ignored.test(uri)) continue;
 
-			if (uri_continue.test(uri)) {
-				paragraph.classList.add(CLASSNAMES.COMMENT_COMESFROM);
-				continue;
-			}
+			// if (uri_continue.test(uri)) {
+			// 	paragraph.classList.add(CLASSNAMES.COMMENT_COMESFROM);
+			// 	continue;
+			// }
 
 			let src = normalizeImageSource(anchor.href),
 				img = new Image();
 
-			if (src.indexOf("#evidence") > -1)
-				img.onload = loadEvidenceImage.bind(img, anchor, paragraph);
-			else img.onload = loadSpriteImage.bind(img, anchor, paragraph);
+			img.onload =
+				src.indexOf("#evidence") > -1
+					? loadEvidenceImage.bind(img, anchor, paragraph)
+					: loadSpriteImage.bind(img, anchor, paragraph);
 
-			img.onerror = errorLoadingImage;
 			img.src = src;
 
 			if (img.complete) img.onload();
 		}
 	}
-}
-
-function errorLoadingImage(err) {
-	let counter = parseInt(this.dataset.attempts) || 0;
-
-	console.debug("ROLELAYER:FORMAT_SPRITELOAD_ATTEMPTFAILED", counter, this.src);
-
-	switch (counter) {
-		case 0:
-			this.src = this.src.replace(
-				/^https?\:\/\//,
-				"https://proxy-4-web.appspot.com/"
-			);
-			break;
-
-		case 1:
-			this.src = this.src.replace(
-				"://proxy-4-web.appspot.com/",
-				"://icracks-53.appspot.com/"
-			);
-			break;
-
-		case 2:
-			this.src = this.src.replace(
-				"://icracks-53.appspot.com/",
-				"://fresh-proxy.appspot.com/"
-			);
-			break;
-
-		case 3:
-			this.src = this.src.replace(
-				"://fresh-proxy.appspot.com/",
-				"://go-go-proxy.appspot.com/"
-			);
-			break;
-
-		default:
-			this.onload = null;
-			this.onerror = null;
-			return;
-	}
-
-	this.dataset.attempts = counter + 1;
 }
 
 function loadSpriteImage(a, p) {
@@ -216,6 +185,8 @@ function loadSpriteImage(a, p) {
 	a.parentNode.insertBefore(hr, a);
 
 	this.classList.add(CLASSNAMES.SPRITE_ROOT);
+	if (this.naturalHeight / this.naturalWidth > 0.75)
+		this.classList.add(CLASSNAMES.SPRITE_VERTICAL);
 	a.parentNode.insertBefore(this, a);
 
 	this.onload = null;

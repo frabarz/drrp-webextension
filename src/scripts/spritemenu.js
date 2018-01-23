@@ -44,17 +44,32 @@
 		this.onload = null;
 	}
 
+	function getDirectUri(uri) {
+		let directUri = sessionStorage.getItem(uri);
+
+		if (!directUri) {
+			let request = new XMLHttpRequest();
+			request.open('GET', uri, true);
+			request.onload = function() {
+				sessionStorage.setItem(uri, this.responseURL);
+			}
+			request.send();
+		}
+
+		return directUri || uri;
+	}
+
 	function spriteListReceiver(response) {
 		var container = DR.handbook("SPRITE SELECTOR");
 		container.classList.add("rl-spritemenu");
 
 		[].concat(response.sprites).forEach(function(sprite) {
 			var img = new Image();
-
-			img.onload = removeLoadingGif;
-			img.src = sprite;
+			
 			img.className = "loading rl-sprite";
-
+			img.onload = removeLoadingGif;
+			img.src = getDirectUri(sprite);
+			
 			container.querySelector(".body").appendChild(img);
 			img = null;
 		});
@@ -63,10 +78,7 @@
 		container = null;
 	}
 
-	Array.prototype.forEach.call(
-		document.querySelectorAll(".bottom-area .rl-menu"),
-		createSpriteButton
-	);
+	document.querySelectorAll(".bottom-area .rl-menu").forEach(createSpriteButton);
 
 	DR.addListener("insertsprite", spriteSelectionHandler);
 
