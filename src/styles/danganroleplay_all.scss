@@ -1,14 +1,14 @@
 #header .rl-settingsbutton {
-    overflow: hidden;
-    vertical-align: top;
-    display: inline-block;
+	overflow: hidden;
+	vertical-align: top;
+	display: inline-block;
 
-    height: 35px;
-    width: 35px;
+	height: 35px;
+	width: 35px;
 
-    cursor: pointer;
+	cursor: pointer;
 
-    background: left top#{'/'}contain no-repeat;
-    background-image: url(chrome-extension://__MSG_@@extension_id__/icon-settings.png);
-    background-image: url(moz-extension://__MSG_@@extension_id__/icon-settings.png);
+	background: left top#{"/"}contain no-repeat;
+	background-image: url("chrome-extension://__MSG_@@extension_id__/settings.png"),
+		url("moz-extension://__MSG_@@extension_id__/settings.png");
 }
