@@ -1,6 +1,6 @@
 function normalizeCharacterName(name) {
 	name = name.toLowerCase();
-	name = name.split('-')[0];
+	name = name.split("-")[0];
 
 	if (name in character_map) name = character_map[name];
 
@@ -52,24 +52,57 @@ var character_map = {
 	tsumiki: "mikan"
 };
 
+function localStoragePromise(key) {
+	const value = localStorage.getItem(key);
+	return value !== null
+		? Promise.resolve(value)
+		: Promise.reject("Key doesn't exists in localStorage: " + key);
+}
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	if (request.openSettings) {
-		if ("runtime" in chrome && "openOptionsPage" in chrome.runtime)
-			chrome.runtime.openOptionsPage();
-		else chrome.tabs.create({ url: chrome.extension.getURL("options.html") });
+	switch (request.type) {
+		case "SETTINGS_OPEN":
+			if ("runtime" in chrome && "openOptionsPage" in chrome.runtime)
+				chrome.runtime.openOptionsPage();
+			else chrome.tabs.create({ url: chrome.extension.getURL("options.html") });
 
-		return false;
-	}
+			return false;
 
-	if (Array.isArray(request.custom_sprites)) {
-		Promise.resolve(request.custom_sprites)
-			.then(sendSpritesBack)
-			.then(sendResponse);
-	} else {
-		normalizeCharacterName(request.character)
-			.then(getSpritesList)
-			.then(sendSpritesBack)
-			.then(sendResponse);
+		case "SPRITES_RESOLVE":
+			const url = new URL(request.uri);
+			const key = url.pathname.replace("characters/", "");
+
+			localStoragePromise(key)
+				.catch(function(err) {
+					return fetch(request.uri, {
+						mode: "cors"
+					}).then(function(response) {
+						localStorage.setItem(key, response.url);
+						return response.url;
+					});
+				})
+				.then(function(uri) {
+					sendResponse(uri + url.hash);
+				});
+
+			return true;
+
+		case "SPRITES_GETLIST":
+			if (Array.isArray(request.custom_sprites)) {
+				Promise.resolve(request.custom_sprites)
+					.then(sendSpritesBack)
+					.then(sendResponse);
+			} else {
+				normalizeCharacterName(request.character)
+					.then(getSpritesList)
+					.then(sendSpritesBack)
+					.then(sendResponse);
+			}
+
+			return true;
+
+		default:
+			return false;
 	}
 
 	function sendSpritesBack(lista) {

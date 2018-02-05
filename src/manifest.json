@@ -1,114 +1,94 @@
 {
-    "name": "danganreddit Class Trial helper",
-    "description": "Help plugin to format comments for danganreddit class trials.",
-    "manifest_version": 2,
-    "version": "0.1.2",
-    "icons": {
-        "16": "icon-16.png",
-        "48": "icon-48.png",
-        "64": "icon-64.png",
-        "96": "icon-96.png",
-        "128": "icon-128.png"
-    },
-    "background": {
-        "scripts": [
-            "settingstorage.js",
-            "background.js"
-        ]
-    },
-    "options_ui": {
-        "page": "options.html",
-        "chrome_style": true
-    },
-    "permissions": [
-        "storage"
-    ],
-    "content_scripts": [
-        {
-            "matches": [
-                "*://*.reddit.com/message/*",
-                "*://*.reddit.com/user/*",
-                "*://*.reddit.com/r/DanganRonpa/comments/*",
-                "*://*.reddit.com/r/Danganronpa/comments/*",
-                "*://*.reddit.com/r/danganronpa/comments/*",
-                "*://*.reddit.com/r/DanganRoleplay/comments/*",
-                "*://*.reddit.com/r/Danganroleplay/comments/*",
-                "*://*.reddit.com/r/danganroleplay/comments/*",
-                "*://*.reddit.com/r/vlnq/comments/*"
-            ],
-            "css": [
-                "common.css"
-            ],
-            "js": [
-                "classnames.js",
-                "format.js"
-            ],
-            "run_at": "document_start"
-        },
-        {
-            "matches": [
-                "*://*.reddit.com/r/DanganRoleplay/*",
-                "*://*.reddit.com/r/Danganroleplay/*",
-                "*://*.reddit.com/r/danganroleplay/*",
-                "*://*.reddit.com/r/vlnq/*"
-            ],
-            "css": [
-                "danganroleplay_all.css"
-            ],
-            "js": [
-                "settingstorage.js",
-                "settingapplication.js"
-            ],
-            "run_at": "document_start"
-        },
-        {
-            "matches": [
-                "*://*.reddit.com/r/DanganRoleplay/comments/*",
-                "*://*.reddit.com/r/Danganroleplay/comments/*",
-                "*://*.reddit.com/r/danganroleplay/comments/*",
-                "*://*.reddit.com/r/vlnq/comments/*"
-            ],
-            "css": [
-                "danganroleplay_comments.css"
-            ],
-            "js": [
-                "constants.js",
-                "constants_roleplay.js",
-                "core.js",
-                "participants.js",
-                "format-tagline.js",
-                "format-comments.js",
-                "spritemenu.js",
-                "mentionmenu.js",
-                "bulletmenu.js",
-                "youtubeplayer.js"
-            ],
-            "run_at": "document_end"
-        },
-        {
-            "matches": [
-                "*://*.reddit.com/r/DanganRonpa/comments/*",
-                "*://*.reddit.com/r/Danganronpa/comments/*",
-                "*://*.reddit.com/r/danganronpa/comments/*"
-            ],
-            "css": [
-                "danganronpa.css"
-            ],
-            "js": [
-                "constants.js",
-                "constants_ronpa.js",
-                "core.js",
-                "participants.js",
-                "format-tagline.js",
-                "spritemenu.js",
-                "mentionmenu.js",
-                "bulletmenu.js",
-                "youtubeplayer.js"
-            ],
-            "run_at": "document_end"
-        }
-    ],
-    "web_accessible_resources": [
-        "icon-*.png"
-    ]
+	"name": "danganreddit Class Trial helper",
+	"description":
+		"Help plugin to format comments for danganreddit class trials.",
+	"manifest_version": 2,
+	"version": "0.1.2",
+	"icons": {
+		"16": "icon-16.png",
+		"48": "icon-48.png",
+		"64": "icon-64.png",
+		"96": "icon-96.png",
+		"128": "icon-128.png"
+	},
+	"background": {
+		"scripts": ["settingstorage.js", "background.js"]
+	},
+	"options_ui": {
+		"page": "options.html",
+		"chrome_style": true
+	},
+	"permissions": ["storage"],
+	"content_scripts": [
+		{
+			"matches": [
+				"*://*.reddit.com/message/*",
+				"*://*.reddit.com/user/*",
+				"*://*.reddit.com/r/DanganRonpa/comments/*",
+				"*://*.reddit.com/r/Danganronpa/comments/*",
+				"*://*.reddit.com/r/danganronpa/comments/*",
+				"*://*.reddit.com/r/DanganRoleplay/comments/*",
+				"*://*.reddit.com/r/Danganroleplay/comments/*",
+				"*://*.reddit.com/r/danganroleplay/comments/*",
+				"*://*.reddit.com/r/vlnq/comments/*"
+			],
+			"css": ["common.css"],
+			"js": ["classnames.js", "format.js"],
+			"run_at": "document_start"
+		},
+		{
+			"matches": [
+				"*://*.reddit.com/r/DanganRoleplay/*",
+				"*://*.reddit.com/r/Danganroleplay/*",
+				"*://*.reddit.com/r/danganroleplay/*",
+				"*://*.reddit.com/r/vlnq/*"
+			],
+			"css": ["danganroleplay_all.css"],
+			"js": ["settingstorage.js", "settingapplication.js"],
+			"run_at": "document_start"
+		},
+		{
+			"matches": [
+				"*://*.reddit.com/r/DanganRoleplay/comments/*",
+				"*://*.reddit.com/r/Danganroleplay/comments/*",
+				"*://*.reddit.com/r/danganroleplay/comments/*",
+				"*://*.reddit.com/r/vlnq/comments/*"
+			],
+			"css": ["danganroleplay_comments.css"],
+			"js": [
+				"constants.js",
+				"constants_roleplay.js",
+				"core.js",
+				"participants.js",
+				"format-tagline.js",
+				"format-comments.js",
+				"spritemenu.js",
+				"mentionmenu.js",
+				"bulletmenu.js",
+				"youtubeplayer.js"
+			],
+			"run_at": "document_end"
+		},
+		{
+			"matches": [
+				"*://*.reddit.com/r/DanganRonpa/comments/*",
+				"*://*.reddit.com/r/Danganronpa/comments/*",
+				"*://*.reddit.com/r/danganronpa/comments/*"
+			],
+			"css": ["danganronpa.css"],
+			"js": [
+				"constants.js",
+				"constants_ronpa.js",
+				"core.js",
+				"participants.js",
+				"format-tagline.js",
+				"spritemenu.js",
+				"mentionmenu.js",
+				"bulletmenu.js",
+				"youtubeplayer.js"
+			],
+			"run_at": "document_end"
+		}
+	],
+	"web_accessible_resources": ["icon-*.png", "settings.png"]
 }

@@ -30,7 +30,7 @@ document.addEventListener(
 					evt.preventDefault();
 					evt.stopPropagation();
 
-					chrome.runtime.sendMessage({ openSettings: true });
+					chrome.runtime.sendMessage({ type: "SETTINGS_OPEN" });
 				},
 				true
 			);

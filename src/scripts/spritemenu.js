@@ -31,7 +31,8 @@
 
 		index = textarea.textLength;
 
-		textarea.value += "[A few words of the](" + evt.target.src + ") comment";
+		textarea.value +=
+			"[A few words of the](" + evt.target.dataset.src + ") comment";
 		textarea.focus();
 		textarea.setSelectionRange(index + 1, index + 19), DR.hideHandbook();
 
@@ -44,41 +45,40 @@
 		this.onload = null;
 	}
 
-	function getDirectUri(uri) {
-		let directUri = sessionStorage.getItem(uri);
-
-		if (!directUri) {
-			let request = new XMLHttpRequest();
-			request.open('GET', uri, true);
-			request.onload = function() {
-				sessionStorage.setItem(uri, this.responseURL);
-			}
-			request.send();
-		}
-
-		return directUri || uri;
-	}
-
 	function spriteListReceiver(response) {
 		var container = DR.handbook("SPRITE SELECTOR");
 		container.classList.add("rl-spritemenu");
 
-		[].concat(response.sprites).forEach(function(sprite) {
-			var img = new Image();
-			
-			img.className = "loading rl-sprite";
-			img.onload = removeLoadingGif;
-			img.src = getDirectUri(sprite);
-			
-			container.querySelector(".body").appendChild(img);
-			img = null;
+		var promises = [].concat(response.sprites).map(function(sprite) {
+			return callBackground({
+				type: "SPRITES_RESOLVE",
+				uri: sprite
+			}).then(src => ({ permanent: sprite, real: src }));
 		});
 
-		container.classList.add("visible");
-		container = null;
+		Promise.all(promises).then(function(sprites) {
+			const fragment = document.createDocumentFragment();
+
+			for (let src of sprites) {
+				let img = new Image();
+
+				img.className = "loading rl-sprite";
+				img.onload = removeLoadingGif;
+				img.src = src.real;
+				img.dataset.src = src.permanent;
+
+				fragment.appendChild(img);
+			}
+
+			container.querySelector(".body").appendChild(fragment);
+			container.classList.add("visible");
+			container = null;
+		});
 	}
 
-	document.querySelectorAll(".bottom-area .rl-menu").forEach(createSpriteButton);
+	document
+		.querySelectorAll(".bottom-area .rl-menu")
+		.forEach(createSpriteButton);
 
 	DR.addListener("insertsprite", spriteSelectionHandler);
 
@@ -98,14 +98,18 @@
 
 			evt.target.parentNode.classList.add("rl-targetmenu");
 
-			chrome.runtime.sendMessage(
-				{
-					character: DR.currentFlair,
-					custom_sprites: DR.SPRITES[DR.currentId]
-				},
-				spriteListReceiver
-			);
+			callBackground({
+				type: "SPRITES_GETLIST",
+				character: DR.currentFlair,
+				custom_sprites: DR.SPRITES[DR.currentId]
+			}).then(spriteListReceiver);
 		},
 		true
 	);
+
+	function callBackground(message) {
+		return new Promise(function(resolve) {
+			chrome.runtime.sendMessage(message, resolve);
+		});
+	}
 })(window.DRreddit, document);

@@ -83,34 +83,6 @@ function executeFormat() {
 		});
 }
 
-function findFinalUri(uri) {
-	let request = new XMLHttpRequest();
-	request.open("GET", uri, true);
-	request.onload = function() {
-		sessionStorage.setItem(uri, this.responseURL);
-	};
-	request.send();
-	return uri;
-}
-
-function normalizeImageSource(uri) {
-	if (uri_appspot.test(uri)) {
-		return sessionStorage.getItem(uri) || findFinalUri(uri);
-	}
-
-	// Ensure certain domains are loaded through https
-	if (uri_https.test(uri)) {
-		return uri.replace("http://", "https://");
-	}
-
-	// Normalize Wikia images
-	if (uri.indexOf(".wikia.") > -1) {
-		return uri.replace(/revision\/latest.+$/, "").replace(/\/$/, "");
-	}
-
-	return uri;
-}
-
 function highlightNewComments(thing) {
 	let time =
 		thing.querySelector(".edited-timestamp") ||
@@ -122,7 +94,7 @@ function highlightNewComments(thing) {
 
 		if (current > last_update) {
 			thing.classList.add("new-comment");
-			sessionStorage.setItem(thing.dataset.fullname, time);
+			sessionStorage.setItem(thing.dataset.fullname, current);
 		}
 	}
 
@@ -160,18 +132,54 @@ function loadSprites(thing) {
 			// 	continue;
 			// }
 
-			let src = normalizeImageSource(anchor.href),
-				img = new Image();
-
-			img.onload =
-				src.indexOf("#evidence") > -1
-					? loadEvidenceImage.bind(img, anchor, paragraph)
-					: loadSpriteImage.bind(img, anchor, paragraph);
-
-			img.src = src;
-
-			if (img.complete) img.onload();
+			normalizeImageSource(anchor.href)
+				.then(loadImage)
+				.then(function(image) {
+					return anchor.hash == "#evidence"
+						? loadEvidenceImage.call(image, anchor, paragraph)
+						: loadSpriteImage.call(image, anchor, paragraph);
+				});
 		}
+	}
+
+	function callBackground(message) {
+		return new Promise(function(resolve) {
+			chrome.runtime.sendMessage(message, resolve);
+		});
+	}
+
+	function normalizeImageSource(uri) {
+		let url = new URL(uri);
+
+		if (uri_appspot.test(uri)) {
+			return callBackground({
+				type: "SPRITES_RESOLVE",
+				uri: uri.toString()
+			});
+		}
+
+		// Ensure certain domains are loaded through https
+		if (uri_https.test(uri)) {
+			url.protocol = "https:";
+			uri = url.toString();
+		}
+
+		// Normalize Wikia images
+		if (uri.indexOf(".wikia.") > -1) {
+			uri = uri.replace(/revision\/latest.+$/, "").replace(/\/$/, "");
+		}
+
+		return Promise.resolve(uri);
+	}
+
+	function loadImage(src) {
+		return new Promise(function(resolve, reject) {
+			const image = new Image();
+			image.onload = () => resolve(image);
+			image.onerror = () => reject(image);
+			image.src = src;
+			if (image.complete) image.onload();
+		});
 	}
 }
 
