@@ -60,6 +60,8 @@
 			const fragment = document.createDocumentFragment();
 
 			for (let src of sprites) {
+				if (!src.real) continue;
+				
 				let img = new Image();
 
 				img.className = "loading rl-sprite";

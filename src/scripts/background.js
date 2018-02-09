@@ -79,10 +79,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 					}).then(function(response) {
 						localStorage.setItem(key, response.url);
 						return response.url;
-					});
+					}, err => null);
 				})
 				.then(function(uri) {
-					sendResponse(uri + url.hash);
+					sendResponse(uri ? uri + url.hash : '');
 				});
 
 			return true;
