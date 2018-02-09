@@ -1,17 +1,17 @@
 {
-  "name": "reddit-drtrial",
+  "name": "rolelayer",
   "version": "0.7.9",
-  "title": "danganreddit Class Trial helper",
-  "description": "Help plugin to format comments for danganreddit class trials.",
+  "title": "RoleLayer",
+  "description": "RP focused helper plugin to add images and format comments on Reddit.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/frabarz/reddit-drtrial.git"
+    "url": "git+https://github.com/frabarz/rolelayer.git"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/frabarz/reddit-drtrial/issues"
+    "url": "https://github.com/frabarz/rolelayer/issues"
   },
-  "homepage": "https://github.com/frabarz/reddit-drtrial#readme",
+  "homepage": "https://github.com/frabarz/rolelayer#readme",
   "devDependencies": {
     "del": "^3.0.0",
     "gulp": "^3.9.1",
